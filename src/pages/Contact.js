@@ -27,10 +27,10 @@ const Contact = () => {
         id="contact-header"
         title="Get in Touch"
         subtitle="Have a question or want to work together? Feel free to reach out!"
-        className="pt-20 pb-0"
+        className="pt-12 pb-0"
       >
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-lg mb-2">
+          <p className="text-lg mb-0">
             I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
             Choose one of the options below to get in touch.
           </p>
@@ -38,9 +38,9 @@ const Contact = () => {
       </Section>
       
       {/* Contact Buttons Section */}
-      <Section id="contact-options" className="pt-2">
+      <Section id="contact-options" className="pt-0">
         <div className="max-w-3xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 mt-4">
             {/* Send Message Button */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -50,13 +50,13 @@ const Contact = () => {
             >
               <button
                 onClick={toggleContactForm}
-                className="w-full bg-darkgray border-2 border-primary hover:bg-primary/10 transition-colors duration-300 p-6 rounded-lg text-center flex flex-col items-center justify-center gap-3 h-full"
+                className="w-full bg-darkgray border-2 border-primary hover:bg-primary/10 transition-colors duration-300 p-4 rounded-lg text-center flex flex-col items-center justify-center gap-2 h-full"
               >
-                <div className="bg-primary/20 p-4 rounded-full">
-                  <FiMessageSquare size={32} className="text-primary" />
+                <div className="bg-primary/20 p-3 rounded-full">
+                  <FiMessageSquare size={28} className="text-primary" />
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold">Send a Message</h3>
-                <p className="text-light/80">
+                <h3 className="text-lg md:text-xl font-bold">Send a Message</h3>
+                <p className="text-light/80 text-sm md:text-base">
                   Fill out a quick form to send me an email directly
                 </p>
               </button>
@@ -71,13 +71,13 @@ const Contact = () => {
             >
               <button
                 onClick={toggleContactInfo}
-                className="w-full bg-darkgray border-2 border-primary hover:bg-primary/10 transition-colors duration-300 p-6 rounded-lg text-center flex flex-col items-center justify-center gap-3 h-full"
+                className="w-full bg-darkgray border-2 border-primary hover:bg-primary/10 transition-colors duration-300 p-4 rounded-lg text-center flex flex-col items-center justify-center gap-2 h-full"
               >
-                <div className="bg-primary/20 p-4 rounded-full">
-                  <FiInfo size={32} className="text-primary" />
+                <div className="bg-primary/20 p-3 rounded-full">
+                  <FiInfo size={28} className="text-primary" />
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold">Contact Information</h3>
-                <p className="text-light/80">
+                <h3 className="text-lg md:text-xl font-bold">Contact Information</h3>
+                <p className="text-light/80 text-sm md:text-base">
                   View my contact details and availability
                 </p>
               </button>
