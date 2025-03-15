@@ -7,6 +7,7 @@ import { SiWechat } from 'react-icons/si';
 import Section from '../components/Section';
 import ContactForm from '../components/ContactForm';
 import QRCodeModal from '../components/QRCodeModal';
+import TestGithub from '../components/TestGithub';
 
 const Contact = () => {
   const [showContactForm, setShowContactForm] = useState(false);
@@ -27,6 +28,11 @@ const Contact = () => {
     <div className="bg-dark min-h-screen">
       {/* QR Code Modal */}
       <QRCodeModal isOpen={showQRModal} onClose={() => setShowQRModal(false)} />
+      
+      {/* Test GitHub Component */}
+      <div className="container mx-auto px-4 pt-4">
+        <TestGithub />
+      </div>
       
       {/* Header and Buttons Combined Section */}
       <div className="container mx-auto px-4 pt-24 md:pt-28">
