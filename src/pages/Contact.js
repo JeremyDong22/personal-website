@@ -28,10 +28,10 @@ const Contact = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-6"
+          className="text-center mb-10"
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 text-primary">Get in Touch</h1>
-          <p className="text-lg text-light/80 max-w-2xl mx-auto mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-primary">Get in Touch</h1>
+          <p className="text-lg text-light/80 max-w-2xl mx-auto mb-8">
             Have a question or want to work together? I'm always open to discussing new projects, 
             creative ideas, or opportunities to be part of your vision.
           </p>
@@ -39,7 +39,7 @@ const Contact = () => {
         
         {/* Contact Buttons */}
         <div className="max-w-3xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             {/* Send Message Button */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -49,7 +49,7 @@ const Contact = () => {
             >
               <button
                 onClick={toggleContactForm}
-                className="w-full bg-darkgray border-2 border-primary hover:bg-primary/10 transition-colors duration-300 p-4 rounded-lg text-center flex flex-col items-center justify-center gap-2 h-full"
+                className="w-full bg-darkgray border-2 border-primary hover:bg-primary/10 transition-colors duration-300 p-6 rounded-lg text-center flex flex-col items-center justify-center gap-3 h-full"
               >
                 <div className="bg-primary/20 p-3 rounded-full">
                   <FiMessageSquare size={28} className="text-primary" />
@@ -70,7 +70,7 @@ const Contact = () => {
             >
               <button
                 onClick={toggleContactInfo}
-                className="w-full bg-darkgray border-2 border-primary hover:bg-primary/10 transition-colors duration-300 p-4 rounded-lg text-center flex flex-col items-center justify-center gap-2 h-full"
+                className="w-full bg-darkgray border-2 border-primary hover:bg-primary/10 transition-colors duration-300 p-6 rounded-lg text-center flex flex-col items-center justify-center gap-3 h-full"
               >
                 <div className="bg-primary/20 p-3 rounded-full">
                   <FiInfo size={28} className="text-primary" />
@@ -90,7 +90,7 @@ const Contact = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.5 }}
-              className="mb-12"
+              className="mb-16"
             >
               <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
               <ContactForm />
@@ -103,7 +103,7 @@ const Contact = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.5 }}
-              className="mb-12"
+              className="mb-16"
             >
               <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
               
@@ -195,7 +195,7 @@ const Contact = () => {
       </div>
       
       {/* Map Section */}
-      <div className="w-full mt-8">
+      <div className="w-full mt-12">
         <div className="h-96 w-full">
           <iframe
             title="Location Map"
