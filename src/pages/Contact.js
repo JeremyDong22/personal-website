@@ -137,7 +137,7 @@ const Contact = () => {
                 </div>
                 
                 {/* Phone */}
-                <div className="flex items-start gap-4 mb-6">
+                <div className="flex items-start gap-4 mb-8">
                   <div className="bg-primary/20 p-3 rounded-full text-primary">
                     <FiPhone size={24} />
                   </div>
@@ -149,22 +149,6 @@ const Contact = () => {
                     >
                       +1 (217) 974-0277
                     </a>
-                  </div>
-                </div>
-                
-                {/* WeChat */}
-                <div className="flex items-start gap-4 mb-8">
-                  <div className="bg-primary/20 p-3 rounded-full text-primary">
-                    <SiWechat size={24} />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold mb-1">WeChat</h4>
-                    <p className="text-light/80">
-                      Scan QR code below
-                    </p>
-                    <div className="mt-2 max-w-[150px]">
-                      {/* WeChat QR code will be added here */}
-                    </div>
                   </div>
                 </div>
                 
@@ -194,6 +178,13 @@ const Contact = () => {
                     aria-label="Email"
                   >
                     <FiMail size={24} />
+                  </a>
+                  <a
+                    href="#"
+                    className="text-light hover:text-primary transition-colors"
+                    aria-label="WeChat"
+                  >
+                    <SiWechat size={24} />
                   </a>
                 </div>
               </div>

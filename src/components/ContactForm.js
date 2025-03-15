@@ -51,7 +51,7 @@ const ContactForm = () => {
   return (
     <motion.form 
       onSubmit={handleSubmit}
-      className="bg-white p-8 rounded-lg shadow-md"
+      className="bg-darkgray border border-primary/20 p-8 rounded-lg shadow-md"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -71,7 +71,7 @@ const ContactForm = () => {
       
       {/* Name Field */}
       <div className="mb-6">
-        <label htmlFor="name" className="block mb-2 font-medium">
+        <label htmlFor="name" className="block mb-2 font-medium text-primary">
           Name
         </label>
         <input
@@ -81,14 +81,14 @@ const ContactForm = () => {
           value={formData.name}
           onChange={handleChange}
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full px-4 py-2 bg-dark border border-primary/30 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-light placeholder-light/50"
           placeholder="Your name"
         />
       </div>
       
       {/* Email Field */}
       <div className="mb-6">
-        <label htmlFor="email" className="block mb-2 font-medium">
+        <label htmlFor="email" className="block mb-2 font-medium text-primary">
           Email
         </label>
         <input
@@ -98,14 +98,14 @@ const ContactForm = () => {
           value={formData.email}
           onChange={handleChange}
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full px-4 py-2 bg-dark border border-primary/30 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-light placeholder-light/50"
           placeholder="your.email@example.com"
         />
       </div>
       
       {/* Subject Field */}
       <div className="mb-6">
-        <label htmlFor="subject" className="block mb-2 font-medium">
+        <label htmlFor="subject" className="block mb-2 font-medium text-primary">
           Subject
         </label>
         <input
@@ -115,14 +115,14 @@ const ContactForm = () => {
           value={formData.subject}
           onChange={handleChange}
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full px-4 py-2 bg-dark border border-primary/30 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-light placeholder-light/50"
           placeholder="What is this regarding?"
         />
       </div>
       
       {/* Message Field */}
       <div className="mb-6">
-        <label htmlFor="message" className="block mb-2 font-medium">
+        <label htmlFor="message" className="block mb-2 font-medium text-primary">
           Message
         </label>
         <textarea
@@ -132,7 +132,7 @@ const ContactForm = () => {
           onChange={handleChange}
           required
           rows="5"
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full px-4 py-2 bg-dark border border-primary/30 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-light placeholder-light/50"
           placeholder="Your message here..."
         ></textarea>
       </div>
@@ -142,7 +142,7 @@ const ContactForm = () => {
         type="submit"
         disabled={isSubmitting}
         className={`w-full py-3 px-6 rounded-md text-white font-medium transition-colors ${
-          isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-primary hover:bg-blue-600'
+          isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-primary hover:bg-primary/80'
         }`}
       >
         {isSubmitting ? 'Sending...' : 'Send Message'}
