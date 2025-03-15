@@ -2,7 +2,7 @@
   "name": "jeremy-personal-website",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jeremydong22.github.io/personal-website",
+  "homepage": "https://jeremydong22.github.io",
   "dependencies": {
     "autoprefixer": "^10.4.16",
     "framer-motion": "^10.16.4",
