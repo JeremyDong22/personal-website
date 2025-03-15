@@ -9,10 +9,10 @@ const Resume = () => {
   const { language } = useLanguage();
   const [activeResume, setActiveResume] = useState('en'); // Default to English resume
 
-  // Resume file paths
+  // Resume file paths - use process.env.PUBLIC_URL to ensure correct paths in GitHub Pages
   const resumeFiles = {
-    en: '/assets/resume/resume_en.pdf',
-    zh: '/assets/resume/resume_zh.pdf'
+    en: `${process.env.PUBLIC_URL}/assets/resume/resume_en.pdf`,
+    zh: `${process.env.PUBLIC_URL}/assets/resume/resume_zh.pdf`
   };
 
   return (
@@ -76,12 +76,19 @@ const Resume = () => {
             className="relative bg-dark border border-primary/20 p-1 shadow-xl"
           >
             <div className="aspect-[8.5/11] w-full">
-              <iframe
-                src={`${resumeFiles[activeResume]}#view=FitH`}
+              <object
+                data={resumeFiles[activeResume]}
+                type="application/pdf"
                 title={`Jeremy Dong Resume - ${activeResume === 'en' ? 'English' : 'Chinese'}`}
                 className="w-full h-full"
                 style={{ minHeight: '80vh' }}
-              />
+              >
+                <p className="text-center p-4 text-light">
+                  {language === 'en' 
+                    ? 'Your browser does not support PDF viewing. Please download the resume instead.' 
+                    : '您的浏览器不支持PDF预览。请下载简历查看。'}
+                </p>
+              </object>
             </div>
           </motion.div>
         </div>
