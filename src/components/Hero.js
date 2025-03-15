@@ -8,7 +8,7 @@ const Hero = ({
   children, 
   reversed = false, 
   className = '',
-  imageClassName = 'w-full h-[600px] relative z-10 object-cover object-center'
+  imageClassName = 'hero-image'
 }) => {
   return (
     <section className="py-24 md:py-32 overflow-hidden bg-dark relative">
@@ -49,7 +49,7 @@ const Hero = ({
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <div className="relative p-1 bg-gold-gradient w-full overflow-hidden rounded-lg shadow-2xl">
+              <div className="hero-image-container relative p-1 bg-gold-gradient overflow-hidden rounded-lg shadow-2xl">
                 <img 
                   src={image} 
                   alt="Hero" 

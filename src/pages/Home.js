@@ -93,6 +93,7 @@ const Home = () => {
         title={t.hero.title[language]}
         subtitle={t.hero.subtitle[language]}
         image={heroImage}
+        imageClassName="hero-image"
       >
         <div className="flex flex-col sm:flex-row gap-4 mt-8">
           <Link to="/projects" className="btn btn-primary flex items-center justify-center gap-2">
