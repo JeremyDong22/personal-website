@@ -27,10 +27,10 @@ const Contact = () => {
         id="contact-header"
         title="Get in Touch"
         subtitle="Have a question or want to work together? Feel free to reach out!"
-        className="pt-32 pb-0"
+        className="pt-20 pb-0"
       >
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-lg mb-4">
+          <p className="text-lg mb-2">
             I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
             Choose one of the options below to get in touch.
           </p>
@@ -38,7 +38,7 @@ const Contact = () => {
       </Section>
       
       {/* Contact Buttons Section */}
-      <Section id="contact-options" className="pt-4">
+      <Section id="contact-options" className="pt-2">
         <div className="max-w-3xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {/* Send Message Button */}
@@ -50,7 +50,7 @@ const Contact = () => {
             >
               <button
                 onClick={toggleContactForm}
-                className="w-full bg-darkgray border-2 border-primary hover:bg-primary/10 transition-colors duration-300 p-8 rounded-lg text-center flex flex-col items-center justify-center gap-4 h-full"
+                className="w-full bg-darkgray border-2 border-primary hover:bg-primary/10 transition-colors duration-300 p-6 rounded-lg text-center flex flex-col items-center justify-center gap-3 h-full"
               >
                 <div className="bg-primary/20 p-4 rounded-full">
                   <FiMessageSquare size={32} className="text-primary" />
@@ -71,7 +71,7 @@ const Contact = () => {
             >
               <button
                 onClick={toggleContactInfo}
-                className="w-full bg-darkgray border-2 border-primary hover:bg-primary/10 transition-colors duration-300 p-8 rounded-lg text-center flex flex-col items-center justify-center gap-4 h-full"
+                className="w-full bg-darkgray border-2 border-primary hover:bg-primary/10 transition-colors duration-300 p-6 rounded-lg text-center flex flex-col items-center justify-center gap-3 h-full"
               >
                 <div className="bg-primary/20 p-4 rounded-full">
                   <FiInfo size={32} className="text-primary" />
@@ -116,7 +116,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="text-lg font-semibold mb-1">Location</h4>
-                    <p className="text-light/80">San Francisco, CA</p>
+                    <p className="text-light/80">Champaign, IL</p>
                   </div>
                 </div>
                 
@@ -196,11 +196,11 @@ const Contact = () => {
       </Section>
       
       {/* Map Section */}
-      <Section id="map" fullWidth className="pt-0 mt-12">
+      <Section id="map" fullWidth className="pt-0 mt-8">
         <div className="h-96 w-full">
           <iframe
             title="Location Map"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d100939.98555098464!2d-122.50764017948533!3d37.75781499602367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1636587330873!5m2!1sen!2sus"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3051.9400810376!2d-88.23093492346566!3d40.11321197779883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880cd73e0f8deb9d%3A0x9e6eb5fd01368e1e!2s503%20E%20Stoughton%20St%2C%20Champaign%2C%20IL%2061820!5e0!3m2!1sen!2sus!4v1699998765432!5m2!1sen!2sus"
             width="100%"
             height="100%"
             style={{ border: 0 }}
