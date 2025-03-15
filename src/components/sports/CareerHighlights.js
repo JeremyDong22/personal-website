@@ -15,7 +15,7 @@ const CareerHighlights = () => {
     <Section
       title={t.highlights[language]}
       subtitle="A journey of dedication, perseverance, and achievement"
-      className="bg-darkgray"
+      className="bg-darkgray pt-24 md:pt-32"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {careerHighlights.map((highlight, index) => (

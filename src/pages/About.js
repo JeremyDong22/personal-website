@@ -365,15 +365,15 @@ const About = () => {
               : "我是一位充满热情的开发者，有着从会计到科技的独特经历。"
             }
           </p>
-          <a 
-            href={language === 'en' ? "/assets/resume/resume_en.pdf" : "/assets/resume/resume_zh.pdf"} 
+        <a 
+          href={language === 'en' ? "/assets/resume/resume_en.pdf" : "/assets/resume/resume_zh.pdf"} 
             className="btn btn-primary inline-flex items-center gap-2 w-fit text-xs sm:text-sm"
-            download={language === 'en' ? "Jeremy Dong Resume.pdf" : "董衡简历.pdf"}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {language === 'en' ? "Download Resume" : "下载简历"} <FiDownload />
-          </a>
+          download={language === 'en' ? "Jeremy Dong Resume.pdf" : "董衡简历.pdf"}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {language === 'en' ? "Download Resume" : "下载简历"} <FiDownload />
+        </a>
         </div>
       </Hero>
       
@@ -462,13 +462,13 @@ const About = () => {
                 transition={{ duration: 0.5, delay: 0.8 }}
                 viewport={{ once: true }}
               >
-                <Link 
-                  to="/journey" 
-                  className="text-primary hover:text-lightgold transition-colors inline-flex items-center gap-2 group mt-6"
-                >
-                  {language === 'en' ? "Read My Full Journey" : "阅读完整故事"} 
-                  <span className="transform transition-transform group-hover:translate-x-1">→</span>
-                </Link>
+              <Link 
+                to="/journey" 
+                className="text-primary hover:text-lightgold transition-colors inline-flex items-center gap-2 group mt-6"
+              >
+                {language === 'en' ? "Read My Full Journey" : "阅读完整故事"} 
+                <span className="transform transition-transform group-hover:translate-x-1">→</span>
+              </Link>
               </motion.div>
             </motion.div>
 

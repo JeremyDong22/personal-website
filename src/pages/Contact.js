@@ -21,26 +21,25 @@ const Contact = () => {
   };
   
   return (
-    <>
-      {/* Header Section */}
-      <Section
-        id="contact-header"
-        title="Get in Touch"
-        subtitle="Have a question or want to work together? Feel free to reach out!"
-        className="pt-12 pb-0"
-      >
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="text-lg mb-0">
-            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-            Choose one of the options below to get in touch.
+    <div className="bg-dark min-h-screen">
+      {/* Header and Buttons Combined Section */}
+      <div className="container mx-auto px-4 pt-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-6"
+        >
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 text-primary">Get in Touch</h1>
+          <p className="text-lg text-light/80 max-w-2xl mx-auto mb-6">
+            Have a question or want to work together? I'm always open to discussing new projects, 
+            creative ideas, or opportunities to be part of your vision.
           </p>
-        </div>
-      </Section>
-      
-      {/* Contact Buttons Section */}
-      <Section id="contact-options" className="pt-0">
+        </motion.div>
+        
+        {/* Contact Buttons */}
         <div className="max-w-3xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             {/* Send Message Button */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -193,10 +192,10 @@ const Contact = () => {
             </motion.div>
           )}
         </div>
-      </Section>
+      </div>
       
       {/* Map Section */}
-      <Section id="map" fullWidth className="pt-0 mt-8">
+      <div className="w-full mt-8">
         <div className="h-96 w-full">
           <iframe
             title="Location Map"
@@ -209,8 +208,8 @@ const Contact = () => {
             className="grayscale"
           ></iframe>
         </div>
-      </Section>
-    </>
+      </div>
+    </div>
   );
 };
 

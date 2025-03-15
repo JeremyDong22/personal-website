@@ -23,8 +23,8 @@ export const careerTimeline = [
   },
   {
     year: '2018-2021',
-    titleEn: 'Donovan Catholic High School Varsity Basketball Team',
-    titleZh: '多诺万天主教高中校队',
+    titleEn: 'High School Athlete, Donovan Catholic High School Varsity Basketball Team',
+    titleZh: '高中运动员，多诺万天主教高中校队',
     descriptionEn: 'Competed at the highest level of high school basketball, reaching the Elite Eight in New Jersey state.',
     descriptionZh: '新泽西州八强。',
     image: varsityBasketball

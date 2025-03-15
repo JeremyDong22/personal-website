@@ -42,7 +42,7 @@ const Section = ({
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
           variants={variants}
-          className="text-center mb-8 md:mb-12"
+          className={`text-center ${id && id.startsWith('contact') ? 'mb-4' : 'mb-8 md:mb-12'}`}
         >
           {title && (
             <motion.h2 
