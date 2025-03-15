@@ -43,7 +43,7 @@ const Navbar = () => {
   return (
     <header 
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-dark/95 border-b border-primary/30 backdrop-blur-sm py-3' : 'bg-dark/80 backdrop-blur-sm py-5'
+        scrolled ? 'bg-darkest border-b border-primary/20 backdrop-blur-sm py-3' : 'bg-darkest/90 backdrop-blur-sm py-5'
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
@@ -61,7 +61,7 @@ const Navbar = () => {
                 to={item.path}
                 className={({ isActive }) =>
                   `text-lg font-medium uppercase tracking-wider transition-colors hover:text-primary ${
-                    isActive ? 'text-primary' : 'text-light'
+                    isActive ? 'text-primary' : 'text-light/90'
                   }`
                 }
               >
@@ -73,7 +73,7 @@ const Navbar = () => {
           {/* Language Switcher */}
           <button 
             onClick={toggleLanguage}
-            className="flex items-center gap-2 text-primary hover:text-lightgold transition-colors px-3 py-1 border border-primary/30 rounded-none"
+            className="flex items-center gap-2 text-primary hover:text-lightgold transition-colors px-3 py-1 border border-primary/20 hover:border-primary/50 rounded-none"
             aria-label="Switch language"
           >
             <FiGlobe size={16} />
@@ -110,7 +110,7 @@ const Navbar = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className="md:hidden bg-darkgray border-b border-primary/30 absolute top-full left-0 right-0"
+          className="md:hidden bg-darkest border-b border-primary/20 absolute top-full left-0 right-0"
         >
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             {navItems.map((item) => (
@@ -119,7 +119,7 @@ const Navbar = () => {
                 to={item.path}
                 className={({ isActive }) =>
                   `text-lg font-medium uppercase tracking-wider py-2 transition-colors hover:text-primary ${
-                    isActive ? 'text-primary' : 'text-light'
+                    isActive ? 'text-primary' : 'text-light/90'
                   }`
                 }
                 onClick={closeMenu}

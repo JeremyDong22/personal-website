@@ -8,10 +8,13 @@ module.exports = {
       colors: {
         primary: "#D4AF37",
         secondary: "#9D8221",
-        dark: "#0A0A0A",
+        dark: "#121212",        // Darker base
+        darker: "#0A0A0A",      // Almost black
+        darkest: "#080808",     // Nearly black
+        darkgray: "#1E1E1E",    // Microsoft VS Code dark theme color
+        lightgray: "#242424",   // Slightly lighter
         light: "#F5F5F5",
         accent: "#E5C100",
-        darkgray: "#1A1A1A",
         lightgold: "#F8E9A1",
       },
       fontFamily: {
@@ -39,6 +42,8 @@ module.exports = {
       },
       backgroundImage: {
         'gold-gradient': 'linear-gradient(45deg, #D4AF37 0%, #F8E9A1 50%, #D4AF37 100%)',
+        'dark-gradient': 'linear-gradient(180deg, #121212 0%, #0A0A0A 100%)',
+        'section-gradient': 'linear-gradient(180deg, #1E1E1E 0%, #121212 100%)',
       },
     },
   },

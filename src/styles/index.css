@@ -6,7 +6,8 @@
 
 @layer base {
   body {
-    @apply bg-dark text-light;
+    @apply bg-darker text-light min-h-screen;
+    background: #0A0A0A;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -26,7 +27,7 @@
   }
   
   p {
-    @apply mb-4;
+    @apply mb-4 text-light/90;
   }
 }
 
@@ -36,15 +37,20 @@
   }
   
   .btn-primary {
-    @apply bg-primary text-dark hover:bg-secondary;
+    @apply bg-primary text-darkest hover:bg-secondary;
   }
   
   .btn-outline {
-    @apply border-2 border-primary text-primary hover:bg-primary hover:text-dark;
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-darkest;
   }
   
   .section {
-    @apply py-16 md:py-24;
+    @apply py-16 md:py-24 relative;
+    background-color: #1E1E1E;
+  }
+  
+  .section:nth-child(even) {
+    background-color: #121212;
   }
   
   .container {
@@ -53,6 +59,7 @@
   
   .card {
     @apply bg-darkgray rounded-none border border-primary/20 overflow-hidden transition-all duration-300 hover:border-primary;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   .gold-text {
@@ -60,11 +67,19 @@
   }
 
   .gold-border {
-    @apply border border-primary;
+    @apply border border-primary/40 hover:border-primary transition-colors duration-300;
   }
 
   .luxury-shadow {
-    @apply shadow-[0_0_15px_rgba(212,175,55,0.3)];
+    @apply shadow-[0_0_15px_rgba(212,175,55,0.15)];
+  }
+
+  .nav-bg {
+    @apply bg-darkest;
+  }
+
+  .footer-bg {
+    @apply bg-darkest;
   }
 }
 
@@ -83,6 +98,17 @@
 /* Luxury accents */
 .gold-divider {
   height: 1px;
-  background: linear-gradient(90deg, rgba(212,175,55,0) 0%, rgba(212,175,55,1) 50%, rgba(212,175,55,0) 100%);
+  background: linear-gradient(90deg, rgba(212,175,55,0) 0%, rgba(212,175,55,0.3) 50%, rgba(212,175,55,0) 100%);
   margin: 2rem 0;
+}
+
+/* Section transitions */
+.section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.1), transparent);
 } 

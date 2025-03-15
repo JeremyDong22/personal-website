@@ -28,10 +28,13 @@ const Section = ({
     }
   };
 
+  // Extract background class from className prop
+  const bgClass = className.includes('bg-') ? className : `${className} bg-dark`;
+
   return (
     <section 
       id={id} 
-      className={`py-16 md:py-24 ${dark ? 'bg-dark text-white' : 'bg-light text-dark'} ${className}`}
+      className={`py-16 md:py-24 relative ${bgClass}`}
     >
       <div className={`${fullWidth ? 'w-full' : 'container mx-auto px-4'}`}>
         <motion.div
@@ -43,7 +46,7 @@ const Section = ({
         >
           {title && (
             <motion.h2 
-              className="text-3xl md:text-4xl font-bold mb-4"
+              className="text-3xl md:text-4xl font-bold mb-4 text-primary"
               variants={variants}
             >
               {title}
@@ -52,7 +55,7 @@ const Section = ({
           
           {subtitle && (
             <motion.p 
-              className={`text-xl max-w-3xl mx-auto ${dark ? 'text-gray-300' : 'text-gray-600'}`}
+              className="text-xl max-w-3xl mx-auto text-light/80"
               variants={variants}
             >
               {subtitle}

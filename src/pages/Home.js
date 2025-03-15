@@ -137,13 +137,13 @@ const Home = () => {
       <Section
         title={language === 'en' ? "Professional Skills" : "专业技能"}
         subtitle={language === 'en' ? "Core competencies and expertise" : "核心能力和专长"}
-        className="bg-darkgray"
+        className="bg-darkest"
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {professionalSkills.map((skill, index) => (
             <motion.div
               key={skill.id}
-              className="bg-dark border border-primary/20 p-6 luxury-shadow"
+              className="bg-darkgray border border-primary/20 p-6 luxury-shadow"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -155,7 +155,7 @@ const Home = () => {
                   <h3 className="text-xl font-heading mb-2 text-primary font-bold">
                     {language === 'en' ? skill.titleEn : skill.titleZh}
                   </h3>
-                  <p className="text-light/80">
+                  <p className="text-light/95">
                     {language === 'en' ? skill.descriptionEn : skill.descriptionZh}
                   </p>
                 </div>
@@ -173,18 +173,18 @@ const Home = () => {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
-            <p className="text-gray-800 mb-6">
+            <p className="text-light/95 mb-6">
               {language === 'en' 
                 ? "As a Certified Scrum Product Owner (CSPO®) pursuing MS in Business Analytics & BA in Accounting at UIUC, I specialize in data-driven decision making and business strategy. My experience spans across supply chain, manufacturing, technology, and financial services, where I've delivered impactful solutions for cost optimization and operational efficiency."
                 : "作为一名认证Scrum产品负责人（CSPO®），我正在UIUC攻读商业分析硕士和会计学士学位。我专注于数据驱动决策和商业战略。我的经验涵盖供应链、制造业、技术和金融服务领域，为成本优化和运营效率提供了有效的解决方案。"}
             </p>
             <div className="gold-divider"></div>
-            <p className="text-gray-800 mb-6">
+            <p className="text-light/95 mb-6">
               {language === 'en'
                 ? "Passionate about emerging technologies, I'm currently exploring AI applications in business process optimization. Beyond my professional pursuits, I lead a basketball team, practice kinesiology, and engage in various interests from gourmet cooking to philosophical discussions, bringing a well-rounded perspective to my work."
                 : "我对新兴技术充满热情，目前正在探索AI在业务流程优化中的应用。除了专业追求，我还领导着一支篮球队，研究运动学，并涉足美食烹饪和哲学讨论等多个领域，为工作带来全面的视角。"}
             </p>
-            <Link to="/contact" className="btn btn-outline inline-flex items-center gap-2 mt-4 text-black hover:text-primary">
+            <Link to="/contact" className="btn btn-outline inline-flex items-center gap-2 mt-4">
               {language === 'en' ? "Let's Connect" : "联系我"} <FiArrowRight />
             </Link>
           </div>
@@ -204,7 +204,7 @@ const Home = () => {
       <Section
         title={t.projects.title[language]}
         subtitle={t.projects.subtitle[language]}
-        className="bg-darkgray"
+        className="bg-darkest"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredProjects.map((project, index) => (
@@ -220,15 +220,15 @@ const Home = () => {
 
       {/* Contact CTA */}
       <Section className="bg-dark text-center">
-        <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-          <span className="text-black">{language === 'en' ? "Let's Work Together" : "让我们合作"}</span>
+        <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6 text-primary">
+          {language === 'en' ? "Let's Work Together" : "让我们合作"}
         </h2>
-        <p className="text-gray-800 max-w-2xl mx-auto mb-8">
+        <p className="text-light/95 max-w-2xl mx-auto mb-8">
           {language === 'en' 
             ? "Interested in collaborating on a project or discussing potential opportunities? I'm currently available for freelance work and open to new challenges."
             : "有兴趣在项目上合作或讨论潜在机会？我目前可以接受自由职业工作，并乐于接受新的挑战。"}
         </p>
-        <Link to="/contact" className="btn btn-primary inline-flex items-center gap-2 text-black hover:text-primary">
+        <Link to="/contact" className="btn btn-primary inline-flex items-center gap-2">
           {language === 'en' ? "Get In Touch" : "联系我"} <FiArrowRight />
         </Link>
       </Section>
