@@ -61,7 +61,7 @@ const featuredProjects = [
     description: 'Developed AI automation system using Crew.ai and PRAW for community engagement, with personalized ChatGPT integration.',
     image: projectImages.webDev,
     tags: ['Python', 'AI', 'Data Analysis'],
-    githubUrl: 'https://github.com/yourusername/reddit-growth',
+    githubUrl: 'https://github.com/JeremyDong22/reddit-growth',
     liveUrl: '#',
   },
   {
@@ -70,7 +70,7 @@ const featuredProjects = [
     description: 'Created automated workflow for continuous medical research data collection, processing 300+ keywords across multiple sources.',
     image: projectImages.design,
     tags: ['Python', 'NLP', 'API Integration'],
-    githubUrl: 'https://github.com/yourusername/medical-research',
+    githubUrl: 'https://github.com/JeremyDong22/medical-research',
     liveUrl: '#',
   },
   {
@@ -79,7 +79,7 @@ const featuredProjects = [
     description: 'Developed ML models using polynomial regression, gradient boosting, and random forest, achieving top 3 ranking among 20+ teams.',
     image: projectImages.business,
     tags: ['R', 'Machine Learning', 'Statistical Analysis'],
-    githubUrl: 'https://github.com/yourusername/real-estate',
+    githubUrl: 'https://github.com/JeremyDong22/real-estate',
     liveUrl: '#',
   },
 ];
@@ -113,7 +113,7 @@ const Home = () => {
         {/* Social Links */}
         <div className="flex gap-4 mt-8">
           <a
-            href="https://github.com/yourusername"
+            href="https://github.com/JeremyDong22"
             target="_blank"
             rel="noopener noreferrer"
             className="text-light hover:text-primary transition-colors"

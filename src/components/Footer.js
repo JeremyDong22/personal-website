@@ -61,7 +61,7 @@ const Footer = () => {
             <h3 className="text-xl font-heading font-semibold mb-4 text-primary">{translations.footer.connect[language]}</h3>
             <div className="flex space-x-4">
               <a
-                href="https://github.com/yourusername"
+                href="https://github.com/JeremyDong22"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-light/70 hover:text-primary transition-colors"

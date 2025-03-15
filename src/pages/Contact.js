@@ -160,7 +160,7 @@ const Contact = () => {
                 {/* Social Links */}
                 <div className="flex gap-4 mt-6">
                   <a
-                    href="https://github.com/yourusername"
+                    href="https://github.com/JeremyDong22"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-light hover:text-primary transition-colors"
