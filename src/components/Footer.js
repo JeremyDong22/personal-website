@@ -17,8 +17,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo and Description */}
           <div className="col-span-1">
-            <Link to="/" className="text-2xl font-heading font-bold">
-              <span className="gold-text">{language === 'en' ? 'Jeremy Dong' : '董衡'}</span>
+            <Link to="/" className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold">
+                JD
+              </div>
+              <span className="gold-text text-2xl font-heading font-bold">Jeremy Dong</span>
             </Link>
             <p className="mt-4 text-light/70">
               {translations.footer.description[language]}
@@ -87,7 +90,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 text-center text-light/50 relative">
           <div className="gold-divider"></div>
           <p className="uppercase tracking-widest text-xs">
-            © {currentYear} {language === 'en' ? 'Jeremy Dong' : '董衡'}. {translations.footer.rights[language]}
+            © {currentYear} Jeremy Dong. {translations.footer.rights[language]}
           </p>
         </div>
       </div>

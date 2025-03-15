@@ -184,9 +184,14 @@ const Home = () => {
                 ? "Passionate about emerging technologies, I'm currently exploring AI applications in business process optimization. Beyond my professional pursuits, I lead a basketball team, practice kinesiology, and engage in various interests from gourmet cooking to philosophical discussions, bringing a well-rounded perspective to my work."
                 : "我对新兴技术充满热情，目前正在探索AI在业务流程优化中的应用。除了专业追求，我还领导着一支篮球队，研究运动学，并涉足美食烹饪和哲学讨论等多个领域，为工作带来全面的视角。"}
             </p>
-            <Link to="/contact" className="btn btn-outline inline-flex items-center gap-2 mt-4">
-              {language === 'en' ? "Let's Connect" : "联系我"} <FiArrowRight />
-            </Link>
+            <div className="flex gap-4">
+              <Link to="/about" className="btn btn-primary inline-flex items-center gap-2 mt-4">
+                My Journey <FiArrowRight />
+              </Link>
+              <Link to="/contact" className="btn btn-outline inline-flex items-center gap-2 mt-4">
+                {language === 'en' ? "Let's Connect" : "联系我"} <FiArrowRight />
+              </Link>
+            </div>
           </div>
           <div className="relative">
             <div className="p-1 bg-gold-gradient overflow-hidden">

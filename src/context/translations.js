@@ -27,7 +27,7 @@ const translations = {
       zh: '联系'
     },
     language: {
-      en: '中文',
+      en: '中文简体',
       zh: 'English'
     }
   },
