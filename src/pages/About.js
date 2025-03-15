@@ -356,10 +356,10 @@ const About = () => {
         image={aboutImage}
         reversed
         className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
-        imageClassName="w-full h-[600px] object-cover object-center rounded-lg shadow-2xl transform hover:scale-105 transition-transform duration-500"
+        imageClassName="w-full h-auto max-h-[600px] object-cover object-center rounded-lg shadow-2xl transform hover:scale-105 transition-transform duration-500"
       >
         <div className="flex flex-col space-y-6">
-          <p className="text-xl text-light/90">
+          <p className="text-base md:text-xl text-light/90">
             {language === 'en' 
               ? "I'm a passionate developer with a unique journey from accounting to tech." 
               : "我是一位充满热情的开发者，有着从会计到科技的独特经历。"
@@ -367,7 +367,7 @@ const About = () => {
           </p>
           <a 
             href={language === 'en' ? "/assets/resume/resume_en.pdf" : "/assets/resume/resume_zh.pdf"} 
-            className="btn btn-primary inline-flex items-center gap-2 w-fit"
+            className="btn btn-primary inline-flex items-center gap-2 w-fit text-xs sm:text-sm"
             download={language === 'en' ? "Jeremy Dong Resume.pdf" : "董衡简历.pdf"}
             target="_blank"
             rel="noopener noreferrer"
@@ -508,11 +508,12 @@ const About = () => {
         title={language === 'en' ? "Technical Expertise" : "技术专长"}
         subtitle={language === 'en' ? "Data Science & Business Analytics Skills" : "数据科学与商业分析技能"}
         dark
+        className="px-4 sm:px-6"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
           {/* Technical Skills */}
           <div>
-            <h3 className="text-2xl font-bold mb-6 text-white">{language === 'en' ? "Programming & Tools" : "编程与工具"}</h3>
+            <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-white">{language === 'en' ? "Programming & Tools" : "编程与工具"}</h3>
             {technicalSkills.map((skill, index) => (
               <SkillBar
                 key={skill.name}
@@ -526,7 +527,7 @@ const About = () => {
           
           {/* Soft Skills */}
           <div>
-            <h3 className="text-2xl font-bold mb-6 text-white">{language === 'en' ? "Domain Expertise" : "领域专长"}</h3>
+            <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-white">{language === 'en' ? "Domain Expertise" : "领域专长"}</h3>
             {softSkills.map((skill, index) => (
               <SkillBar
                 key={skill.name}
@@ -552,18 +553,19 @@ const About = () => {
         id="experience"
         title={language === 'en' ? "Professional Experience" : "实习经历"}
         subtitle={language === 'en' ? "My internships and consulting work" : "我的实习与咨询工作经验"}
+        className="px-4 sm:px-6"
       >
         <div className="max-w-3xl mx-auto">
           {experiences.map((exp, index) => (
             <motion.div
               key={exp.id}
-              className="mb-12 last:mb-0"
+              className="mb-8 md:mb-12 last:mb-0"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="flex items-start gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                 <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center">
                   {exp.company === 'Source Ready' && (
                     <img 
@@ -624,7 +626,7 @@ const About = () => {
                   )}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold">{language === 'en' ? exp.role : 
+                  <h3 className="text-xl md:text-2xl font-bold">{language === 'en' ? exp.role : 
                     exp.company === 'Source Ready' ? '增长战略实习生' :
                     exp.company === 'US Pharmacopeia' ? 'AI/ML技术咨询者' :
                     exp.company === 'Kaifeng Investment' ? 'TMT研究员实习生' :
@@ -633,7 +635,7 @@ const About = () => {
                     exp.company === 'BDO Consulting' ? '咨询实习生' :
                     exp.role
                   }</h3>
-                  <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2 text-sm md:text-base">
                     <a 
                       href={exp.website} 
                       target="_blank" 
@@ -651,7 +653,7 @@ const About = () => {
                       }
                     </a>
                     <span className="text-gray-500">•</span>
-                    <span className="text-gray-500 italic">{language === 'en' ? exp.companyDescription : 
+                    <span className="text-gray-500 italic text-xs md:text-sm">{language === 'en' ? exp.companyDescription : 
                       exp.company === 'Source Ready' ? '初创供应链引擎' :
                       exp.company === 'US Pharmacopeia' ? '制药标准组织' :
                       exp.company === 'Kaifeng Investment' ? '共同基金' :
@@ -661,8 +663,8 @@ const About = () => {
                       exp.companyDescription
                     }</span>
                   </div>
-                  <p className="text-gray-500 mb-4">{exp.period}</p>
-                  <div className="text-white font-medium">
+                  <p className="text-gray-500 mb-4 text-sm md:text-base">{exp.period}</p>
+                  <div className="text-white font-medium text-sm md:text-base">
                     {exp.description.split('. ').filter(sentence => sentence.trim().length > 0).map((sentence, i, arr) => (
                       <div key={i} className="flex items-start mb-2 last:mb-0">
                         <span className="text-primary font-bold mr-2 mt-1">•</span>
@@ -697,7 +699,7 @@ const About = () => {
               
               {/* Timeline connector (except for last item) */}
               {index < experiences.length - 1 && (
-                <div className="ml-6 mt-4 mb-4 w-0.5 h-8 bg-gradient-to-b from-primary/50 to-transparent"></div>
+                <div className="ml-6 mt-4 mb-4 w-0.5 h-8 bg-gradient-to-b from-primary/50 to-transparent hidden sm:block"></div>
               )}
             </motion.div>
           ))}
@@ -717,18 +719,19 @@ const About = () => {
         title={language === 'en' ? "Education" : "教育背景"}
         subtitle={language === 'en' ? "University of Illinois Urbana-Champaign" : "伊利诺伊大学厄巴纳-香槟分校"}
         dark
+        className="px-4 sm:px-6"
       >
         <div className="max-w-3xl mx-auto">
           {education.map((edu, index) => (
             <motion.div
               key={edu.id}
-              className="mb-12 last:mb-0"
+              className="mb-8 md:mb-12 last:mb-0"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="flex items-start gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                 <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center">
                   <img 
                     src="/assets/images/logos/uiuc.png" 
@@ -737,16 +740,16 @@ const About = () => {
                   />
                 </div>
                 <div className="w-full">
-                  <h3 className="text-2xl font-bold text-white">{edu.degree}</h3>
-                  <p className="text-primary font-medium">{edu.institution}</p>
-                  <p className="text-gray-300 mb-2">{edu.period}</p>
+                  <h3 className="text-xl md:text-2xl font-bold text-white">{edu.degree}</h3>
+                  <p className="text-primary font-medium text-sm md:text-base">{edu.institution}</p>
+                  <p className="text-gray-300 mb-2 text-sm md:text-base">{edu.period}</p>
                   
                   <div className="mt-4">
-                    <p className="text-gray-300 mb-2">
+                    <p className="text-gray-300 mb-2 text-sm md:text-base">
                       <span className="font-semibold text-primary">GPA:</span> {index === 0 ? '3.7/4.0' : '3.9/4.0'}
                     </p>
                     
-                    <p className="text-gray-300 mb-2 font-semibold text-primary">
+                    <p className="text-gray-300 mb-2 font-semibold text-primary text-sm md:text-base">
                       {language === 'en' ? "Key Courses:" : "核心课程:"}
                     </p>
                     
@@ -806,7 +809,7 @@ const About = () => {
                     
                     {index === 1 && (
                       <div className="mt-6">
-                        <p className="text-gray-300 mb-2 font-semibold text-primary">
+                        <p className="text-gray-300 mb-2 font-semibold text-primary text-sm md:text-base">
                           {language === 'en' ? "AP & Placement Tests:" : "AP课程与测试:"}
                         </p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
@@ -844,7 +847,7 @@ const About = () => {
               
               {/* Timeline connector (except for last item) */}
               {index < education.length - 1 && (
-                <div className="ml-6 mt-4 mb-4 w-0.5 h-8 bg-gradient-to-b from-primary/50 to-transparent"></div>
+                <div className="ml-6 mt-4 mb-4 w-0.5 h-8 bg-gradient-to-b from-primary/50 to-transparent hidden sm:block"></div>
               )}
             </motion.div>
           ))}

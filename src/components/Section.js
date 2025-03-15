@@ -34,7 +34,7 @@ const Section = ({
   return (
     <section 
       id={id} 
-      className={`py-16 md:py-24 relative ${bgClass}`}
+      className={`py-12 sm:py-16 md:py-20 lg:py-24 relative ${bgClass}`}
     >
       <div className={`${fullWidth ? 'w-full' : 'container mx-auto px-4'}`}>
         <motion.div
@@ -42,11 +42,11 @@ const Section = ({
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
           variants={variants}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
         >
           {title && (
             <motion.h2 
-              className="text-3xl md:text-4xl font-bold mb-4 text-primary"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 text-primary"
               variants={variants}
             >
               {title}
@@ -55,7 +55,7 @@ const Section = ({
           
           {subtitle && (
             <motion.p 
-              className="text-xl max-w-3xl mx-auto text-light/80"
+              className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-light/80"
               variants={variants}
             >
               {subtitle}
