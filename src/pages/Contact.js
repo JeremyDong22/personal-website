@@ -23,7 +23,7 @@ const Contact = () => {
   return (
     <div className="bg-dark min-h-screen">
       {/* Header and Buttons Combined Section */}
-      <div className="container mx-auto px-4 pt-12">
+      <div className="container mx-auto px-4 pt-24 md:pt-28">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
