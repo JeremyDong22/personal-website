@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.d7a1377b.css",
-    "main.js": "/static/js/main.a2079d18.js",
+    "main.css": "/static/css/main.8958a1dc.css",
+    "main.js": "/static/js/main.92a08cce.js",
     "static/media/uiuc_twilight_team_2021.jpg": "/static/media/uiuc_twilight_team_2021.272763e629095fbb7391.jpg",
     "static/media/scie_football_team_2021.jpg": "/static/media/scie_football_team_2021.ed7a74062414c9fe9b04.jpg",
     "static/media/sports_hero.jpg": "/static/media/sports_hero.dde8aa6934ed66088f45.jpg",
@@ -12,11 +12,11 @@
     "static/media/profile.jpeg": "/static/media/profile.55eaff96df53e8f2f703.jpeg",
     "static/media/shenzhen_intl_team_2017.jpg": "/static/media/shenzhen_intl_team_2017.4d19de6783fd153369a0.jpg",
     "index.html": "/index.html",
-    "main.d7a1377b.css.map": "/static/css/main.d7a1377b.css.map",
-    "main.a2079d18.js.map": "/static/js/main.a2079d18.js.map"
+    "main.8958a1dc.css.map": "/static/css/main.8958a1dc.css.map",
+    "main.92a08cce.js.map": "/static/js/main.92a08cce.js.map"
   },
   "entrypoints": [
-    "static/css/main.d7a1377b.css",
-    "static/js/main.a2079d18.js"
+    "static/css/main.8958a1dc.css",
+    "static/js/main.92a08cce.js"
   ]
 }
