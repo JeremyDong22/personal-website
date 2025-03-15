@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiArrowRight, FiGithub, FiLinkedin, FiMail, FiCode, FiLayers, FiUsers } from 'react-icons/fi';
+import { FiArrowRight, FiGithub, FiLinkedin, FiMail, FiPhone, FiCode, FiLayers, FiUsers } from 'react-icons/fi';
+import { SiWechat } from 'react-icons/si';
 import { motion } from 'framer-motion';
 
 // Components
@@ -130,6 +131,20 @@ const Home = () => {
             aria-label="Email"
           >
             <FiMail size={24} />
+          </a>
+          <a
+            href="tel:+12179740277"
+            className="text-light hover:text-primary transition-colors"
+            aria-label="Phone"
+          >
+            <FiPhone size={24} />
+          </a>
+          <a
+            href="#"
+            className="text-light hover:text-primary transition-colors"
+            aria-label="WeChat"
+          >
+            <SiWechat size={24} />
           </a>
         </div>
       </Hero>

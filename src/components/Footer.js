@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail, FiPhone } from 'react-icons/fi';
+import { SiWechat } from 'react-icons/si';
 import { useLanguage } from '../context/LanguageContext';
 import translations from '../context/translations';
 
@@ -73,11 +74,25 @@ const Footer = () => {
                 <FiLinkedin size={24} />
               </a>
               <a
-                href="mailto:your.email@example.com"
+                href="mailto:hengd3@outlook.com"
                 className="text-light/70 hover:text-primary transition-colors"
                 aria-label="Email"
               >
                 <FiMail size={24} />
+              </a>
+              <a
+                href="tel:+12179740277"
+                className="text-light/70 hover:text-primary transition-colors"
+                aria-label="Phone"
+              >
+                <FiPhone size={24} />
+              </a>
+              <a
+                href="#"
+                className="text-light/70 hover:text-primary transition-colors"
+                aria-label="WeChat"
+              >
+                <SiWechat size={24} />
               </a>
             </div>
             <p className="mt-4 text-light/70">

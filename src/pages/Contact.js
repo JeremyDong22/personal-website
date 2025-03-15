@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiMapPin, FiMail, FiPhone, FiGithub, FiLinkedin, FiMessageSquare, FiInfo } from 'react-icons/fi';
+import { SiWechat } from 'react-icons/si';
 
 // Components
 import Section from '../components/Section';
@@ -136,18 +137,34 @@ const Contact = () => {
                 </div>
                 
                 {/* Phone */}
-                <div className="flex items-start gap-4 mb-8">
+                <div className="flex items-start gap-4 mb-6">
                   <div className="bg-primary/20 p-3 rounded-full text-primary">
                     <FiPhone size={24} />
                   </div>
                   <div>
                     <h4 className="text-lg font-semibold mb-1">Phone</h4>
                     <a 
-                      href="tel:+11234567890" 
+                      href="tel:+12179740277" 
                       className="text-light/80 hover:text-primary transition-colors"
                     >
-                      +1 (123) 456-7890
+                      +1 (217) 974-0277
                     </a>
+                  </div>
+                </div>
+                
+                {/* WeChat */}
+                <div className="flex items-start gap-4 mb-8">
+                  <div className="bg-primary/20 p-3 rounded-full text-primary">
+                    <SiWechat size={24} />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold mb-1">WeChat</h4>
+                    <p className="text-light/80">
+                      Scan QR code below
+                    </p>
+                    <div className="mt-2 max-w-[150px]">
+                      {/* WeChat QR code will be added here */}
+                    </div>
                   </div>
                 </div>
                 
