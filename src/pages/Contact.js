@@ -6,10 +6,12 @@ import { SiWechat } from 'react-icons/si';
 // Components
 import Section from '../components/Section';
 import ContactForm from '../components/ContactForm';
+import QRCodeModal from '../components/QRCodeModal';
 
 const Contact = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const [showContactInfo, setShowContactInfo] = useState(false);
+  const [showQRModal, setShowQRModal] = useState(false);
   
   const toggleContactForm = () => {
     setShowContactForm(!showContactForm);
@@ -23,6 +25,9 @@ const Contact = () => {
   
   return (
     <div className="bg-dark min-h-screen">
+      {/* QR Code Modal */}
+      <QRCodeModal isOpen={showQRModal} onClose={() => setShowQRModal(false)} />
+      
       {/* Header and Buttons Combined Section */}
       <div className="container mx-auto px-4 pt-24 md:pt-28">
         <motion.div
@@ -183,6 +188,10 @@ const Contact = () => {
                     href="#"
                     className="text-light hover:text-primary transition-colors"
                     aria-label="WeChat"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowQRModal(true);
+                    }}
                   >
                     <SiWechat size={24} />
                   </a>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiGithub, FiLinkedin, FiMail, FiPhone, FiCode, FiLayers, FiUsers } from 'react-icons/fi';
 import { SiWechat } from 'react-icons/si';
@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import Hero from '../components/Hero';
 import Section from '../components/Section';
 import ProjectCard from '../components/ProjectCard';
+import QRCodeModal from '../components/QRCodeModal';
 
 // Language Context
 import { useLanguage } from '../context/LanguageContext';
@@ -86,9 +87,13 @@ const featuredProjects = [
 const Home = () => {
   const { language } = useLanguage();
   const t = translations.home;
+  const [showQRModal, setShowQRModal] = useState(false);
 
   return (
     <div>
+      {/* QR Code Modal */}
+      <QRCodeModal isOpen={showQRModal} onClose={() => setShowQRModal(false)} />
+      
       {/* Hero Section */}
       <Hero
         title={t.hero.title[language]}
@@ -143,6 +148,10 @@ const Home = () => {
             href="#"
             className="text-light hover:text-primary transition-colors"
             aria-label="WeChat"
+            onClick={(e) => {
+              e.preventDefault();
+              setShowQRModal(true);
+            }}
           >
             <SiWechat size={24} />
           </a>

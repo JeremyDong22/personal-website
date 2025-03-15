@@ -216,6 +216,54 @@ const translations = {
       en: 'All rights reserved.',
       zh: '版权所有。'
     }
+  },
+  
+  // Contact page
+  contact: {
+    title: {
+      en: 'Get in Touch',
+      zh: '联系我'
+    },
+    subtitle: {
+      en: 'Have a question or want to work together? Feel free to reach out!',
+      zh: '有问题或想一起合作？请随时联系我！'
+    },
+    sendMessage: {
+      en: 'Send a Message',
+      zh: '发送消息'
+    },
+    contactInfo: {
+      en: 'Contact Information',
+      zh: '联系信息'
+    },
+    location: {
+      en: 'Location',
+      zh: '位置'
+    },
+    email: {
+      en: 'Email',
+      zh: '邮箱'
+    },
+    phone: {
+      en: '+1 (217) 974-0277',
+      zh: '+86 xxx-xxxx-xxxx'
+    },
+    wechat: {
+      en: 'WeChat QR Code',
+      zh: '微信二维码'
+    },
+    scanQR: {
+      en: 'Scan with WeChat app to connect',
+      zh: '使用微信扫描二维码添加好友'
+    },
+    availability: {
+      en: 'Current Availability',
+      zh: '当前可用性'
+    },
+    availabilityText: {
+      en: "I'm currently available for freelance work and open to discussing new opportunities. My typical response time is within 24 hours.",
+      zh: "我目前可以接受自由职业工作，并乐于讨论新的机会。我通常会在24小时内回复。"
+    }
   }
 };
 

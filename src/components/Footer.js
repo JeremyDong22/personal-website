@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiGithub, FiLinkedin, FiMail, FiPhone } from 'react-icons/fi';
 import { SiWechat } from 'react-icons/si';
 import { useLanguage } from '../context/LanguageContext';
 import translations from '../context/translations';
+import QRCodeModal from './QRCodeModal';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { language } = useLanguage();
+  const [showQRModal, setShowQRModal] = useState(false);
 
   return (
     <footer className="bg-darkgray text-light py-12 relative">
+      {/* QR Code Modal */}
+      <QRCodeModal isOpen={showQRModal} onClose={() => setShowQRModal(false)} />
+      
       {/* Gold accent line */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gold-gradient"></div>
       
@@ -91,6 +96,10 @@ const Footer = () => {
                 href="#"
                 className="text-light/70 hover:text-primary transition-colors"
                 aria-label="WeChat"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowQRModal(true);
+                }}
               >
                 <SiWechat size={24} />
               </a>
