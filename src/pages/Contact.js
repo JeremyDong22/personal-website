@@ -27,10 +27,10 @@ const Contact = () => {
         id="contact-header"
         title="Get in Touch"
         subtitle="Have a question or want to work together? Feel free to reach out!"
-        className="pt-32"
+        className="pt-32 pb-0"
       >
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-lg mb-8">
+          <p className="text-lg mb-4">
             I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
             Choose one of the options below to get in touch.
           </p>
@@ -38,9 +38,9 @@ const Contact = () => {
       </Section>
       
       {/* Contact Buttons Section */}
-      <Section id="contact-options" className="pt-0">
+      <Section id="contact-options" className="pt-4">
         <div className="max-w-3xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {/* Send Message Button */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
