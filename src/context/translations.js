@@ -246,7 +246,7 @@ const translations = {
     },
     phone: {
       en: '+1 (217) 974-0277',
-      zh: '+86 xxx-xxxx-xxxx'
+      zh: '+86 185-7664-4936'
     },
     wechat: {
       en: 'WeChat QR Code',
