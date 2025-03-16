@@ -223,16 +223,27 @@ const Contact = () => {
               className="grayscale"
             ></iframe>
           ) : (
-            <iframe
-              title="位置地图"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.0594931163285!2d114.1348884!3d22.5750867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3403f5c785188e8d%3A0xdee189d6a1aa7065!2z55m95rS75Y2X6Lev55m95rS75ZyS5Zyw5LiA5pyf!5e0!3m2!1szh-CN!2scn!4v1718539200000!5m2!1szh-CN!2scn"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              className="grayscale"
-            ></iframe>
+            <div className="w-full h-full bg-darkgray/50 flex items-center justify-center relative overflow-hidden">
+              {/* Static map image for Chinese users */}
+              <div className="absolute inset-0 bg-cover bg-center opacity-70 grayscale" 
+                   style={{ 
+                     backgroundImage: "url('https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/114.1349,22.5751,14,0/800x600?access_token=pk.eyJ1IjoiamVyZW15ZG9uZzIyIiwiYSI6ImNscGJxZnRnZzA0ZGsyam1uMnRqcnRqcXAifQ.Ry9JYzKBvnfAUYl1h-_Yjw')",
+                     backgroundSize: 'cover'
+                   }}>
+              </div>
+              <div className="relative z-10 text-center p-6 bg-darkgray/80 rounded-lg">
+                <h3 className="text-xl font-bold text-primary mb-2">深圳，广东</h3>
+                <p className="text-light/80">百仕达花园一期，太宁路</p>
+                <a 
+                  href="https://map.baidu.com/search/%E7%99%BE%E4%BB%95%E8%BE%BE%E8%8A%B1%E5%9B%AD%E4%B8%80%E6%9C%9F/@12683949.54,2553834.24,19z?querytype=s&da_src=shareurl&wd=%E7%99%BE%E4%BB%95%E8%BE%BE%E8%8A%B1%E5%9B%AD%E4%B8%80%E6%9C%9F&c=340&src=0&pn=0&sug=0&l=13&b=(12682483.31,2553834.24;12685415.77,2555266.24)&from=webmap&biz_forward=%7B%22scaler%22:2,%22styles%22:%22pl%22%7D&device_ratio=2" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="mt-4 inline-block bg-primary text-dark px-4 py-2 rounded hover:bg-primary/80 transition-colors"
+                >
+                  在百度地图中查看
+                </a>
+              </div>
+            </div>
           )}
         </div>
       </div>
