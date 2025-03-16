@@ -11,8 +11,8 @@ const Resume = () => {
 
   // Resume file paths - use process.env.PUBLIC_URL to ensure correct paths in GitHub Pages
   const resumeFiles = {
-    en: `${process.env.PUBLIC_URL}/assets/resume/resume_en.pdf`,
-    zh: `${process.env.PUBLIC_URL}/assets/resume/resume_zh.pdf`
+    en: `${process.env.PUBLIC_URL}/assets/documents/Resume_English.pdf`,
+    zh: `${process.env.PUBLIC_URL}/assets/documents/Resume_Chinese.pdf`
   };
 
   return (
@@ -75,30 +75,23 @@ const Resume = () => {
             transition={{ duration: 0.5 }}
             className="relative bg-white border border-primary/20 p-1 shadow-xl"
           >
-            <div className="aspect-[8.5/11] w-full">
-              {/* For mobile devices, show a download prompt instead of embedding the PDF */}
-              <div className="block sm:hidden p-6 text-center bg-white">
+            <div className="aspect-[8.5/11] w-full max-h-[800px]">
+              {/* Mobile download prompt - shown above the PDF */}
+              <div className="p-4 text-center bg-white sm:hidden">
                 <p className="text-dark font-medium mb-4">
                   {language === 'en' 
-                    ? 'For the best experience on mobile, please download the resume.' 
-                    : '为了在移动设备上获得最佳体验，请下载简历。'}
+                    ? 'For the best experience, you can also download the resume using the button above.' 
+                    : '为了获得最佳体验，您可以使用上方的按钮下载简历。'}
                 </p>
-                <a
-                  href={resumeFiles[activeResume]}
-                  download={`jeremy_dong_resume_${activeResume}.pdf`}
-                  className="btn btn-primary inline-flex items-center justify-center gap-2 text-xs"
-                >
-                  <FiDownload /> {translations.resume.download[language]}
-                </a>
               </div>
               
-              {/* For desktop, embed the PDF */}
+              {/* PDF viewer for all devices */}
               <object
                 data={resumeFiles[activeResume]}
                 type="application/pdf"
                 title={`Jeremy Dong Resume - ${activeResume === 'en' ? 'English' : 'Chinese'}`}
-                className="w-full h-full hidden sm:block"
-                style={{ minHeight: '80vh', backgroundColor: 'white' }}
+                className="w-full h-full"
+                style={{ minHeight: '70vh', maxHeight: '800px', backgroundColor: 'white' }}
               >
                 <p className="text-center p-4 text-dark">
                   {language === 'en' 

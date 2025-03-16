@@ -122,11 +122,11 @@ const Home = () => {
             <FiGithub size={24} />
           </a>
           <a
-            href="https://linkedin.com/in/yourusername"
+            href="https://www.linkedin.com/in/jeremy-dong-176092256"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-light hover:text-primary transition-colors"
             aria-label="LinkedIn"
+            className="text-light hover:text-primary transition-colors"
           >
             <FiLinkedin size={24} />
           </a>

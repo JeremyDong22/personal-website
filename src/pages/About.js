@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiDownload, FiCalendar, FiBook, FiAward } from 'react-icons/fi';
+import { FiDownload } from 'react-icons/fi';
 import { useLanguage } from '../context/LanguageContext';
 import { Link } from 'react-router-dom';
 
@@ -149,8 +149,6 @@ const education = [
 
 const About = () => {
   const { language } = useLanguage();
-  const [logoErrors, setLogoErrors] = useState({});
-  const [useClearbit, setUseClearbit] = useState({});
   
   // Function to handle smooth scrolling to sections
   const scrollToSection = (sectionId) => (e) => {
@@ -219,61 +217,6 @@ const About = () => {
         document.body.removeChild(indicator);
         document.head.removeChild(style);
       }, 1500);
-    }
-  };
-  
-  // Improved logo handling with better fallback
-  const renderLogo = (company) => {
-    // Map company names to their logo URLs
-    const logoMap = {
-      'Source Ready': '/assets/images/logos/sourceready.png',
-      'US Pharmacopeia': '/assets/images/logos/usp.png',
-      'Kaifeng Investment': '/assets/images/logos/kaifeng.png',
-      'GYJA Private Equity': '/assets/images/logos/gyja.png',
-      'Molex': '/assets/images/logos/molex.png',
-      'BDO Consulting': '/assets/images/logos/bdo.png'
-    };
-    
-    // Alternative logo URLs from Clearbit (as fallback)
-    const clearbitLogoMap = {
-      'Source Ready': 'https://logo.clearbit.com/sourceready.com',
-      'US Pharmacopeia': 'https://logo.clearbit.com/usp.org',
-      'Kaifeng Investment': null, // No clear domain
-      'GYJA Private Equity': null, // No clear domain
-      'Molex': 'https://logo.clearbit.com/molex.com',
-      'BDO Consulting': 'https://logo.clearbit.com/bdo.com'
-    };
-    
-    // Try local logo first, then Clearbit, then fallback to icon
-    if (logoErrors[company] && useClearbit[company]) {
-      // Both local and Clearbit failed, use icon
-      return <FiCalendar size={24} className="text-primary" />;
-    } else if (logoErrors[company] && clearbitLogoMap[company]) {
-      // Local failed, try Clearbit if available
-      return (
-        <img 
-          src={clearbitLogoMap[company]} 
-          alt={company} 
-          className="w-8 h-8 object-contain"
-          onError={() => {
-            setUseClearbit(prev => ({...prev, [company]: true}));
-          }}
-        />
-      );
-    } else {
-      // Try local logo first
-      return (
-        <img 
-          src={logoMap[company]} 
-          alt={company} 
-          className="w-8 h-8 object-contain"
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.style.display = 'none';
-            e.target.parentNode.innerHTML = '<div class="w-12 h-12 flex items-center justify-center text-primary text-xl font-bold">SR</div>';
-          }}
-        />
-      );
     }
   };
 
@@ -572,11 +515,6 @@ const About = () => {
                       src="/assets/images/logos/sourceready.png" 
                       alt="Source Ready" 
                       className="w-12 h-12 object-contain"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.style.display = 'none';
-                        e.target.parentNode.innerHTML = '<div class="w-12 h-12 flex items-center justify-center text-primary text-xl font-bold">SR</div>';
-                      }}
                     />
                   )}
                   {exp.company === 'US Pharmacopeia' && (
@@ -591,11 +529,6 @@ const About = () => {
                       src="/assets/images/logos/kaifeng.png" 
                       alt="Kaifeng Investment" 
                       className="w-12 h-12 object-contain"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.style.display = 'none';
-                        e.target.parentNode.innerHTML = '<div class="w-12 h-12 flex items-center justify-center text-primary text-xl font-bold">KF</div>';
-                      }}
                     />
                   )}
                   {exp.company === 'GYJA Private Equity' && (
@@ -603,11 +536,6 @@ const About = () => {
                       src="/assets/images/logos/gyja.png" 
                       alt="GYJA Private Equity" 
                       className="w-12 h-12 object-contain"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.style.display = 'none';
-                        e.target.parentNode.innerHTML = '<div class="w-12 h-12 flex items-center justify-center text-primary text-xl font-bold">GY</div>';
-                      }}
                     />
                   )}
                   {exp.company === 'Molex' && (
