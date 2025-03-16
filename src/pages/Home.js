@@ -190,49 +190,11 @@ const Home = () => {
         </div>
       </Section>
 
-      {/* My Journey Section */}
-      <Section
-        title={language === 'en' ? "My Journey" : "我的旅程"}
-        subtitle={language === 'en' ? "From Accounting to Tech: A Story of Following My Passion" : "从会计到科技：追随内心的故事"}
-        className="bg-dark"
-      >
-        <div className="max-w-3xl mx-auto">
-          <p className="text-lg mb-8 text-light/95">
-            {language === 'en' 
-              ? "Every transformative journey begins with a moment of clarity. Mine came when I realized that true business value isn't about following rules – it's about creating impact."
-              : "每个改变人生的旅程都始于一个清晰的时刻。对我来说，这个时刻就是当我意识到真正的商业价值不在于遵循规则，而在于创造影响力。"}
-          </p>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="mb-8"
-          >
-            <h3 className="text-2xl font-bold text-primary mb-4">
-              {language === 'en' ? "Breaking Free from Convention" : "打破常规的束缚"}
-            </h3>
-            <p className="text-lg text-light/95 mb-4">
-              {language === 'en'
-                ? "At first, I saw accounting as a gateway to understanding business operations through financial statements. But as I delved deeper, I found myself merely following predefined rules rather than creating value. This realization led me to make what seemed like a crazy decision: turning down a $20,000 merit scholarship from Cornell to pursue a different path."
-                : "最初，我将会计视为理解企业运营的门户。但随着深入，我发现自己只是在机械地遵循预定规则，而非创造价值。这个认识让我做出了看似疯狂的决定：放弃康奈尔大学两万美元的奖学金，追求不同的道路。"}
-            </p>
-          </motion.div>
-          
-          <div className="text-center mt-8">
-            <Link to="/about" className="btn btn-primary inline-flex items-center gap-2">
-              {language === 'en' ? "Read My Full Story" : "阅读我的完整故事"} <FiArrowRight />
-            </Link>
-          </div>
-        </div>
-      </Section>
-
       {/* About Section */}
       <Section
         title={t.about.title[language]}
         subtitle={language === 'en' ? "Professional Background & Expertise" : "专业背景和专长"}
-        className="bg-darkgray"
+        className="bg-dark"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
@@ -249,7 +211,7 @@ const Home = () => {
             </p>
             <div className="flex gap-4">
               <Link to="/about" className="btn btn-primary inline-flex items-center gap-2 mt-4">
-                My Journey <FiArrowRight />
+                {language === 'en' ? "Learn More" : "了解更多"} <FiArrowRight />
               </Link>
               <Link to="/contact" className="btn btn-outline inline-flex items-center gap-2 mt-4">
                 {language === 'en' ? "Let's Connect" : "联系我"} <FiArrowRight />
