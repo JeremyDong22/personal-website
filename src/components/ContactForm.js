@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiCheckCircle } from 'react-icons/fi';
 import emailjs from '@emailjs/browser';
+import { useLanguage } from '../context/LanguageContext';
 
 /*
  * IMPORTANT: EmailJS Configuration
@@ -26,6 +27,7 @@ import emailjs from '@emailjs/browser';
  */
 
 const ContactForm = () => {
+  const { language } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -101,15 +103,23 @@ const ContactForm = () => {
         transition={{ duration: 0.5 }}
       >
         <FiCheckCircle size={64} className="text-green-600 mb-4" />
-        <h3 className="text-2xl font-bold mb-2 text-green-700">Message Sent!</h3>
+        <h3 className="text-2xl font-bold mb-2 text-green-700">
+          {language === 'en' ? 'Message Sent!' : '消息已发送！'}
+        </h3>
         <p className="text-lg mb-4 text-green-700">
-          Thank you for your message! I'll get back to you as soon as possible.
+          {language === 'en' 
+            ? 'Thank you for your message! I\'ll get back to you as soon as possible.' 
+            : '感谢您的留言！我会尽快回复您。'}
         </p>
         <p className="text-md mb-6 text-green-700">
-          Please check your inbox or junk/spam folder for a confirmation email.
+          {language === 'en'
+            ? 'Please check your inbox or junk/spam folder for a confirmation email.'
+            : '请检查您的收件箱或垃圾邮件文件夹以获取确认邮件。'}
         </p>
         <p className="text-sm text-green-600 border-t border-green-200 pt-4 w-3/4">
-          Refresh the page to send another message.
+          {language === 'en'
+            ? 'Refresh the page to send another message.'
+            : '刷新页面以发送另一条消息。'}
         </p>
       </motion.div>
     );
@@ -126,14 +136,16 @@ const ContactForm = () => {
       {/* Error Message */}
       {submitStatus === 'error' && (
         <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-md">
-          {errorMessage || 'There was an error sending your message. Please try again later.'}
+          {language === 'en'
+            ? (errorMessage || 'There was an error sending your message. Please try again later.')
+            : '发送消息时出错。请稍后再试。'}
         </div>
       )}
       
       {/* Name Field */}
       <div className="mb-6">
         <label htmlFor="name" className="block mb-2 font-medium text-primary">
-          Name
+          {language === 'en' ? 'Name' : '姓名'}
         </label>
         <input
           type="text"
@@ -143,14 +155,14 @@ const ContactForm = () => {
           onChange={handleChange}
           required
           className="w-full px-4 py-2 bg-dark border border-primary/30 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-light placeholder-light/50"
-          placeholder="Your name"
+          placeholder={language === 'en' ? 'Your name' : '您的姓名'}
         />
       </div>
       
       {/* Email Field */}
       <div className="mb-6">
         <label htmlFor="email" className="block mb-2 font-medium text-primary">
-          Email
+          {language === 'en' ? 'Email' : '邮箱'}
         </label>
         <input
           type="email"
@@ -160,14 +172,14 @@ const ContactForm = () => {
           onChange={handleChange}
           required
           className="w-full px-4 py-2 bg-dark border border-primary/30 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-light placeholder-light/50"
-          placeholder="your.email@example.com"
+          placeholder={language === 'en' ? 'your.email@example.com' : '您的邮箱地址'}
         />
       </div>
       
       {/* Subject Field (renamed to title in state) */}
       <div className="mb-6">
         <label htmlFor="title" className="block mb-2 font-medium text-primary">
-          Subject
+          {language === 'en' ? 'Subject' : '主题'}
         </label>
         <input
           type="text"
@@ -177,14 +189,14 @@ const ContactForm = () => {
           onChange={handleChange}
           required
           className="w-full px-4 py-2 bg-dark border border-primary/30 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-light placeholder-light/50"
-          placeholder="What is this regarding?"
+          placeholder={language === 'en' ? 'What is this regarding?' : '关于什么事情？'}
         />
       </div>
       
       {/* Message Field */}
       <div className="mb-6">
         <label htmlFor="message" className="block mb-2 font-medium text-primary">
-          Message
+          {language === 'en' ? 'Message' : '消息'}
         </label>
         <textarea
           id="message"
@@ -194,7 +206,7 @@ const ContactForm = () => {
           required
           rows="5"
           className="w-full px-4 py-2 bg-dark border border-primary/30 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-light placeholder-light/50"
-          placeholder="Your message here..."
+          placeholder={language === 'en' ? 'Your message here...' : '在这里输入您的消息...'}
         ></textarea>
       </div>
       
@@ -206,7 +218,9 @@ const ContactForm = () => {
           isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-primary hover:bg-primary/80'
         }`}
       >
-        {isSubmitting ? 'Sending...' : 'Send Message'}
+        {isSubmitting 
+          ? (language === 'en' ? 'Sending...' : '发送中...')
+          : (language === 'en' ? 'Send Message' : '发送消息')}
       </button>
     </motion.form>
   );

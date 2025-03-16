@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiMapPin, FiMail, FiPhone, FiGithub, FiLinkedin, FiMessageSquare, FiInfo } from 'react-icons/fi';
+import { FiMapPin, FiMail, FiPhone, FiLinkedin, FiMessageSquare, FiInfo } from 'react-icons/fi';
 import { SiWechat } from 'react-icons/si';
 
 // Components
 import Section from '../components/Section';
 import ContactForm from '../components/ContactForm';
 import QRCodeModal from '../components/QRCodeModal';
-import TestGithub from '../components/TestGithub';
 
 const Contact = () => {
   const [showContactForm, setShowContactForm] = useState(false);
@@ -28,11 +27,6 @@ const Contact = () => {
     <div className="bg-dark min-h-screen">
       {/* QR Code Modal */}
       <QRCodeModal isOpen={showQRModal} onClose={() => setShowQRModal(false)} />
-      
-      {/* Test GitHub Component */}
-      <div className="container mx-auto px-4 pt-4">
-        <TestGithub />
-      </div>
       
       {/* Header and Buttons Combined Section */}
       <div className="container mx-auto px-4 pt-24 md:pt-28">
@@ -165,15 +159,6 @@ const Contact = () => {
                 
                 {/* Social Links */}
                 <div className="flex gap-4 mt-6">
-                  <a
-                    href="https://github.com/JeremyDong22"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-light hover:text-primary transition-colors"
-                    aria-label="GitHub"
-                  >
-                    <FiGithub size={24} />
-                  </a>
                   <a
                     href="https://www.linkedin.com/in/jeremy-dong-176092256"
                     target="_blank"
