@@ -10,12 +10,12 @@ const Journey = () => {
 
   const bioContent = {
     title: {
-      en: "My Path",
-      zh: "我的道路"
+      en: "My Journey",
+      zh: "我的故事"
     },
     subtitle: {
-      en: "From Numbers to Innovation: Embracing Change",
-      zh: "从数字到创新：拥抱变革"
+      en: "From Accounting to Tech: A Story of Following My Passion",
+      zh: "从会计到科技：追随内心的故事"
     },
     greeting: {
       en: "Every transformative journey begins with a moment of clarity. Mine came when I realized that true business value isn't about following rules – it's about creating impact.",
