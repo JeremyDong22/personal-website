@@ -291,7 +291,7 @@ const About = () => {
     <>
       {/* Hero Section */}
       <Hero
-        title={language === 'en' ? "About Me" : "关于我"}
+        title={language === 'en' ? "Journey" : "旅程"}
         subtitle={language === 'en' 
           ? <>Learn more about my <a href="#skills" onClick={scrollToSection('skills')} className="btn-link">skills</a>, <a href="#experience" onClick={scrollToSection('experience')} className="btn-link">experience</a>, and <a href="#education" onClick={scrollToSection('education')} className="btn-link">education</a></>
           : <>了解更多关于我的<a href="#skills" onClick={scrollToSection('skills')} className="btn-link">技能</a>、<a href="#experience" onClick={scrollToSection('experience')} className="btn-link">经验</a>和<a href="#education" onClick={scrollToSection('education')} className="btn-link">教育背景</a></>
