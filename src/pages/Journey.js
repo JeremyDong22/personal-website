@@ -10,12 +10,12 @@ const Journey = () => {
 
   const bioContent = {
     title: {
-      en: "My Journey",
-      zh: "我的故事"
+      en: "My Path",
+      zh: "我的道路"
     },
     subtitle: {
-      en: "From Accounting to Tech: A Story of Following My Passion",
-      zh: "从会计到科技：追随内心的故事"
+      en: "From Numbers to Innovation: Embracing Change",
+      zh: "从数字到创新：拥抱变革"
     },
     greeting: {
       en: "Every transformative journey begins with a moment of clarity. Mine came when I realized that true business value isn't about following rules – it's about creating impact.",
@@ -71,11 +71,11 @@ const Journey = () => {
         {/* Top Back Button */}
         <div className="mb-8">
           <Link 
-            to="/" 
+            to="/about" 
             className="inline-flex items-center gap-2 text-light/50 hover:text-primary transition-colors"
           >
             <FiArrowLeft className="text-sm" />
-            <span className="text-sm">{language === 'en' ? 'Back to Home' : '返回首页'}</span>
+            <span className="text-sm">{language === 'en' ? 'Back to Journey' : '返回旅程页面'}</span>
           </Link>
         </div>
 
@@ -111,11 +111,11 @@ const Journey = () => {
             {/* Bottom Back Button */}
             <div className="mt-16 text-right">
               <Link 
-                to="/" 
+                to="/about" 
                 className="inline-flex items-center gap-2 text-light/50 hover:text-primary transition-colors"
               >
                 <FiArrowLeft className="text-sm" />
-                <span className="text-sm">{language === 'en' ? 'Back to Home' : '返回首页'}</span>
+                <span className="text-sm">{language === 'en' ? 'Back to Journey' : '返回旅程页面'}</span>
               </Link>
             </div>
           </div>
