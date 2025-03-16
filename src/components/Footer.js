@@ -24,9 +24,6 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="col-span-1">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-                JD
-              </div>
               <span className="gold-text text-2xl font-heading font-bold">Jeremy Dong</span>
             </Link>
             <p className="mt-4 text-light/70">

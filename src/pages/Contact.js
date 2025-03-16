@@ -211,16 +211,29 @@ const Contact = () => {
       {/* Map Section */}
       <div className="w-full mt-12">
         <div className="h-96 w-full">
-          <iframe
-            title={language === 'en' ? 'Location Map' : '位置地图'}
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3051.9400810376!2d-88.23093492346566!3d40.11321197779883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880cd73e0f8deb9d%3A0x9e6eb5fd01368e1e!2s503%20E%20Stoughton%20St%2C%20Champaign%2C%20IL%2061820!5e0!3m2!1sen!2sus!4v1699998765432!5m2!1sen!2sus"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen=""
-            loading="lazy"
-            className="grayscale"
-          ></iframe>
+          {language === 'en' ? (
+            <iframe
+              title="Location Map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3051.9400810376!2d-88.23093492346566!3d40.11321197779883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880cd73e0f8deb9d%3A0x9e6eb5fd01368e1e!2s503%20E%20Stoughton%20St%2C%20Champaign%2C%20IL%2061820!5e0!3m2!1sen!2sus!4v1699998765432!5m2!1sen!2sus"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              className="grayscale"
+            ></iframe>
+          ) : (
+            <iframe
+              title="位置地图"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.0594931163285!2d114.1348884!3d22.5750867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3403f5c785188e8d%3A0xdee189d6a1aa7065!2z55m95rS75Y2X6Lev55m95rS75ZyS5Zyw5LiA5pyf!5e0!3m2!1szh-CN!2scn!4v1718539200000!5m2!1szh-CN!2scn"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              className="grayscale"
+            ></iframe>
+          )}
         </div>
       </div>
     </div>
