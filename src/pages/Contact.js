@@ -203,14 +203,6 @@ const Contact = () => {
                   </a>
                 </div>
               </div>
-              
-              {/* Availability */}
-              <div className="mt-8 bg-primary text-dark p-6 rounded-lg">
-                <h4 className="text-xl font-semibold mb-2">{t.availability[language]}</h4>
-                <p>
-                  {t.availabilityText[language]}
-                </p>
-              </div>
             </motion.div>
           )}
         </div>
