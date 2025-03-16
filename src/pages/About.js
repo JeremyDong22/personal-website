@@ -681,13 +681,13 @@ const About = () => {
                       {language === 'en' ? "Key Courses:" : "核心课程:"}
                     </p>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
                       {index === 0 ? (
                         // Master's courses
                         <>
                           {edu.courses.map((course, courseIndex) => (
-                            <div key={courseIndex} className="bg-darkgray/50 p-2 rounded border border-primary/20">
-                              <span className="text-white">{language === 'en' ? course : 
+                            <div key={courseIndex} className="bg-darkgray/50 p-3 rounded border border-primary/20 flex items-center h-full">
+                              <span className="text-white text-sm break-words hyphens-auto">{language === 'en' ? course : 
                                 course === 'BADM 550: Business Practicum' ? 'BADM 550: 商业实践' :
                                 course === 'BADM 554: Enterprise Database Management' ? 'BADM 554: 企业数据库管理' :
                                 course === 'BDI 513: Data Storytelling' ? 'BDI 513: 数据叙事' :
@@ -705,8 +705,8 @@ const About = () => {
                         // Bachelor's courses
                         <>
                           {edu.courses.map((course, courseIndex) => (
-                            <div key={courseIndex} className="bg-darkgray/50 p-2 rounded border border-primary/20">
-                              <span className="text-white">{language === 'en' ? course : 
+                            <div key={courseIndex} className="bg-darkgray/50 p-3 rounded border border-primary/20 flex items-center h-full">
+                              <span className="text-white text-sm break-words hyphens-auto">{language === 'en' ? course : 
                                 course === 'ACCY 201: Accounting and Accountancy I' ? 'ACCY 201: 会计学 I' :
                                 course === 'ACCY 202: Accounting and Accountancy II' ? 'ACCY 202: 会计学 II' :
                                 course === 'ACCY 301: Atg Measurement & Disclosure' ? 'ACCY 301: 会计计量与披露' :
@@ -740,29 +740,29 @@ const About = () => {
                         <p className="text-gray-300 mb-2 font-semibold text-primary text-sm md:text-base">
                           {language === 'en' ? "AP & Placement Tests:" : "AP课程与测试:"}
                         </p>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
-                          <div className="bg-darkgray/50 p-2 rounded border border-primary/20">
-                            <span className="text-white">{language === 'en' ? 
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
+                          <div className="bg-darkgray/50 p-3 rounded border border-primary/20 flex items-center h-full">
+                            <span className="text-white text-sm break-words hyphens-auto">{language === 'en' ? 
                               "AP Calculus BC (Replaced MATH 220, 231)" : 
                               "AP 微积分 BC (替代 MATH 220, 231)"}</span>
                           </div>
-                          <div className="bg-darkgray/50 p-2 rounded border border-primary/20">
-                            <span className="text-white">{language === 'en' ? 
+                          <div className="bg-darkgray/50 p-3 rounded border border-primary/20 flex items-center h-full">
+                            <span className="text-white text-sm break-words hyphens-auto">{language === 'en' ? 
                               "AP Statistics (Replaced STAT 100)" : 
                               "AP 统计学 (替代 STAT 100)"}</span>
                           </div>
-                          <div className="bg-darkgray/50 p-2 rounded border border-primary/20">
-                            <span className="text-white">{language === 'en' ? 
+                          <div className="bg-darkgray/50 p-3 rounded border border-primary/20 flex items-center h-full">
+                            <span className="text-white text-sm break-words hyphens-auto">{language === 'en' ? 
                               "AP Computer Science (Replaced CS 101)" : 
                               "AP 计算机科学 (替代 CS 101)"}</span>
                           </div>
-                          <div className="bg-darkgray/50 p-2 rounded border border-primary/20">
-                            <span className="text-white">{language === 'en' ? 
+                          <div className="bg-darkgray/50 p-3 rounded border border-primary/20 flex items-center h-full">
+                            <span className="text-white text-sm break-words hyphens-auto">{language === 'en' ? 
                               "AP Physics (Replaced PHYS 211)" : 
                               "AP 物理学 (替代 PHYS 211)"}</span>
                           </div>
-                          <div className="bg-darkgray/50 p-2 rounded border border-primary/20">
-                            <span className="text-white">{language === 'en' ? 
+                          <div className="bg-darkgray/50 p-3 rounded border border-primary/20 flex items-center h-full">
+                            <span className="text-white text-sm break-words hyphens-auto">{language === 'en' ? 
                               "Proficiency Exam (Replaced ECON 102)" : 
                               "能力测试 (替代 ECON 102)"}</span>
                           </div>
