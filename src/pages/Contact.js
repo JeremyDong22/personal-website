@@ -127,7 +127,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="text-lg font-semibold mb-1">{t.location[language]}</h4>
-                    <p className="text-light/80">Champaign, IL</p>
+                    <p className="text-light/80">{language === 'en' ? 'Champaign, IL' : '深圳，广东'}</p>
                   </div>
                 </div>
                 
