@@ -33,9 +33,10 @@ const Navbar = () => {
   // Navigation items with translations
   const navItems = [
     { name: translations.nav.home[language], path: '/' },
-    { name: translations.nav.about[language], path: '/journey' },
+    { name: translations.nav.about[language], path: '/about' },
     { name: translations.nav.projects[language], path: '/projects' },
     { name: translations.nav.sports[language] || 'Sports Career', path: '/sports' },
+    { name: translations.nav.journey[language], path: '/journey' },
     { name: translations.nav.resume[language], path: '/resume' },
     { name: translations.nav.contact[language], path: '/contact' },
   ];

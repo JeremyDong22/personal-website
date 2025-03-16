@@ -11,12 +11,16 @@ const translations = {
       zh: '体育生涯'
     },
     about: {
-      en: 'Journey',
-      zh: '旅程'
+      en: 'About',
+      zh: '关于'
     },
     projects: {
       en: 'Projects',
       zh: '项目'
+    },
+    journey: {
+      en: 'Journey',
+      zh: '旅程'
     },
     resume: {
       en: 'Resume',
@@ -54,8 +58,8 @@ const translations = {
     },
     about: {
       title: {
-        en: 'My Journey',
-        zh: '我的旅程'
+        en: 'About Me',
+        zh: '关于我'
       },
       subtitle: {
         en: 'Analytics and Technology Professional',
