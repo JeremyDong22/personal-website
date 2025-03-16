@@ -209,8 +209,8 @@ const translations = {
       zh: '连接'
     },
     availability: {
-      en: 'Available for select collaborations and premium projects.',
-      zh: '可接受精选合作和高端项目。'
+      en: 'Available for any open-minded project and crazy thoughts sharing.',
+      zh: '欢迎任何开放性项目和疯狂想法的分享。'
     },
     rights: {
       en: 'All rights reserved.',
