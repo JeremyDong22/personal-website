@@ -11,16 +11,12 @@ const translations = {
       zh: '体育生涯'
     },
     about: {
-      en: 'Experience',
-      zh: '经验'
+      en: 'Journey',
+      zh: '旅程'
     },
     projects: {
       en: 'Projects',
       zh: '项目'
-    },
-    journey: {
-      en: 'Journey',
-      zh: '旅程'
     },
     resume: {
       en: 'Resume',
