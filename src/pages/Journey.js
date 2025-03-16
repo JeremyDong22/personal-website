@@ -71,11 +71,11 @@ const Journey = () => {
         {/* Top Back Button */}
         <div className="mb-8">
           <Link 
-            to="/about" 
+            to="/" 
             className="inline-flex items-center gap-2 text-light/50 hover:text-primary transition-colors"
           >
             <FiArrowLeft className="text-sm" />
-            <span className="text-sm">{language === 'en' ? 'Back to About' : '返回关于页面'}</span>
+            <span className="text-sm">{language === 'en' ? 'Back to Home' : '返回首页'}</span>
           </Link>
         </div>
 
@@ -111,11 +111,11 @@ const Journey = () => {
             {/* Bottom Back Button */}
             <div className="mt-16 text-right">
               <Link 
-                to="/about" 
+                to="/" 
                 className="inline-flex items-center gap-2 text-light/50 hover:text-primary transition-colors"
               >
                 <FiArrowLeft className="text-sm" />
-                <span className="text-sm">{language === 'en' ? 'Back to About' : '返回关于页面'}</span>
+                <span className="text-sm">{language === 'en' ? 'Back to Home' : '返回首页'}</span>
               </Link>
             </div>
           </div>
