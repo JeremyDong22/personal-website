@@ -104,15 +104,15 @@ const education = [
     period: 'Aug 2024 - May 2025',
     description: 'GPA: 3.7/4.0',
     courses: [
-      'BADM 550: Business Practicum - A-',
-      'BADM 554: Enterprise Database Management - B+',
-      'BDI 513: Data Storytelling - A+',
-      'FIN 550: Big Data Analytics in Finance - A-',
-      'FIN 553: Machine Learning in Finance - B',
-      'ACCY 512: Data Analytics for Mgmt Acctg - In Progress',
-      'BADM 557: Topics in Bus Intelligence - In Progress',
-      'BADM 576: Data Science and Analytics - In Progress',
-      'FIN 557: Financial Data Mgt. & Analysis - In Progress'
+      'BADM 550: Business Practicum',
+      'BADM 554: Enterprise Database Management',
+      'BDI 513: Data Storytelling',
+      'FIN 550: Big Data Analytics in Finance',
+      'FIN 553: Machine Learning in Finance',
+      'ACCY 512: Data Analytics for Mgmt Acctg',
+      'BADM 557: Topics in Bus Intelligence',
+      'BADM 576: Data Science and Analytics',
+      'FIN 557: Financial Data Mgt. & Analysis'
     ]
   },
   {
@@ -122,27 +122,27 @@ const education = [
     period: 'Aug 2021 - May 2024',
     description: 'GPA: 3.9/4.0',
     courses: [
-      'ACCY 201: Accounting and Accountancy I - A',
-      'ACCY 202: Accounting and Accountancy II - A',
-      'ACCY 301: Atg Measurement & Disclosure - A',
-      'ACCY 302: Decision Making for Atg - A-',
-      'ACCY 303: Atg Institutions and Reg - A-',
-      'ACCY 304: Accounting Control Systems - B',
-      'ACCY 312: Principles of Taxation - A',
-      'ACCY 405: Assurance and Attestation - B-',
-      'ACCY 410: Advanced Financial Reporting - B',
-      'FIN 221: Corporate Finance - A',
-      'BADM 210: Business Analytics I - A-',
-      'BADM 211: Business Analytics II - A+',
-      'BADM 275: Operations Management - A-',
-      'BADM 300: The Legal Environment of Bus - A-',
-      'BADM 310: Mgmt and Organizational Beh - A+',
-      'BADM 320: Principles of Marketing - A',
-      'BADM 350: IT for Networked Organizations - A',
-      'BADM 351: Social Media Strategy - A',
-      'BADM 449: Business Policy and Strategy - A-',
-      'ECON 102: Microeconomic Principles - PS',
-      'ECON 103: Macroeconomic Principles - A'
+      'ACCY 201: Accounting and Accountancy I',
+      'ACCY 202: Accounting and Accountancy II',
+      'ACCY 301: Atg Measurement & Disclosure',
+      'ACCY 302: Decision Making for Atg',
+      'ACCY 303: Atg Institutions and Reg',
+      'ACCY 304: Accounting Control Systems',
+      'ACCY 312: Principles of Taxation',
+      'ACCY 405: Assurance and Attestation',
+      'ACCY 410: Advanced Financial Reporting',
+      'FIN 221: Corporate Finance',
+      'BADM 210: Business Analytics I',
+      'BADM 211: Business Analytics II',
+      'BADM 275: Operations Management',
+      'BADM 300: The Legal Environment of Bus',
+      'BADM 310: Mgmt and Organizational Beh',
+      'BADM 320: Principles of Marketing',
+      'BADM 350: IT for Networked Organizations',
+      'BADM 351: Social Media Strategy',
+      'BADM 449: Business Policy and Strategy',
+      'ECON 102: Microeconomic Principles',
+      'ECON 103: Macroeconomic Principles'
     ]
   },
 ];
@@ -291,7 +291,7 @@ const About = () => {
     <>
       {/* Hero Section */}
       <Hero
-        title={language === 'en' ? "Journey" : "旅程"}
+        title={language === 'en' ? "About Me" : "关于我"}
         subtitle={language === 'en' 
           ? <>Learn more about my <a href="#skills" onClick={scrollToSection('skills')} className="btn-link">skills</a>, <a href="#experience" onClick={scrollToSection('experience')} className="btn-link">experience</a>, and <a href="#education" onClick={scrollToSection('education')} className="btn-link">education</a></>
           : <>了解更多关于我的<a href="#skills" onClick={scrollToSection('skills')} className="btn-link">技能</a>、<a href="#experience" onClick={scrollToSection('experience')} className="btn-link">经验</a>和<a href="#education" onClick={scrollToSection('education')} className="btn-link">教育背景</a></>
@@ -688,15 +688,15 @@ const About = () => {
                           {edu.courses.map((course, courseIndex) => (
                             <div key={courseIndex} className="bg-darkgray/50 p-2 rounded border border-primary/20">
                               <span className="text-white">{language === 'en' ? course : 
-                                course === 'BADM 550: Business Practicum - A-' ? 'BADM 550: 商业实践 - A-' :
-                                course === 'BADM 554: Enterprise Database Management - B+' ? 'BADM 554: 企业数据库管理 - B+' :
-                                course === 'BDI 513: Data Storytelling - A+' ? 'BDI 513: 数据叙事 - A+' :
-                                course === 'FIN 550: Big Data Analytics in Finance - A-' ? 'FIN 550: 金融大数据分析 - A-' :
-                                course === 'FIN 553: Machine Learning in Finance - B' ? 'FIN 553: 金融机器学习 - B' :
-                                course === 'ACCY 512: Data Analytics for Mgmt Acctg - In Progress' ? 'ACCY 512: 管理会计数据分析 - 进行中' :
-                                course === 'BADM 557: Topics in Bus Intelligence - In Progress' ? 'BADM 557: 商业智能专题 - 进行中' :
-                                course === 'BADM 576: Data Science and Analytics - In Progress' ? 'BADM 576: 数据科学与分析 - 进行中' :
-                                'FIN 557: 金融数据管理与分析 - 进行中'
+                                course === 'BADM 550: Business Practicum' ? 'BADM 550: 商业实践' :
+                                course === 'BADM 554: Enterprise Database Management' ? 'BADM 554: 企业数据库管理' :
+                                course === 'BDI 513: Data Storytelling' ? 'BDI 513: 数据叙事' :
+                                course === 'FIN 550: Big Data Analytics in Finance' ? 'FIN 550: 金融大数据分析' :
+                                course === 'FIN 553: Machine Learning in Finance' ? 'FIN 553: 金融机器学习' :
+                                course === 'ACCY 512: Data Analytics for Mgmt Acctg' ? 'ACCY 512: 管理会计数据分析' :
+                                course === 'BADM 557: Topics in Bus Intelligence' ? 'BADM 557: 商业智能专题' :
+                                course === 'BADM 576: Data Science and Analytics' ? 'BADM 576: 数据科学与分析' :
+                                'FIN 557: 金融数据管理与分析'
                               }</span>
                             </div>
                           ))}
@@ -707,27 +707,27 @@ const About = () => {
                           {edu.courses.map((course, courseIndex) => (
                             <div key={courseIndex} className="bg-darkgray/50 p-2 rounded border border-primary/20">
                               <span className="text-white">{language === 'en' ? course : 
-                                course === 'ACCY 201: Accounting and Accountancy I - A' ? 'ACCY 201: 会计学 I - A' :
-                                course === 'ACCY 202: Accounting and Accountancy II - A' ? 'ACCY 202: 会计学 II - A' :
-                                course === 'ACCY 301: Atg Measurement & Disclosure - A' ? 'ACCY 301: 会计计量与披露 - A' :
-                                course === 'ACCY 302: Decision Making for Atg - A-' ? 'ACCY 302: 会计决策 - A-' :
-                                course === 'ACCY 303: Atg Institutions and Reg - A-' ? 'ACCY 303: 会计制度与法规 - A-' :
-                                course === 'ACCY 304: Accounting Control Systems - B' ? 'ACCY 304: 会计控制系统 - B' :
-                                course === 'ACCY 312: Principles of Taxation - A' ? 'ACCY 312: 税务原理 - A' :
-                                course === 'ACCY 405: Assurance and Attestation - B-' ? 'ACCY 405: 审计与认证 - B-' :
-                                course === 'ACCY 410: Advanced Financial Reporting - B' ? 'ACCY 410: 高级财务报告 - B' :
-                                course === 'FIN 221: Corporate Finance - A' ? 'FIN 221: 公司金融 - A' :
-                                course === 'BADM 210: Business Analytics I - A-' ? 'BADM 210: 商业分析 I - A-' :
-                                course === 'BADM 211: Business Analytics II - A+' ? 'BADM 211: 商业分析 II - A+' :
-                                course === 'BADM 275: Operations Management - A-' ? 'BADM 275: 运营管理 - A-' :
-                                course === 'BADM 300: The Legal Environment of Bus - A-' ? 'BADM 300: 商业法律环境 - A-' :
-                                course === 'BADM 310: Mgmt and Organizational Beh - A+' ? 'BADM 310: 管理与组织行为 - A+' :
-                                course === 'BADM 320: Principles of Marketing - A' ? 'BADM 320: 市场营销原理 - A' :
-                                course === 'BADM 350: IT for Networked Organizations - A' ? 'BADM 350: 网络组织信息技术 - A' :
-                                course === 'BADM 351: Social Media Strategy - A' ? 'BADM 351: 社交媒体策略 - A' :
-                                course === 'BADM 449: Business Policy and Strategy - A-' ? 'BADM 449: 商业政策与战略 - A-' :
-                                course === 'ECON 102: Microeconomic Principles - PS' ? 'ECON 102: 微观经济学原理 - PS' :
-                                'ECON 103: 宏观经济学原理 - A'
+                                course === 'ACCY 201: Accounting and Accountancy I' ? 'ACCY 201: 会计学 I' :
+                                course === 'ACCY 202: Accounting and Accountancy II' ? 'ACCY 202: 会计学 II' :
+                                course === 'ACCY 301: Atg Measurement & Disclosure' ? 'ACCY 301: 会计计量与披露' :
+                                course === 'ACCY 302: Decision Making for Atg' ? 'ACCY 302: 会计决策' :
+                                course === 'ACCY 303: Atg Institutions and Reg' ? 'ACCY 303: 会计制度与法规' :
+                                course === 'ACCY 304: Accounting Control Systems' ? 'ACCY 304: 会计控制系统' :
+                                course === 'ACCY 312: Principles of Taxation' ? 'ACCY 312: 税务原理' :
+                                course === 'ACCY 405: Assurance and Attestation' ? 'ACCY 405: 审计与认证' :
+                                course === 'ACCY 410: Advanced Financial Reporting' ? 'ACCY 410: 高级财务报告' :
+                                course === 'FIN 221: Corporate Finance' ? 'FIN 221: 公司金融' :
+                                course === 'BADM 210: Business Analytics I' ? 'BADM 210: 商业分析 I' :
+                                course === 'BADM 211: Business Analytics II' ? 'BADM 211: 商业分析 II' :
+                                course === 'BADM 275: Operations Management' ? 'BADM 275: 运营管理' :
+                                course === 'BADM 300: The Legal Environment of Bus' ? 'BADM 300: 商业法律环境' :
+                                course === 'BADM 310: Mgmt and Organizational Beh' ? 'BADM 310: 管理与组织行为' :
+                                course === 'BADM 320: Principles of Marketing' ? 'BADM 320: 市场营销原理' :
+                                course === 'BADM 350: IT for Networked Organizations' ? 'BADM 350: 网络组织信息技术' :
+                                course === 'BADM 351: Social Media Strategy' ? 'BADM 351: 社交媒体策略' :
+                                course === 'BADM 449: Business Policy and Strategy' ? 'BADM 449: 商业政策与战略' :
+                                course === 'ECON 102: Microeconomic Principles' ? 'ECON 102: 微观经济学原理' :
+                                'ECON 103: 宏观经济学原理'
                               }</span>
                             </div>
                           ))}
