@@ -1,0 +1,26 @@
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { FiArrowRight, FiGithub, FiLinkedin, FiMail, FiPhone, FiCode, FiLayers, FiUsers } from 'react-icons/fi';
+import { SiWechat } from 'react-icons/si';
+import { motion } from 'framer-motion';
+
+// Components
+import Hero from '../../shared/components/Hero';
+import Section from '../../shared/components/Section';
+import ProjectCard from '../../shared/components/ProjectCard';
+import QRCodeModal from '../contact/QRCodeModal';
+
+// Language Context
+import { useLanguage } from '../../shared/context/LanguageContext';
+import translations from '../../shared/context/translations';
+
+// Import hero image
+import heroImage from '../../shared/assets/images/home/hero/home_hero.jpg';
+import aboutImage from '../../shared/assets/images/home/profile.jpeg';
+
+// Project images
+const projectImages = {
+  webDev: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80',  // Beautiful abstract tech visualization
+  design: 'https://images.unsplash.com/photo-1584291527935-456e8e2dd734?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+  business: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2832&q=80',
+}; 
