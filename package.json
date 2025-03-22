@@ -5,6 +5,7 @@
   "homepage": "https://jeremydong22.github.io",
   "dependencies": {
     "@emailjs/browser": "4.4.1",
+    "@tailwindcss/aspect-ratio": "0.4.2",
     "autoprefixer": "^10.4.16",
     "framer-motion": "^10.16.4",
     "gh-pages": "^6.3.0",

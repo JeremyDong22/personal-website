@@ -1,75 +1,208 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FiExternalLink, FiGithub } from 'react-icons/fi';
+import { FiGithub, FiExternalLink, FiClock, FiUsers, FiTag } from 'react-icons/fi';
 
 const ProjectCard = ({ 
-  title, 
-  description, 
-  image, 
-  tags = [], 
-  liveUrl, 
-  githubUrl,
-  index = 0
+  project, 
+  language, 
+  index,
+  layoutType = 'grid' // 'grid' or 'featured'
 }) => {
+  // Animation variants
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.5, 
+        delay: index * 0.1 
+      }
+    },
+    hover: { 
+      scale: 1.02,
+      boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)",
+      transition: { duration: 0.3, ease: "easeInOut" }
+    },
+    rest: { 
+      scale: 1,
+      boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
+      transition: { duration: 0.2, ease: "easeInOut" }
+    }
+  };
+
+  // Status color map
+  const statusColors = {
+    completed: "bg-green-500",
+    "in-progress": "bg-yellow-500",
+    archived: "bg-gray-500"
+  };
+
+  // Get background pattern based on project category
+  const getBackgroundPattern = () => {
+    if (project.featured) {
+      return 'pattern-featured';
+    }
+    
+    if (project.categories.includes('frontend')) {
+      return 'pattern-frontend';
+    }
+    
+    if (project.categories.includes('backend')) {
+      return 'pattern-backend';
+    }
+    
+    if (project.categories.includes('fullstack')) {
+      return 'pattern-fullstack';
+    }
+    
+    if (project.categories.includes('automation')) {
+      return 'pattern-automation';
+    }
+    
+    return '';
+  };
+
   return (
-    <motion.div 
-      className="overflow-hidden flex flex-col h-full bg-darkgray border border-primary/20 hover:border-primary transition-all duration-300 luxury-shadow"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -5, transition: { duration: 0.2 } }}
+    <motion.div
+      className={`bg-dark border border-primary/20 rounded-lg overflow-hidden luxury-shadow ${
+        layoutType === 'featured' ? 'col-span-2' : ''
+      }`}
+      variants={cardVariants}
+      initial="hidden"
+      animate="visible"
+      whileHover="hover"
     >
       {/* Project Image */}
-      <div className="relative overflow-hidden h-64 border-b border-primary/20">
-        <img 
-          src={image} 
-          alt={title} 
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-dark/30 hover:bg-transparent transition-all duration-300"></div>
+      <div className="relative">
+        {project.image ? (
+          <div className="aspect-w-16 aspect-h-9">
+            <img 
+              src={project.image} 
+              alt={project.title[language]} 
+              className="object-cover w-full h-full transform hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+        ) : (
+          <div className={`aspect-w-16 aspect-h-9 ${getBackgroundPattern()}`}>
+            <div className="flex items-center justify-center w-full h-full p-8 text-primary">
+              <div className="text-center">
+                <div className="text-6xl mb-4">{project.emoji}</div>
+                <h3 className="text-xl font-semibold">{project.title[language]}</h3>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* Status badge */}
+        {project.status && (
+          <div className="absolute top-4 right-4">
+            <span className={`text-xs px-2 py-1 rounded-full text-white ${statusColors[project.status] || "bg-blue-500"}`}>
+              {language === 'en' ? project.status : project.statusZh}
+            </span>
+          </div>
+        )}
       </div>
       
-      {/* Project Content */}
-      <div className="p-6 flex flex-col flex-grow">
-        <h3 className="text-xl font-heading font-bold mb-2 text-primary">{title}</h3>
+      {/* Content */}
+      <div className="p-6">
+        <h3 className="text-xl font-bold mb-3 text-primary">
+          {project.title[language]}
+        </h3>
         
-        <p className="text-light/80 mb-4 flex-grow">{description}</p>
+        {/* Categories/Tags */}
+        {project.categories && project.categories.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-3">
+            {project.categories.map((category, idx) => (
+              <span 
+                key={idx} 
+                className="inline-flex items-center text-xs px-2 py-1 rounded-full bg-primary/10 text-primary"
+              >
+                <FiTag className="mr-1" />
+                {language === 'en' ? category : project.categoriesZh?.[idx] || category}
+              </span>
+            ))}
+          </div>
+        )}
         
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {tags.map((tag, i) => (
-            <span 
-              key={i} 
-              className="px-3 py-1 bg-dark text-primary text-xs uppercase tracking-wider border border-primary/30"
-            >
-              {tag}
-            </span>
-          ))}
+        <p className="text-light/80 mb-4">
+          {project.description[language]}
+        </p>
+        
+        {/* Project details */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+          {/* Tech stack */}
+          <div>
+            <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2">
+              {language === 'en' ? 'Technologies' : '技术栈'}
+            </h4>
+            <p className="text-light/60 text-sm">
+              {project.tech[language]}
+            </p>
+          </div>
+          
+          {/* Project duration if available */}
+          {project.duration && (
+            <div>
+              <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2">
+                {language === 'en' ? 'Duration' : '项目周期'}
+              </h4>
+              <p className="text-light/60 text-sm flex items-center">
+                <FiClock className="mr-1" />
+                {project.duration}
+              </p>
+            </div>
+          )}
+          
+          {/* Team size if available */}
+          {project.teamSize && (
+            <div>
+              <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2">
+                {language === 'en' ? 'Team Size' : '团队规模'}
+              </h4>
+              <p className="text-light/60 text-sm flex items-center">
+                <FiUsers className="mr-1" />
+                {project.teamSize}
+              </p>
+            </div>
+          )}
+          
+          {/* Role if available */}
+          {project.role && (
+            <div>
+              <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2">
+                {language === 'en' ? 'My Role' : '我的角色'}
+              </h4>
+              <p className="text-light/60 text-sm">
+                {project.role[language]}
+              </p>
+            </div>
+          )}
         </div>
         
         {/* Links */}
-        <div className="flex gap-4 mt-auto pt-4 border-t border-primary/20">
-          {githubUrl && (
+        <div className="flex items-center justify-between pt-4 border-t border-primary/10">
+          {project.githubUrl && (
             <a 
-              href={githubUrl} 
+              href={project.githubUrl} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-primary hover:text-lightgold transition-colors"
-              aria-label="View source code on GitHub"
+              className="flex items-center text-primary hover:text-primary/80 transition-colors"
             >
-              <FiGithub /> <span className="text-xs uppercase tracking-wider">Code</span>
+              <FiGithub className="mr-2" />
+              {language === 'en' ? 'View on GitHub' : '在GitHub上查看'}
             </a>
           )}
           
-          {liveUrl && (
+          {project.liveUrl && (
             <a 
-              href={liveUrl} 
+              href={project.liveUrl} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-primary hover:text-lightgold transition-colors"
-              aria-label="View live project"
+              className="flex items-center text-primary hover:text-primary/80 transition-colors ml-auto"
             >
-              <FiExternalLink /> <span className="text-xs uppercase tracking-wider">Live Demo</span>
+              <FiExternalLink className="mr-2" />
+              {language === 'en' ? 'Live Demo' : '在线演示'}
             </a>
           )}
         </div>

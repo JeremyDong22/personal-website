@@ -1,14 +1,17 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { FiClock, FiGithub, FiExternalLink } from 'react-icons/fi';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FiClock, FiGithub, FiExternalLink, FiFilter } from 'react-icons/fi';
 import { useLanguage } from '../context/LanguageContext';
 
 // Components
 import Hero from '../components/Hero';
 import Section from '../components/Section';
+import ProjectCard from '../components/ProjectCard';
 
 const Projects = () => {
   const { language } = useLanguage();
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [filteredProjects, setFilteredProjects] = useState([]);
 
   const translations = {
     hero: {
@@ -17,18 +20,44 @@ const Projects = () => {
         zh: "我的项目"
       },
       subtitle: {
-        en: "A showcase of my work and contributions",
-        zh: "展示我的工作和贡献"
+        en: "From concept to prototype in days – accelerating business validation through rapid development",
+        zh: "从概念到原型仅需数天 – 通过快速开发加速商业验证"
+      }
+    },
+    filters: {
+      all: {
+        en: "All Projects",
+        zh: "所有项目"
+      },
+      backend: {
+        en: "Backend",
+        zh: "后端"
+      },
+      frontend: {
+        en: "Frontend",
+        zh: "前端"
+      },
+      fullstack: {
+        en: "Full Stack",
+        zh: "全栈"
+      },
+      automation: {
+        en: "Automation",
+        zh: "自动化"
+      },
+      featured: {
+        en: "Featured",
+        zh: "精选"
       }
     },
     projects: {
       title: {
-        en: "Featured Projects",
-        zh: "精选项目"
+        en: "Rapid Prototypes & MVPs",
+        zh: "快速原型和最小可行产品"
       },
       description: {
-        en: "Here are some of my recent projects that showcase my skills and interests.",
-        zh: "以下是我最近的一些项目，展示了我的技能和兴趣。"
+        en: "All projects built in days, not months. Perfect for business validation, quick market entry, and gathering user feedback before full investment.",
+        zh: "所有项目都在几天内完成，而非数月。适合业务验证、快速进入市场和在全面投资前收集用户反馈。"
       },
       logistics: {
         title: {
@@ -74,6 +103,139 @@ const Projects = () => {
       }
     }
   };
+
+  // Project data
+  const projects = [
+    {
+      id: 1,
+      title: {
+        en: "Logistics Aggregation Solution",
+        zh: "菜鸟物流价格查询系统"
+      },
+      description: {
+        en: "Built in just 2 weeks, this Node.js logistics system provides optimal shipping recommendations based on item specifications. Perfect for rapidly validating shipping aggregation services with minimal investment.",
+        zh: "仅用2周时间构建，这个基于Node.js的物流系统根据物品规格提供最佳运输建议。以最小的投入快速验证物流聚合服务的理想解决方案。"
+      },
+      tech: {
+        en: "Node.js, Express.js, SQLite3, OpenAI API (GPT-3.5-turbo)",
+        zh: "Node.js, Express.js, SQLite3, OpenAI API (GPT-3.5-turbo)"
+      },
+      emoji: "📦",
+      categories: ["backend", "automation", "featured"],
+      categoriesZh: ["后端", "自动化", "精选"],
+      status: "completed",
+      statusZh: "已完成",
+      duration: "2 weeks",
+      role: {
+        en: "Lead Developer",
+        zh: "主要开发者"
+      },
+      teamSize: "1",
+      githubUrl: "https://github.com/JeremyDong22/Logistics-Aggregation-Solution",
+      featured: true
+    },
+    {
+      id: 2,
+      title: {
+        en: "JD Price Crawler",
+        zh: "京东价格爬虫工具"
+      },
+      description: {
+        en: "A 3-day prototype for intelligent e-commerce price monitoring. This rapid solution helped validate market demand for pricing intelligence tools before committing to a full-scale development.",
+        zh: "一个用于智能电商价格监控的3天原型。这个快速解决方案帮助在投入全面开发前验证了定价情报工具的市场需求。"
+      },
+      tech: {
+        en: "Python, Selenium, OpenCV, PyAutoGUI, Flask",
+        zh: "Python, Selenium, OpenCV, PyAutoGUI, Flask"
+      },
+      emoji: "🔍",
+      categories: ["backend", "automation", "featured"],
+      categoriesZh: ["后端", "自动化", "精选"],
+      status: "completed",
+      statusZh: "已完成",
+      duration: "3 days",
+      role: {
+        en: "Solo Developer",
+        zh: "独立开发者"
+      },
+      teamSize: "1",
+      githubUrl: "https://github.com/JeremyDong22/JD_Price_Crawler",
+      featured: true
+    },
+    {
+      id: 3,
+      title: {
+        en: "Personal Portfolio Website",
+        zh: "个人作品集网站"
+      },
+      description: {
+        en: "Developed in just 5 days from concept to deployment, this portfolio showcases rapid iteration capabilities. Built with modern technologies for quick business validation and easy extension.",
+        zh: "从概念到部署仅用5天开发，这个作品集展示了快速迭代能力。使用现代技术构建，便于快速业务验证和轻松扩展。"
+      },
+      tech: {
+        en: "React, Tailwind CSS, Framer Motion, React Router",
+        zh: "React, Tailwind CSS, Framer Motion, React Router"
+      },
+      emoji: "🌐",
+      categories: ["frontend", "featured"],
+      categoriesZh: ["前端", "精选"],
+      status: "in-progress",
+      statusZh: "进行中",
+      duration: "5 days",
+      role: {
+        en: "Designer & Developer",
+        zh: "设计师和开发者"
+      },
+      teamSize: "1",
+      githubUrl: "https://github.com/JeremyDong22/jeremydong22.github.io",
+      liveUrl: "https://jeremydong22.github.io",
+      featured: true
+    }
+  ];
+
+  // Initialize filtered projects with all projects on component mount
+  useEffect(() => {
+    setFilteredProjects(projects);
+  }, []);
+
+  // Filter projects based on selected category
+  useEffect(() => {
+    if (selectedCategory === 'all') {
+      setFilteredProjects(projects);
+    } else {
+      setFilteredProjects(
+        projects.filter(project => 
+          project.categories.includes(selectedCategory)
+        )
+      );
+    }
+  }, [selectedCategory]);
+
+  // Animation variants for filter buttons
+  const buttonVariants = {
+    active: {
+      backgroundColor: "#D4AF37",
+      color: "#080808",
+      scale: 1.05,
+      transition: { type: "spring", stiffness: 300 }
+    },
+    inactive: {
+      backgroundColor: "rgba(212, 175, 55, 0.1)",
+      color: "#D4AF37",
+      scale: 1
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.1
+      }
+    }
+  };
   
   return (
     <>
@@ -86,12 +248,12 @@ const Projects = () => {
       {/* Projects Section */}
       <Section className="bg-darkgray">
         <motion.div 
-          className="py-20"
+          className="py-16 md:py-20"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="text-center mb-12">
+          <div className="text-center mb-10 md:mb-16">
             <h2 className="text-4xl font-bold mb-4 text-primary">
               {translations.projects.title[language]}
             </h2>
@@ -100,96 +262,118 @@ const Projects = () => {
             </p>
           </div>
           
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-12">
-            {/* Logistics Aggregation Solution */}
-            <motion.div
-              className="bg-dark border border-primary/20 rounded-lg overflow-hidden luxury-shadow"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-10">
+            <motion.button
+              className="px-4 py-2 rounded-full text-sm font-medium flex items-center"
+              onClick={() => setSelectedCategory('all')}
+              variants={buttonVariants}
+              initial="inactive"
+              animate={selectedCategory === 'all' ? "active" : "inactive"}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <div className="aspect-w-16 aspect-h-9 bg-gray-800 p-8 flex items-center justify-center text-primary">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">📦</div>
-                  <h3 className="text-xl font-semibold">
-                    {translations.projects.logistics.title[language]}
-                  </h3>
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-3 text-primary">
-                  {translations.projects.logistics.title[language]}
-                </h3>
-                <p className="text-light/80 mb-4">
-                  {translations.projects.logistics.description[language]}
-                </p>
-                <div className="mb-4">
-                  <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2">
-                    {language === 'en' ? 'Technologies' : '技术栈'}
-                  </h4>
-                  <p className="text-light/60 text-sm">
-                    {translations.projects.logistics.tech[language]}
-                  </p>
-                </div>
-                <div className="flex items-center justify-between pt-4 border-t border-primary/10">
-                  <a 
-                    href="https://github.com/JeremyDong22/Logistics-Aggregation-Solution" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center text-primary hover:text-primary/80 transition-colors"
-                  >
-                    <FiGithub className="mr-2" />
-                    {language === 'en' ? 'View on GitHub' : '在GitHub上查看'}
-                  </a>
-                </div>
-              </div>
-            </motion.div>
+              {translations.filters.all[language]}
+            </motion.button>
             
-            {/* JD Price Crawler */}
-            <motion.div
-              className="bg-dark border border-primary/20 rounded-lg overflow-hidden luxury-shadow"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+            <motion.button
+              className="px-4 py-2 rounded-full text-sm font-medium flex items-center"
+              onClick={() => setSelectedCategory('frontend')}
+              variants={buttonVariants}
+              initial="inactive"
+              animate={selectedCategory === 'frontend' ? "active" : "inactive"}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <div className="aspect-w-16 aspect-h-9 bg-gray-800 p-8 flex items-center justify-center text-primary">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">🔍</div>
-                  <h3 className="text-xl font-semibold">
-                    {translations.projects.priceCrawler.title[language]}
-                  </h3>
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-3 text-primary">
-                  {translations.projects.priceCrawler.title[language]}
-                </h3>
-                <p className="text-light/80 mb-4">
-                  {translations.projects.priceCrawler.description[language]}
-                </p>
-                <div className="mb-4">
-                  <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2">
-                    {language === 'en' ? 'Technologies' : '技术栈'}
-                  </h4>
-                  <p className="text-light/60 text-sm">
-                    {translations.projects.priceCrawler.tech[language]}
-                  </p>
-                </div>
-                <div className="flex items-center justify-between pt-4 border-t border-primary/10">
-                  <a 
-                    href="https://github.com/JeremyDong22/JD_Price_Crawler" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center text-primary hover:text-primary/80 transition-colors"
-                  >
-                    <FiGithub className="mr-2" />
-                    {language === 'en' ? 'View on GitHub' : '在GitHub上查看'}
-                  </a>
-                </div>
-              </div>
-            </motion.div>
+              {translations.filters.frontend[language]}
+            </motion.button>
+            
+            <motion.button
+              className="px-4 py-2 rounded-full text-sm font-medium flex items-center"
+              onClick={() => setSelectedCategory('backend')}
+              variants={buttonVariants}
+              initial="inactive"
+              animate={selectedCategory === 'backend' ? "active" : "inactive"}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {translations.filters.backend[language]}
+            </motion.button>
+            
+            <motion.button
+              className="px-4 py-2 rounded-full text-sm font-medium flex items-center"
+              onClick={() => setSelectedCategory('fullstack')}
+              variants={buttonVariants}
+              initial="inactive"
+              animate={selectedCategory === 'fullstack' ? "active" : "inactive"}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {translations.filters.fullstack[language]}
+            </motion.button>
+            
+            <motion.button
+              className="px-4 py-2 rounded-full text-sm font-medium flex items-center"
+              onClick={() => setSelectedCategory('automation')}
+              variants={buttonVariants}
+              initial="inactive"
+              animate={selectedCategory === 'automation' ? "active" : "inactive"}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {translations.filters.automation[language]}
+            </motion.button>
+            
+            <motion.button
+              className="px-4 py-2 rounded-full text-sm font-medium flex items-center"
+              onClick={() => setSelectedCategory('featured')}
+              variants={buttonVariants}
+              initial="inactive"
+              animate={selectedCategory === 'featured' ? "active" : "inactive"}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FiFilter className="mr-2" />
+              {translations.filters.featured[language]}
+            </motion.button>
           </div>
+          
+          {/* Projects Grid */}
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={selectedCategory}
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+            >
+              {filteredProjects.map((project, index) => (
+                <ProjectCard 
+                  key={project.id}
+                  project={project}
+                  language={language}
+                  index={index}
+                  layoutType={project.featured && index === 0 ? 'featured' : 'grid'}
+                />
+              ))}
+              
+              {filteredProjects.length === 0 && (
+                <motion.div 
+                  className="col-span-full text-center py-20"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                >
+                  <p className="text-xl text-light/60">
+                    {language === 'en' 
+                      ? 'No projects found in this category.' 
+                      : '在此类别中没有找到项目。'
+                    }
+                  </p>
+                </motion.div>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </motion.div>
       </Section>
       
@@ -199,6 +383,7 @@ const Projects = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          className="py-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
             {translations.cta.title[language]}
