@@ -37,7 +37,7 @@ const Footer = () => {
             <ul className="space-y-2">
               {[
                 { name: translations.nav.home[language], path: '/' },
-                { name: translations.nav.about[language], path: '/journey' },
+                { name: translations.nav.about[language], path: '/about' },
                 { name: translations.nav.projects[language], path: '/projects' },
                 { name: translations.nav.contact[language], path: '/contact' },
               ].map((link) => (
