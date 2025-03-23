@@ -57,30 +57,69 @@ const professionalSkills = [
 const featuredProjects = [
   {
     id: 1,
-    title: 'AI-Powered Reddit Growth Strategy',
-    description: 'Developed AI automation system using Crew.ai and PRAW for community engagement, with personalized ChatGPT integration.',
+    title: {
+      en: 'AI-Powered Reddit Growth Strategy',
+      zh: 'AI驱动的Reddit增长策略'
+    },
+    description: {
+      en: 'Developed AI automation system using Crew.ai and PRAW for community engagement, with personalized ChatGPT integration.',
+      zh: '使用Crew.ai和PRAW开发AI自动化系统进行社区参与，并集成个性化ChatGPT。'
+    },
     image: projectImages.webDev,
     tags: ['Python', 'AI', 'Data Analysis'],
+    categories: ['automation', 'backend'],
+    categoriesZh: ['自动化', '后端'],
     githubUrl: 'https://github.com/JeremyDong22/reddit-growth',
     liveUrl: '#',
+    tech: {
+      en: 'Python, Crew.ai, PRAW, ChatGPT API',
+      zh: 'Python, Crew.ai, PRAW, ChatGPT API'
+    },
+    emoji: '🤖'
   },
   {
     id: 2,
-    title: 'Medical Research Automation',
-    description: 'Created automated workflow for continuous medical research data collection, processing 300+ keywords across multiple sources.',
+    title: {
+      en: 'Medical Research Automation',
+      zh: '医学研究自动化'
+    },
+    description: {
+      en: 'Created automated workflow for continuous medical research data collection, processing 300+ keywords across multiple sources.',
+      zh: '创建自动化工作流程进行持续医学研究数据收集，处理来自多个来源的300多个关键词。'
+    },
     image: projectImages.design,
     tags: ['Python', 'NLP', 'API Integration'],
+    categories: ['automation', 'backend'],
+    categoriesZh: ['自动化', '后端'],
     githubUrl: 'https://github.com/JeremyDong22/medical-research',
     liveUrl: '#',
+    tech: {
+      en: 'Python, NLP, RESTful APIs',
+      zh: 'Python, NLP, RESTful APIs'
+    },
+    emoji: '🔬'
   },
   {
     id: 3,
-    title: 'Real Estate Price Prediction',
-    description: 'Developed ML models using polynomial regression, gradient boosting, and random forest, achieving top 3 ranking among 20+ teams.',
+    title: {
+      en: 'Real Estate Price Prediction',
+      zh: '房地产价格预测'
+    },
+    description: {
+      en: 'Developed ML models using polynomial regression, gradient boosting, and random forest, achieving top 3 ranking among 20+ teams.',
+      zh: '使用多项式回归、梯度提升和随机森林开发ML模型，在20多个团队中排名前3。'
+    },
     image: projectImages.business,
     tags: ['R', 'Machine Learning', 'Statistical Analysis'],
+    categories: ['data science', 'machine learning'],
+    categoriesZh: ['数据科学', '机器学习'],
     githubUrl: 'https://github.com/JeremyDong22/real-estate',
     liveUrl: '#',
+    tech: {
+      en: 'R, Random Forest, Gradient Boosting',
+      zh: 'R, 随机森林, 梯度提升'
+    },
+    emoji: '🏠'
   },
 ];
 
@@ -237,7 +276,7 @@ const Home = () => {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredProjects.map((project, index) => (
-            <ProjectCard key={project.id} {...project} index={index} />
+            <ProjectCard key={project.id} project={project} language={language} index={index} />
           ))}
         </div>
         <div className="text-center mt-12">

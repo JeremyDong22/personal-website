@@ -3,11 +3,16 @@ import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiClock, FiUsers, FiTag } from 'react-icons/fi';
 
 const ProjectCard = ({ 
-  project, 
-  language, 
-  index,
+  project = {}, // Add default empty object to prevent undefined errors
+  language = 'en', // Add default language
+  index = 0,
   layoutType = 'grid' // 'grid' or 'featured'
 }) => {
+  // Add safety check to return null if project is missing
+  if (!project || Object.keys(project).length === 0) {
+    return null;
+  }
+  
   // Animation variants
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -79,7 +84,7 @@ const ProjectCard = ({
           <div className="aspect-w-16 aspect-h-9">
             <img 
               src={project.image} 
-              alt={project.title[language]} 
+              alt={project.title?.[language] || ''} 
               className="object-cover w-full h-full transform hover:scale-105 transition-transform duration-500"
             />
           </div>
@@ -87,8 +92,8 @@ const ProjectCard = ({
           <div className={`aspect-w-16 aspect-h-9 ${getBackgroundPattern()}`}>
             <div className="flex items-center justify-center w-full h-full p-8 text-primary">
               <div className="text-center">
-                <div className="text-6xl mb-4">{project.emoji}</div>
-                <h3 className="text-xl font-semibold">{project.title[language]}</h3>
+                <div className="text-6xl mb-4">{project.emoji || '🚀'}</div>
+                <h3 className="text-xl font-semibold">{project.title?.[language] || 'Project'}</h3>
               </div>
             </div>
           </div>
@@ -98,7 +103,7 @@ const ProjectCard = ({
         {project.status && (
           <div className="absolute top-4 right-4">
             <span className={`text-xs px-2 py-1 rounded-full text-white ${statusColors[project.status] || "bg-blue-500"}`}>
-              {language === 'en' ? project.status : project.statusZh}
+              {language === 'en' ? project.status : project.statusZh || project.status}
             </span>
           </div>
         )}
@@ -107,7 +112,7 @@ const ProjectCard = ({
       {/* Content */}
       <div className="p-6">
         <h3 className="text-xl font-bold mb-3 text-primary">
-          {project.title[language]}
+          {project.title?.[language] || 'Project Title'}
         </h3>
         
         {/* Categories/Tags */}
@@ -126,20 +131,22 @@ const ProjectCard = ({
         )}
         
         <p className="text-light/80 mb-4">
-          {project.description[language]}
+          {project.description?.[language] || ''}
         </p>
         
         {/* Project details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
           {/* Tech stack */}
-          <div>
-            <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2">
-              {language === 'en' ? 'Technologies' : '技术栈'}
-            </h4>
-            <p className="text-light/60 text-sm">
-              {project.tech[language]}
-            </p>
-          </div>
+          {project.tech && (
+            <div>
+              <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2">
+                {language === 'en' ? 'Technologies' : '技术栈'}
+              </h4>
+              <p className="text-light/60 text-sm">
+                {project.tech[language] || ''}
+              </p>
+            </div>
+          )}
           
           {/* Project duration if available */}
           {project.duration && (
@@ -174,7 +181,7 @@ const ProjectCard = ({
                 {language === 'en' ? 'My Role' : '我的角色'}
               </h4>
               <p className="text-light/60 text-sm">
-                {project.role[language]}
+                {project.role[language] || ''}
               </p>
             </div>
           )}
