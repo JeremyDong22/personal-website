@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiClock, FiGithub, FiExternalLink, FiFilter } from 'react-icons/fi';
+import { FiFilter } from 'react-icons/fi';
 import { useLanguage } from '../context/LanguageContext';
 
 // Components
@@ -196,7 +196,7 @@ const Projects = () => {
   // Initialize filtered projects with all projects on component mount
   useEffect(() => {
     setFilteredProjects(projects);
-  }, []);
+  }, [projects]);
 
   // Filter projects based on selected category
   useEffect(() => {
@@ -209,7 +209,7 @@ const Projects = () => {
         )
       );
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, projects]);
 
   // Animation variants for filter buttons
   const buttonVariants = {

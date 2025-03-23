@@ -144,9 +144,8 @@ const Home = () => {
           >
             <FiPhone size={24} />
           </a>
-          <a
-            href="#"
-            className="text-light hover:text-primary transition-colors"
+          <button
+            className="text-light hover:text-primary transition-colors bg-transparent border-0 p-0 cursor-pointer"
             aria-label="WeChat"
             onClick={(e) => {
               e.preventDefault();
@@ -154,7 +153,7 @@ const Home = () => {
             }}
           >
             <SiWechat size={24} />
-          </a>
+          </button>
         </div>
       </Hero>
 
