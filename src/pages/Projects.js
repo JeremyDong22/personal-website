@@ -165,6 +165,34 @@ const Projects = () => {
     {
       id: 3,
       title: {
+        en: "XHS Content Crawler with Supabase",
+        zh: "小红书爬虫与Supabase集成"
+      },
+      description: {
+        en: "An automated content harvesting tool for Xiaohongshu (Little Red Book) that extracts posts, images, and engagement metrics. Features automatic keyword detection, content filtering by likes, and seamless Supabase integration for storage.",
+        zh: "一个针对小红书的自动内容采集工具，可提取帖子、图片和互动指标。具有自动关键词检测、按点赞数过滤内容，以及与Supabase无缝集成以进行存储的功能。"
+      },
+      tech: {
+        en: "Python, Selenium, Supabase, Chrome WebDriver",
+        zh: "Python, Selenium, Supabase, Chrome WebDriver"
+      },
+      emoji: "📱",
+      categories: ["backend", "automation", "data"],
+      categoriesZh: ["后端", "自动化", "数据"],
+      status: "completed",
+      statusZh: "已完成",
+      duration: "1 week",
+      role: {
+        en: "Solo Developer",
+        zh: "独立开发者"
+      },
+      teamSize: "1",
+      githubUrl: "https://github.com/JeremyDong22/XHS_Crawler_supabase",
+      featured: false
+    },
+    {
+      id: 4,
+      title: {
         en: "Personal Portfolio Website",
         zh: "个人作品集网站"
       },
