@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-darker text-light min-h-screen;
+    background: #0A0A0A;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold text-primary;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  p {
+    @apply mb-4 text-light/90;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 sm:px-6 py-2 rounded-none font-medium transition-all duration-300 uppercase tracking-wider text-xs sm:text-sm;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-darkest hover:bg-secondary;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-darkest;
+  }
+  
+  .section {
+    @apply py-12 md:py-16 lg:py-24 relative;
+    background-color: #1E1E1E;
+  }
+  
+  .section:nth-child(even) {
+    background-color: #121212;
+  }
+  
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .card {
+    @apply bg-darkgray rounded-none border border-primary/20 overflow-hidden transition-all duration-300 hover:border-primary;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .gold-text {
+    @apply bg-clip-text text-transparent bg-gold-gradient bg-[length:200%_auto] animate-shimmer;
+  }
+
+  .gold-border {
+    @apply border border-primary/40 hover:border-primary transition-colors duration-300;
+  }
+
+  .luxury-shadow {
+    @apply shadow-[0_0_15px_rgba(212,175,55,0.15)];
+  }
+
+  .nav-bg {
+    @apply bg-darkest;
+  }
+
+  .footer-bg {
+    @apply bg-darkest;
+  }
+}
+
+/* Custom animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Luxury accents */
+.gold-divider {
+  @apply w-24 h-1 bg-primary my-6;
+  background: linear-gradient(90deg, #D4AF37 0%, #F2DC9E 50%, #D4AF37 100%);
+}
+
+/* Section transitions */
+.section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.1), transparent);
+}
+
+/* Hero image styles */
+.hero-image-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  max-height: 80vh;
+}
+
+/* Button-like links */
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.4rem;
+  background-color: rgba(30, 30, 30, 0.3);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 3px;
+  color: #D4AF37;
+  transition: all 0.2s ease;
+  font-size: 0.95em;
+}
+
+.btn-link:hover {
+  background-color: rgba(30, 30, 30, 0.5);
+  border-color: rgba(212, 175, 55, 0.4);
+  color: #F2DC9E;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 3px -1px rgba(212, 175, 55, 0.05);
+}
+
+/* Mobile Responsiveness Improvements */
+@media (max-width: 640px) {
+  h1 {
+    @apply text-3xl;
+  }
+  
+  h2 {
+    @apply text-2xl;
+  }
+  
+  h3 {
+    @apply text-xl;
+  }
+  
+  p {
+    @apply text-sm;
+  }
+  
+  .section {
+    @apply py-10;
+  }
+  
+  .container {
+    @apply px-4;
+  }
+  
+  .hero-image {
+    max-height: 60vh;
+  }
+}
+
+/* Fix for PDF viewer on mobile */
+.pdf-container {
+  background-color: white;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pdf-container object {
+  background-color: white;
+}
+
+/* Sports Hero Section */
+.sports-hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.sports-hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.sports-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 10, 10, 0.6);
+  z-index: 1;
+}
+
+.sports-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-height: 700px) {
+  .sports-hero {
+    min-height: 120vh;
+  }
+} 

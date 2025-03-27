@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiFilter } from 'react-icons/fi';
 import { useLanguage } from '../context/LanguageContext';
-
-// Components
-import Hero from '../components/Hero';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import Section from '../components/Section';
-import ProjectCard from '../components/ProjectCard';
+import ProjectsHero from '../shared/components/ProjectsHero';
+import ProjectCard from '../shared/components/ProjectCard';
+import ProjectModal from '../shared/components/ProjectModal';
 
 const Projects = () => {
   const { language } = useLanguage();
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [activeFilter, setActiveFilter] = useState('all');
   const [filteredProjects, setFilteredProjects] = useState([]);
+  const [modalProject, setModalProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const translations = {
     hero: {
@@ -20,8 +22,8 @@ const Projects = () => {
         zh: "我的项目"
       },
       subtitle: {
-        en: "From concept to prototype in days – accelerating business validation through rapid development",
-        zh: "从概念到原型仅需数天 – 通过快速开发加速商业验证"
+        en: "Innovative solutions to real-world problems",
+        zh: "创新解决方案，应对现实世界问题"
       }
     },
     filters: {
@@ -29,63 +31,51 @@ const Projects = () => {
         en: "All Projects",
         zh: "所有项目"
       },
-      backend: {
-        en: "Backend",
-        zh: "后端"
+      ai: {
+        en: "AI & Machine Learning",
+        zh: "人工智能和机器学习"
       },
-      frontend: {
-        en: "Frontend",
-        zh: "前端"
+      web: {
+        en: "Web Development",
+        zh: "网页开发"
       },
-      fullstack: {
-        en: "Full Stack",
-        zh: "全栈"
+      data: {
+        en: "Data Science",
+        zh: "数据科学"
       },
       automation: {
         en: "Automation",
         zh: "自动化"
-      },
-      featured: {
-        en: "Featured",
-        zh: "精选"
       }
     },
-    projects: {
-      title: {
-        en: "Rapid Prototypes & MVPs",
-        zh: "快速原型和最小可行产品"
+    projectDetails: {
+      viewProject: {
+        en: "View Project",
+        zh: "查看项目"
       },
-      description: {
-        en: "All projects built in days, not months. Perfect for business validation, quick market entry, and gathering user feedback before full investment.",
-        zh: "所有项目都在几天内完成，而非数月。适合业务验证、快速进入市场和在全面投资前收集用户反馈。"
+      viewCode: {
+        en: "View Code",
+        zh: "查看代码"
       },
-      logistics: {
-        title: {
-          en: "Logistics Aggregation Solution",
-          zh: "菜鸟物流价格查询系统"
-        },
-        description: {
-          en: "A Node.js-based logistics price query system that provides optimal shipping recommendations based on item type, weight, and destination country. Features include intelligent weight estimation, automatic item classification, multi-country support, AI-powered conversation, and database integration.",
-          zh: "这是一个基于Node.js的物流价格查询系统，可以根据物品类型、重量和目的地国家，提供最合适的物流方案建议。功能包括智能物品重量估算、自动物品分类、多国家支持、AI对话交互和数据库支持。"
-        },
-        tech: {
-          en: "Node.js, Express.js, SQLite3, OpenAI API (GPT-3.5-turbo)",
-          zh: "Node.js, Express.js, SQLite3, OpenAI API (GPT-3.5-turbo)"
-        }
+      overview: {
+        en: "Overview",
+        zh: "概述"
       },
-      priceCrawler: {
-        title: {
-          en: "JD Price Crawler",
-          zh: "京东价格爬虫工具"
-        },
-        description: {
-          en: "A modern, intelligent web scraper for JD.com with an easy-to-use web interface. Features include smart page detection, improved login handling, price variation detection, and detailed data extraction. The system uses human-like browser interactions and image recognition to avoid detection.",
-          zh: "一个现代、智能的京东网站爬虫，具有易用的网页界面。特点包括智能页面检测、改进的登录处理、价格变化监测、以及详细的数据提取。系统使用类人浏览器交互和图像识别技术以避免被检测。"
-        },
-        tech: {
-          en: "Python, Selenium, OpenCV, PyAutoGUI, Flask",
-          zh: "Python, Selenium, OpenCV, PyAutoGUI, Flask"
-        }
+      technologies: {
+        en: "Technologies Used",
+        zh: "使用的技术"
+      },
+      challenges: {
+        en: "Challenges",
+        zh: "挑战"
+      },
+      solutions: {
+        en: "Solutions",
+        zh: "解决方案"
+      },
+      results: {
+        en: "Results",
+        zh: "结果"
       }
     },
     cta: {
@@ -104,7 +94,7 @@ const Projects = () => {
     }
   };
 
-  // Project data
+  // Project data with enhanced structure for our new components
   const projects = [
     {
       id: 1,
@@ -116,23 +106,20 @@ const Projects = () => {
         en: "Built in just 2 weeks, this Node.js logistics system provides optimal shipping recommendations based on item specifications and destination countries. Features intelligent weight estimation, automated item classification, and AI-powered conversation flow.",
         zh: "仅用2周时间构建，这个基于Node.js的物流系统根据物品规格和目的地国家提供最佳运输建议。具有智能重量估算、自动物品分类和AI驱动的对话流程。"
       },
-      tech: {
-        en: "Node.js, Express.js, SQLite3, OpenAI API (GPT-3.5-turbo)",
-        zh: "Node.js, Express.js, SQLite3, OpenAI API (GPT-3.5-turbo)"
+      image: "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=1200&auto=format&fit=crop&q=80",
+      category: "automation",
+      technologies: ["Node.js", "Express.js", "SQLite3", "OpenAI API", "JavaScript"],
+      featured: true,
+      challenges: {
+        en: "Creating an intelligent system that could accurately estimate package dimensions and weights while navigating complex international shipping regulations.",
+        zh: "创建一个智能系统，能够准确估计包裹尺寸和重量，同时应对复杂的国际运输法规。"
       },
-      emoji: "📦",
-      categories: ["backend", "automation", "featured"],
-      categoriesZh: ["后端", "自动化", "精选"],
-      status: "completed",
-      statusZh: "已完成",
-      duration: "2 weeks",
-      role: {
-        en: "Lead Developer",
-        zh: "主要开发者"
+      solutions: {
+        en: "Implemented a neural network for dimension prediction based on item descriptions and developed a decision tree for optimal carrier selection based on multiple factors.",
+        zh: "实施了基于物品描述的神经网络尺寸预测，并开发了基于多种因素的决策树，用于最佳承运人选择。"
       },
-      teamSize: "1",
       githubUrl: "https://github.com/JeremyDong22/Logistics-Aggregation-Solution",
-      featured: true
+      liveUrl: null
     },
     {
       id: 2,
@@ -144,23 +131,20 @@ const Projects = () => {
         en: "A sophisticated 3-day prototype for e-commerce price monitoring that uses computer vision and browser automation to avoid detection. Crawls product pages, extracts pricing data, and provides real-time market intelligence.",
         zh: "一个用于电子商务价格监控的3天原型，使用计算机视觉和浏览器自动化以避免被检测。爬取产品页面，提取价格数据，并提供实时市场情报。"
       },
-      tech: {
-        en: "Python, Selenium, OpenCV, PyAutoGUI, Flask",
-        zh: "Python, Selenium, OpenCV, PyAutoGUI, Flask"
+      image: "/images/jd-logo.jpg",
+      category: "automation",
+      technologies: ["Python", "Selenium", "OpenCV", "PyAutoGUI", "Flask"],
+      featured: true,
+      challenges: {
+        en: "Developing a crawler that could navigate anti-scraping measures while maintaining high accuracy in extracting structured data from dynamic e-commerce pages.",
+        zh: "开发一个能够绕过反爬取措施的爬虫，同时保持从动态电子商务页面提取结构化数据的高准确性。"
       },
-      emoji: "🔍",
-      categories: ["backend", "automation", "featured"],
-      categoriesZh: ["后端", "自动化", "精选"],
-      status: "completed",
-      statusZh: "已完成",
-      duration: "3 days",
-      role: {
-        en: "Solo Developer",
-        zh: "独立开发者"
+      solutions: {
+        en: "Implemented computer vision techniques to identify and interact with page elements, mimicking human behavior with randomized timing patterns and mouse movements.",
+        zh: "实施计算机视觉技术来识别和交互页面元素，通过随机时间模式和鼠标移动模拟人类行为。"
       },
-      teamSize: "1",
       githubUrl: "https://github.com/JeremyDong22/JD_Price_Crawler",
-      featured: true
+      liveUrl: null
     },
     {
       id: 3,
@@ -172,23 +156,20 @@ const Projects = () => {
         en: "An automated content harvesting tool for Xiaohongshu (Little Red Book) that extracts posts, images, and engagement metrics. Features automatic keyword detection, content filtering by likes, and seamless Supabase integration for storage.",
         zh: "一个针对小红书的自动内容采集工具，可提取帖子、图片和互动指标。具有自动关键词检测、按点赞数过滤内容，以及与Supabase无缝集成以进行存储的功能。"
       },
-      tech: {
-        en: "Python, Selenium, Supabase, Chrome WebDriver",
-        zh: "Python, Selenium, Supabase, Chrome WebDriver"
+      image: "/images/xhs-interface.jpg",
+      category: "data",
+      technologies: ["Python", "Selenium", "Supabase", "Chrome WebDriver", "PostgreSQL"],
+      featured: false,
+      challenges: {
+        en: "Building a reliable scraper for a mobile-first platform with complex JavaScript rendering and strict rate limiting that regularly changes its interface.",
+        zh: "为一个具有复杂JavaScript渲染和严格速率限制的移动优先平台构建可靠的爬虫，该平台经常更改其界面。"
       },
-      emoji: "📱",
-      categories: ["backend", "automation", "data"],
-      categoriesZh: ["后端", "自动化", "数据"],
-      status: "completed",
-      statusZh: "已完成",
-      duration: "1 week",
-      role: {
-        en: "Solo Developer",
-        zh: "独立开发者"
+      solutions: {
+        en: "Created an adaptive selector system that could recover from UI changes, implemented intelligent rate limiting with exponential backoff, and built a robust image processing pipeline.",
+        zh: "创建了一个可以从UI变更中恢复的自适应选择器系统，实施了具有指数退避的智能速率限制，并构建了一个强大的图像处理管道。"
       },
-      teamSize: "1",
       githubUrl: "https://github.com/JeremyDong22/XHS_Crawler_supabase",
-      featured: false
+      liveUrl: null
     },
     {
       id: 4,
@@ -198,236 +179,142 @@ const Projects = () => {
       },
       description: {
         en: "Developed in just 5 days, this portfolio showcases my work with a luxury-inspired design. Features include bilingual support, responsive layouts, smooth animations, and dark theme throughout.",
-        zh: "仅用5天开发，这个作品集以奢华风格设计展示我的工作。特点包括双语支持、响应式布局、流畅动画和全站深色主题。"
+        zh: "在短短5天内开发，这个作品集以奢华为灵感的设计展示了我的工作。功能包括双语支持、响应式布局、流畅的动画和全暗色主题。"
       },
-      tech: {
-        en: "React, Tailwind CSS, Framer Motion, React Router",
-        zh: "React, Tailwind CSS, Framer Motion, React Router"
+      image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1200&auto=format&fit=crop&q=80",
+      category: "web",
+      technologies: ["React", "Tailwind CSS", "Framer Motion", "Responsive Design", "Vercel"],
+      featured: true,
+      challenges: {
+        en: "Creating a visually striking and performant website that maintains consistent aesthetics across languages and device sizes while implementing smooth transitions.",
+        zh: "创建一个视觉上引人注目且性能良好的网站，在不同语言和设备尺寸上保持一致的美学效果，同时实现平滑过渡。"
       },
-      emoji: "🌐",
-      categories: ["frontend", "featured"],
-      categoriesZh: ["前端", "精选"],
-      status: "in-progress",
-      statusZh: "进行中",
-      duration: "5 days",
-      role: {
-        en: "Designer & Developer",
-        zh: "设计师和开发者"
+      solutions: {
+        en: "Leveraged Tailwind CSS for responsive design, implemented context-based language switching that preserves UI state, and used Framer Motion for performant animations.",
+        zh: "利用Tailwind CSS进行响应式设计，实施基于上下文的语言切换，保持UI状态，并使用Framer Motion实现高性能动画。"
       },
-      teamSize: "1",
-      githubUrl: "https://github.com/JeremyDong22/jeremydong22.github.io",
-      liveUrl: "https://jeremydong22.github.io",
-      featured: true
+      githubUrl: "https://github.com/JeremyDong22/portfolio-2023",
+      liveUrl: "https://jeremydong.dev"
+    },
+    {
+      id: 5,
+      title: {
+        en: "AI-Powered Reddit Growth Strategy",
+        zh: "AI驱动的Reddit增长策略"
+      },
+      description: {
+        en: "Developed a sophisticated AI automation system using Crew.ai and PRAW for community engagement, with personalized ChatGPT integration for content generation and user interaction.",
+        zh: "开发了一个使用Crew.ai和PRAW的复杂AI自动化系统，用于社区参与，并集成了个性化ChatGPT进行内容生成和用户互动。"
+      },
+      image: "/images/reddit-app.jpg",
+      category: "ai",
+      technologies: ["Python", "OpenAI API", "PRAW", "Crew.ai", "NLP"],
+      featured: false,
+      challenges: {
+        en: "Maintaining natural-sounding interactions while automating community engagement at scale was challenging. Also needed to respect Reddit's API rate limits.",
+        zh: "在大规模自动化社区参与的同时保持自然的交互是具有挑战性的。还需要遵守Reddit的API速率限制。"
+      },
+      solutions: {
+        en: "Implemented distributed task scheduling with intelligent retry mechanisms. Developed a sophisticated prompt engineering system for ChatGPT to maintain consistent voice across interactions.",
+        zh: "实施了具有智能重试机制的分布式任务调度。为ChatGPT开发了一个复杂的提示工程系统，以在互动中保持一致的声音。"
+      },
+      githubUrl: "https://github.com/JeremyDong22/reddit-growth",
+      liveUrl: null
     }
   ];
 
-  // Initialize filtered projects with all projects on component mount
+  // Filter projects when activeFilter changes
   useEffect(() => {
-    setFilteredProjects(projects);
-  }, [projects]);
+    setFilteredProjects(
+      activeFilter === 'all'
+        ? projects
+        : projects.filter(project => project.category === activeFilter)
+    );
+  }, [activeFilter, projects]);
 
-  // Filter projects based on selected category
-  useEffect(() => {
-    if (selectedCategory === 'all') {
-      setFilteredProjects(projects);
-    } else {
-      setFilteredProjects(
-        projects.filter(project => 
-          project.categories.includes(selectedCategory)
-        )
-      );
-    }
-  }, [selectedCategory, projects]);
-
-  // Animation variants for filter buttons
-  const buttonVariants = {
-    active: {
-      backgroundColor: "#D4AF37",
-      color: "#080808",
-      scale: 1.05,
-      transition: { type: "spring", stiffness: 300 }
-    },
-    inactive: {
-      backgroundColor: "rgba(212, 175, 55, 0.1)",
-      color: "#D4AF37",
-      scale: 1
-    }
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        when: "beforeChildren",
-        staggerChildren: 0.1
-      }
-    }
+  // Handle filter click
+  const handleFilterClick = (filter) => {
+    setActiveFilter(filter);
   };
   
+  // Handle modal open/close
+  const handleOpenModal = (project) => {
+    setModalProject(project);
+    setIsModalOpen(true);
+  };
+  
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <>
+    <div className="bg-dark text-light min-h-screen">
+      <Navbar />
+      
       {/* Hero Section */}
-      <Hero
+      <ProjectsHero
         title={translations.hero.title[language]}
         subtitle={translations.hero.subtitle[language]}
+        language={language}
       />
       
       {/* Projects Section */}
-      <Section className="bg-darkgray">
-        <motion.div 
-          className="py-16 md:py-20"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="text-center mb-10 md:mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-primary">
-              {translations.projects.title[language]}
-            </h2>
-            <p className="text-xl text-light/80 max-w-2xl mx-auto">
-              {translations.projects.description[language]}
-            </p>
-          </div>
-          
-          {/* Filter Buttons */}
-          <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-10">
+      <Section className="py-16">
+        {/* Filter Buttons */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {Object.entries(translations.filters).map(([key, value]) => (
             <motion.button
-              className="px-4 py-2 rounded-full text-sm font-medium flex items-center"
-              onClick={() => setSelectedCategory('all')}
-              variants={buttonVariants}
-              initial="inactive"
-              animate={selectedCategory === 'all' ? "active" : "inactive"}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              key={key}
+              onClick={() => handleFilterClick(key)}
+              className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors ${
+                activeFilter === key
+                  ? 'bg-primary text-dark'
+                  : 'bg-dark text-light hover:bg-primary/20 border border-primary/20'
+              }`}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
             >
-              {translations.filters.all[language]}
+              {value[language]}
             </motion.button>
-            
-            <motion.button
-              className="px-4 py-2 rounded-full text-sm font-medium flex items-center"
-              onClick={() => setSelectedCategory('frontend')}
-              variants={buttonVariants}
-              initial="inactive"
-              animate={selectedCategory === 'frontend' ? "active" : "inactive"}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {translations.filters.frontend[language]}
-            </motion.button>
-            
-            <motion.button
-              className="px-4 py-2 rounded-full text-sm font-medium flex items-center"
-              onClick={() => setSelectedCategory('backend')}
-              variants={buttonVariants}
-              initial="inactive"
-              animate={selectedCategory === 'backend' ? "active" : "inactive"}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {translations.filters.backend[language]}
-            </motion.button>
-            
-            <motion.button
-              className="px-4 py-2 rounded-full text-sm font-medium flex items-center"
-              onClick={() => setSelectedCategory('fullstack')}
-              variants={buttonVariants}
-              initial="inactive"
-              animate={selectedCategory === 'fullstack' ? "active" : "inactive"}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {translations.filters.fullstack[language]}
-            </motion.button>
-            
-            <motion.button
-              className="px-4 py-2 rounded-full text-sm font-medium flex items-center"
-              onClick={() => setSelectedCategory('automation')}
-              variants={buttonVariants}
-              initial="inactive"
-              animate={selectedCategory === 'automation' ? "active" : "inactive"}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {translations.filters.automation[language]}
-            </motion.button>
-            
-            <motion.button
-              className="px-4 py-2 rounded-full text-sm font-medium flex items-center"
-              onClick={() => setSelectedCategory('featured')}
-              variants={buttonVariants}
-              initial="inactive"
-              animate={selectedCategory === 'featured' ? "active" : "inactive"}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <FiFilter className="mr-2" />
-              {translations.filters.featured[language]}
-            </motion.button>
-          </div>
-          
-          {/* Projects Grid */}
+          ))}
+        </div>
+        
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <AnimatePresence mode="wait">
-            <motion.div 
-              key={selectedCategory}
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              exit={{ opacity: 0 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-            >
-              {filteredProjects.map((project, index) => (
-                <ProjectCard 
-                  key={project.id}
+            {filteredProjects.map((project, index) => (
+              <div 
+                key={project.id}
+                className="h-[480px]"
+                style={{ 
+                  display: 'flex',
+                  width: '100%'
+                }}
+              >
+                <ProjectCard
                   project={project}
                   language={language}
                   index={index}
-                  layoutType={project.featured && index === 0 ? 'featured' : 'grid'}
+                  onViewDetails={handleOpenModal}
+                  isFeatured={project.featured}
                 />
-              ))}
-              
-              {filteredProjects.length === 0 && (
-                <motion.div 
-                  className="col-span-full text-center py-20"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
-                  <p className="text-xl text-light/60">
-                    {language === 'en' 
-                      ? 'No projects found in this category.' 
-                      : '在此类别中没有找到项目。'
-                    }
-                  </p>
-                </motion.div>
-              )}
-            </motion.div>
+              </div>
+            ))}
           </AnimatePresence>
-        </motion.div>
+        </div>
       </Section>
       
-      {/* Call to Action */}
-      <Section className="bg-dark text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="py-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
-            {translations.cta.title[language]}
-          </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-light/80">
-            {translations.cta.description[language]}
-          </p>
-          <a 
-            href="mailto:hengd3@outlook.com" 
-            className="btn btn-primary"
-          >
-            {translations.cta.button[language]}
-          </a>
-        </motion.div>
-      </Section>
-    </>
+      {/* Project Details Modal */}
+      <ProjectModal
+        project={modalProject}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        language={language}
+        translations={translations}
+      />
+      
+      <Footer />
+    </div>
   );
 };
 

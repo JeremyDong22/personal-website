@@ -1,0 +1,1 @@
+请将截图保存到以下路径：1. 小红书截图 -> public/images/xhs-interface.jpg 2. Reddit截图 -> public/images/reddit-app.jpg 3. 京东截图 -> public/images/jd-logo.jpg
