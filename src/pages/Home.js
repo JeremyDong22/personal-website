@@ -58,69 +58,93 @@ const featuredProjects = [
   {
     id: 1,
     title: {
-      en: 'AI-Powered Reddit Growth Strategy',
-      zh: 'AI驱动的Reddit增长策略'
+      en: 'AI-Powered Logistics Aggregation',
+      zh: 'AI驱动的物流聚合系统'
     },
     description: {
-      en: 'Developed AI automation system using Crew.ai and PRAW for community engagement, with personalized ChatGPT integration.',
-      zh: '使用Crew.ai和PRAW开发AI自动化系统进行社区参与，并集成个性化ChatGPT。'
+      en: 'Built in just 2 weeks, this system leverages Node.js and AI to provide optimal shipping recommendations based on item specifications and destination countries.',
+      zh: '仅用2周时间构建，该系统利用Node.js和AI根据物品规格和目的地国家提供最佳运输建议。'
     },
     image: projectImages.webDev,
-    tags: ['Python', 'AI', 'Data Analysis'],
-    categories: ['automation', 'backend'],
-    categoriesZh: ['自动化', '后端'],
-    githubUrl: 'https://github.com/JeremyDong22/reddit-growth',
+    tags: ['Node.js', 'AI', 'Express.js', 'SQLite3'],
+    categories: ['backend', 'automation'],
+    categoriesZh: ['后端', '自动化'],
+    githubUrl: 'https://github.com/JeremyDong22/Logistics-Aggregation-Solution',
     liveUrl: '#',
     tech: {
-      en: 'Python, Crew.ai, PRAW, ChatGPT API',
-      zh: 'Python, Crew.ai, PRAW, ChatGPT API'
+      en: 'Node.js, Express.js, SQLite3, OpenAI API',
+      zh: 'Node.js, Express.js, SQLite3, OpenAI API'
     },
-    emoji: '🤖'
+    emoji: '📦',
+    status: 'completed',
+    statusZh: '已完成',
+    duration: '2 weeks',
+    role: {
+      en: 'Lead Developer',
+      zh: '主要开发者'
+    },
+    teamSize: '1'
   },
   {
     id: 2,
     title: {
-      en: 'Medical Research Automation',
-      zh: '医学研究自动化'
+      en: 'JD Price Intelligence Crawler',
+      zh: 'JD价格情报爬虫'
     },
     description: {
-      en: 'Created automated workflow for continuous medical research data collection, processing 300+ keywords across multiple sources.',
-      zh: '创建自动化工作流程进行持续医学研究数据收集，处理来自多个来源的300多个关键词。'
+      en: 'A sophisticated web scraper developed in 3 days that uses computer vision and browser automation to extract pricing data from JD.com while avoiding detection.',
+      zh: '一个在3天内开发的复杂网页爬虫，利用计算机视觉和浏览器自动化从京东提取价格数据，同时避免被检测。'
     },
     image: projectImages.design,
-    tags: ['Python', 'NLP', 'API Integration'],
-    categories: ['automation', 'backend'],
-    categoriesZh: ['自动化', '后端'],
-    githubUrl: 'https://github.com/JeremyDong22/medical-research',
+    tags: ['Python', 'Computer Vision', 'Automation'],
+    categories: ['backend', 'automation'],
+    categoriesZh: ['后端', '自动化'],
+    githubUrl: 'https://github.com/JeremyDong22/JD_Price_Crawler',
     liveUrl: '#',
     tech: {
-      en: 'Python, NLP, RESTful APIs',
-      zh: 'Python, NLP, RESTful APIs'
+      en: 'Python, Selenium, OpenCV, Flask',
+      zh: 'Python, Selenium, OpenCV, Flask'
     },
-    emoji: '🔬'
+    emoji: '🔍',
+    status: 'completed',
+    statusZh: '已完成',
+    duration: '3 days',
+    role: {
+      en: 'Solo Developer',
+      zh: '独立开发者'
+    },
+    teamSize: '1'
   },
   {
     id: 3,
     title: {
-      en: 'Real Estate Price Prediction',
-      zh: '房地产价格预测'
+      en: 'Modern Portfolio Website',
+      zh: '现代个人作品集网站'
     },
     description: {
-      en: 'Developed ML models using polynomial regression, gradient boosting, and random forest, achieving top 3 ranking among 20+ teams.',
-      zh: '使用多项式回归、梯度提升和随机森林开发ML模型，在20多个团队中排名前3。'
+      en: 'Personal portfolio showcasing my expertise in rapid prototyping and development. Features bilingual support, responsive design, and smooth animations.',
+      zh: '展示我在快速原型设计和开发方面专长的个人作品集。具有双语支持、响应式设计和流畅动画效果。'
     },
     image: projectImages.business,
-    tags: ['R', 'Machine Learning', 'Statistical Analysis'],
-    categories: ['data science', 'machine learning'],
-    categoriesZh: ['数据科学', '机器学习'],
-    githubUrl: 'https://github.com/JeremyDong22/real-estate',
-    liveUrl: '#',
+    tags: ['React', 'Tailwind CSS', 'Framer Motion'],
+    categories: ['frontend', 'design'],
+    categoriesZh: ['前端', '设计'],
+    githubUrl: 'https://github.com/JeremyDong22/jeremydong22.github.io',
+    liveUrl: 'https://jeremydong22.github.io',
     tech: {
-      en: 'R, Random Forest, Gradient Boosting',
-      zh: 'R, 随机森林, 梯度提升'
+      en: 'React, Tailwind CSS, Framer Motion',
+      zh: 'React, Tailwind CSS, Framer Motion'
     },
-    emoji: '🏠'
-  },
+    emoji: '🌐',
+    status: 'in-progress',
+    statusZh: '进行中',
+    duration: '1 week',
+    role: {
+      en: 'Designer & Developer',
+      zh: '设计师和开发者'
+    },
+    teamSize: '1'
+  }
 ];
 
 const Home = () => {

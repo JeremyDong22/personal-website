@@ -113,8 +113,8 @@ const Projects = () => {
         zh: "菜鸟物流价格查询系统"
       },
       description: {
-        en: "Built in just 2 weeks, this Node.js logistics system provides optimal shipping recommendations based on item specifications. Perfect for rapidly validating shipping aggregation services with minimal investment.",
-        zh: "仅用2周时间构建，这个基于Node.js的物流系统根据物品规格提供最佳运输建议。以最小的投入快速验证物流聚合服务的理想解决方案。"
+        en: "Built in just 2 weeks, this Node.js logistics system provides optimal shipping recommendations based on item specifications and destination countries. Features intelligent weight estimation, automated item classification, and AI-powered conversation flow.",
+        zh: "仅用2周时间构建，这个基于Node.js的物流系统根据物品规格和目的地国家提供最佳运输建议。具有智能重量估算、自动物品分类和AI驱动的对话流程。"
       },
       tech: {
         en: "Node.js, Express.js, SQLite3, OpenAI API (GPT-3.5-turbo)",
@@ -137,12 +137,12 @@ const Projects = () => {
     {
       id: 2,
       title: {
-        en: "JD Price Crawler",
+        en: "JD Price Intelligence Crawler",
         zh: "京东价格爬虫工具"
       },
       description: {
-        en: "A 3-day prototype for intelligent e-commerce price monitoring. This rapid solution helped validate market demand for pricing intelligence tools before committing to a full-scale development.",
-        zh: "一个用于智能电商价格监控的3天原型。这个快速解决方案帮助在投入全面开发前验证了定价情报工具的市场需求。"
+        en: "A sophisticated 3-day prototype for e-commerce price monitoring that uses computer vision and browser automation to avoid detection. Crawls product pages, extracts pricing data, and provides real-time market intelligence.",
+        zh: "一个用于电子商务价格监控的3天原型，使用计算机视觉和浏览器自动化以避免被检测。爬取产品页面，提取价格数据，并提供实时市场情报。"
       },
       tech: {
         en: "Python, Selenium, OpenCV, PyAutoGUI, Flask",
@@ -169,8 +169,8 @@ const Projects = () => {
         zh: "个人作品集网站"
       },
       description: {
-        en: "Developed in just 5 days from concept to deployment, this portfolio showcases rapid iteration capabilities. Built with modern technologies for quick business validation and easy extension.",
-        zh: "从概念到部署仅用5天开发，这个作品集展示了快速迭代能力。使用现代技术构建，便于快速业务验证和轻松扩展。"
+        en: "Developed in just 5 days, this portfolio showcases my work with a luxury-inspired design. Features include bilingual support, responsive layouts, smooth animations, and dark theme throughout.",
+        zh: "仅用5天开发，这个作品集以奢华风格设计展示我的工作。特点包括双语支持、响应式布局、流畅动画和全站深色主题。"
       },
       tech: {
         en: "React, Tailwind CSS, Framer Motion, React Router",
