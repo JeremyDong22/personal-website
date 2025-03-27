@@ -58,122 +58,95 @@ const featuredProjects = [
   {
     id: 1,
     title: {
-      en: 'AI-Powered Logistics Aggregation',
-      zh: 'AI驱动的物流聚合系统'
+      en: "Logistics Aggregation Solution",
+      zh: "菜鸟物流价格查询系统"
     },
     description: {
-      en: 'Built in just 2 weeks, this system leverages Node.js and AI to provide optimal shipping recommendations based on item specifications and destination countries.',
-      zh: '仅用2周时间构建，该系统利用Node.js和AI根据物品规格和目的地国家提供最佳运输建议。'
+      en: "Built in just 2 weeks, this Node.js logistics system provides optimal shipping recommendations based on item specifications and destination countries. Features intelligent weight estimation, automated item classification, and AI-powered conversation flow.",
+      zh: "仅用2周时间构建，这个基于Node.js的物流系统根据物品规格和目的地国家提供最佳运输建议。具有智能重量估算、自动物品分类和AI驱动的对话流程。"
     },
-    image: projectImages.webDev,
-    tags: ['Node.js', 'AI', 'Express.js', 'SQLite3'],
+    image: "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=1200&auto=format&fit=crop&q=80",
+    tags: ["Node.js", "Express.js", "SQLite3", "OpenAI API", "JavaScript"],
     categories: ['backend', 'automation'],
     categoriesZh: ['后端', '自动化'],
-    githubUrl: 'https://github.com/JeremyDong22/Logistics-Aggregation-Solution',
-    liveUrl: '#',
+    featured: true,
+    githubUrl: "https://github.com/JeremyDong22/Logistics-Aggregation-Solution",
+    liveUrl: null,
     tech: {
-      en: 'Node.js, Express.js, SQLite3, OpenAI API',
-      zh: 'Node.js, Express.js, SQLite3, OpenAI API'
+      en: "Node.js, Express.js, SQLite3, OpenAI API, JavaScript",
+      zh: "Node.js, Express.js, SQLite3, OpenAI API, JavaScript"
     },
-    emoji: '📦',
-    status: 'completed',
-    statusZh: '已完成',
-    duration: '2 weeks',
+    emoji: "📦",
+    status: "completed",
+    statusZh: "已完成",
+    duration: "2 weeks",
     role: {
-      en: 'Lead Developer',
-      zh: '主要开发者'
+      en: "Lead Developer",
+      zh: "主要开发者"
     },
-    teamSize: '1'
+    teamSize: "1"
   },
   {
     id: 2,
     title: {
-      en: 'JD Price Intelligence Crawler',
-      zh: 'JD价格情报爬虫'
+      en: "JD Price Intelligence Crawler",
+      zh: "京东价格爬虫工具"
     },
     description: {
-      en: 'A sophisticated web scraper developed in 3 days that uses computer vision and browser automation to extract pricing data from JD.com while avoiding detection.',
-      zh: '一个在3天内开发的复杂网页爬虫，利用计算机视觉和浏览器自动化从京东提取价格数据，同时避免被检测。'
+      en: "A sophisticated 3-day prototype for e-commerce price monitoring that uses computer vision and browser automation to avoid detection. Crawls product pages, extracts pricing data, and provides real-time market intelligence.",
+      zh: "一个用于电子商务价格监控的3天原型，使用计算机视觉和浏览器自动化以避免被检测。爬取产品页面，提取价格数据，并提供实时市场情报。"
     },
-    image: projectImages.design,
-    tags: ['Python', 'Computer Vision', 'Automation'],
+    image: "/images/jd-logo.jpg",
+    tags: ["Python", "Selenium", "OpenCV", "PyAutoGUI", "Flask"],
     categories: ['backend', 'automation'],
     categoriesZh: ['后端', '自动化'],
-    githubUrl: 'https://github.com/JeremyDong22/JD_Price_Crawler',
-    liveUrl: '#',
+    featured: true,
+    githubUrl: "https://github.com/JeremyDong22/JD_Price_Crawler",
+    liveUrl: null,
     tech: {
-      en: 'Python, Selenium, OpenCV, Flask',
-      zh: 'Python, Selenium, OpenCV, Flask'
+      en: "Python, Selenium, OpenCV, PyAutoGUI, Flask",
+      zh: "Python, Selenium, OpenCV, PyAutoGUI, Flask"
     },
-    emoji: '🔍',
-    status: 'completed',
-    statusZh: '已完成',
-    duration: '3 days',
+    emoji: "🔍",
+    status: "completed",
+    statusZh: "已完成",
+    duration: "3 days",
     role: {
-      en: 'Solo Developer',
-      zh: '独立开发者'
+      en: "Solo Developer",
+      zh: "独立开发者"
     },
-    teamSize: '1'
+    teamSize: "1"
   },
   {
     id: 3,
     title: {
-      en: 'XHS Content Crawler with Supabase',
-      zh: '小红书爬虫与Supabase集成'
+      en: "XHS Content Crawler with Supabase",
+      zh: "小红书爬虫与Supabase集成"
     },
     description: {
-      en: 'An automated tool that extracts posts, images, and metrics from Xiaohongshu, with filtering by engagement and seamless Supabase database integration.',
-      zh: '一个自动化工具，从小红书提取帖子、图片和指标，通过互动数据过滤并与Supabase数据库无缝集成。'
+      en: "An automated content harvesting tool for Xiaohongshu (Little Red Book) that extracts posts, images, and engagement metrics. Features automatic keyword detection, content filtering by likes, and seamless Supabase integration for storage.",
+      zh: "一个针对小红书的自动内容采集工具，可提取帖子、图片和互动指标。具有自动关键词检测、按点赞数过滤内容，以及与Supabase无缝集成以进行存储的功能。"
     },
-    image: projectImages.business,
-    tags: ['Python', 'Web Scraping', 'Database'],
+    image: "/images/xhs-interface.jpg",
+    tags: ["Python", "Selenium", "Supabase", "Chrome WebDriver", "PostgreSQL"],
     categories: ['backend', 'automation', 'data'],
     categoriesZh: ['后端', '自动化', '数据'],
-    githubUrl: 'https://github.com/JeremyDong22/XHS_Crawler_supabase',
-    liveUrl: '#',
+    featured: false,
+    githubUrl: "https://github.com/JeremyDong22/XHS_Crawler_supabase",
+    liveUrl: null,
     tech: {
-      en: 'Python, Selenium, Supabase, Chrome WebDriver',
-      zh: 'Python, Selenium, Supabase, Chrome WebDriver'
+      en: "Python, Selenium, Supabase, Chrome WebDriver, PostgreSQL",
+      zh: "Python, Selenium, Supabase, Chrome WebDriver, PostgreSQL"
     },
-    emoji: '📱',
-    status: 'completed',
-    statusZh: '已完成',
-    duration: '1 week',
+    emoji: "📱",
+    status: "completed",
+    statusZh: "已完成",
+    duration: "1 week",
     role: {
-      en: 'Solo Developer',
-      zh: '独立开发者'
+      en: "Solo Developer",
+      zh: "独立开发者"
     },
-    teamSize: '1'
-  },
-  {
-    id: 4,
-    title: {
-      en: 'Modern Portfolio Website',
-      zh: '现代个人作品集网站'
-    },
-    description: {
-      en: 'Personal portfolio showcasing my expertise in rapid prototyping and development. Features bilingual support, responsive design, and smooth animations.',
-      zh: '展示我在快速原型设计和开发方面专长的个人作品集。具有双语支持、响应式设计和流畅动画效果。'
-    },
-    image: projectImages.business,
-    tags: ['React', 'Tailwind CSS', 'Framer Motion'],
-    categories: ['frontend', 'design'],
-    categoriesZh: ['前端', '设计'],
-    githubUrl: 'https://github.com/JeremyDong22/jeremydong22.github.io',
-    liveUrl: 'https://jeremydong22.github.io',
-    tech: {
-      en: 'React, Tailwind CSS, Framer Motion',
-      zh: 'React, Tailwind CSS, Framer Motion'
-    },
-    emoji: '🌐',
-    status: 'in-progress',
-    statusZh: '进行中',
-    duration: '1 week',
-    role: {
-      en: 'Designer & Developer',
-      zh: '设计师和开发者'
-    },
-    teamSize: '1'
+    teamSize: "1"
   }
 ];
 

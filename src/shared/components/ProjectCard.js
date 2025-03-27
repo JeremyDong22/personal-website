@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FiExternalLink, FiGithub, FiInfo } from 'react-icons/fi';
+import { FiInfo, FiGithub, FiExternalLink } from 'react-icons/fi';
 
 // Fixed size card component
 const ProjectCard = ({ 
@@ -183,7 +183,7 @@ const ProjectCard = ({
           </motion.button>
           
           <div className="flex gap-3">
-            {project.githubUrl && (
+            {project.githubUrl && !project.title[language].toLowerCase().includes('reddit') && (
               <motion.a
                 href={project.githubUrl}
                 target="_blank"
@@ -197,7 +197,7 @@ const ProjectCard = ({
               </motion.a>
             )}
             
-            {project.liveUrl && (
+            {project.liveUrl && !project.title[language].toLowerCase().includes('portfolio') && (
               <motion.a
                 href={project.liveUrl}
                 target="_blank"
@@ -213,38 +213,6 @@ const ProjectCard = ({
           </div>
         </div>
       </div>
-      
-      {/* Featured project corner badge */}
-      {project.featured && (
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          right: 0
-        }}>
-          <div style={{
-            position: 'relative',
-            height: '80px',
-            width: '80px',
-            overflow: 'hidden'
-          }}>
-            <div style={{
-              position: 'absolute',
-              transform: 'rotate(45deg)',
-              backgroundColor: '#AB9660',
-              color: '#121212',
-              fontSize: '0.75rem',
-              fontWeight: 'bold',
-              padding: '4px 0',
-              right: '-40px',
-              top: '12px',
-              width: '170px',
-              textAlign: 'center'
-            }}>
-              {language === 'en' ? 'Featured' : '特色'}
-            </div>
-          </div>
-        </div>
-      )}
     </motion.div>
   );
 };

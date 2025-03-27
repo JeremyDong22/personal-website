@@ -111,14 +111,14 @@ const ProjectCard = ({
       
       {/* Content */}
       <div className="p-6">
-        <h3 className="text-xl font-bold mb-3 text-primary">
+        <h3 className="text-xl font-bold mb-3 text-primary h-14 overflow-hidden flex items-center">
           {project.title?.[language] || 'Project Title'}
         </h3>
         
         {/* Categories/Tags */}
-        {project.categories && project.categories.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-3">
-            {project.categories.map((category, idx) => (
+        <div className="flex flex-wrap gap-2 mb-3 h-8 overflow-hidden">
+          {project.categories && project.categories.length > 0 && 
+            project.categories.map((category, idx) => (
               <span 
                 key={idx} 
                 className="inline-flex items-center text-xs px-2 py-1 rounded-full bg-primary/10 text-primary"
@@ -126,65 +126,55 @@ const ProjectCard = ({
                 <FiTag className="mr-1" />
                 {language === 'en' ? category : project.categoriesZh?.[idx] || category}
               </span>
-            ))}
-          </div>
-        )}
+            ))
+          }
+        </div>
         
-        <p className="text-light/80 mb-4">
+        <p className="text-light/80 mb-4 h-24 overflow-hidden">
           {project.description?.[language] || ''}
         </p>
         
         {/* Project details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
           {/* Tech stack */}
-          {project.tech && (
-            <div>
-              <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2">
-                {language === 'en' ? 'Technologies' : '技术栈'}
-              </h4>
-              <p className="text-light/60 text-sm">
-                {project.tech[language] || ''}
-              </p>
-            </div>
-          )}
+          <div>
+            <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2 h-5">
+              {project.tech ? (language === 'en' ? 'Technologies' : '技术栈') : ''}
+            </h4>
+            <p className="text-light/60 text-sm h-10 overflow-hidden">
+              {project.tech ? (project.tech[language] || '') : ''}
+            </p>
+          </div>
           
           {/* Project duration if available */}
-          {project.duration && (
-            <div>
-              <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2">
-                {language === 'en' ? 'Duration' : '项目周期'}
-              </h4>
-              <p className="text-light/60 text-sm flex items-center">
-                <FiClock className="mr-1" />
-                {project.duration}
-              </p>
-            </div>
-          )}
+          <div>
+            <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2 h-5">
+              {project.duration ? (language === 'en' ? 'Duration' : '项目周期') : ''}
+            </h4>
+            <p className="text-light/60 text-sm flex items-center h-10">
+              {project.duration && <><FiClock className="mr-1" />{project.duration}</>}
+            </p>
+          </div>
           
           {/* Team size if available */}
-          {project.teamSize && (
-            <div>
-              <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2">
-                {language === 'en' ? 'Team Size' : '团队规模'}
-              </h4>
-              <p className="text-light/60 text-sm flex items-center">
-                <FiUsers className="mr-1" />
-                {project.teamSize}
-              </p>
-            </div>
-          )}
+          <div>
+            <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2 h-5">
+              {project.teamSize ? (language === 'en' ? 'Team Size' : '团队规模') : ''}
+            </h4>
+            <p className="text-light/60 text-sm flex items-center h-10">
+              {project.teamSize && <><FiUsers className="mr-1" />{project.teamSize}</>}
+            </p>
+          </div>
           
           {/* Role if available */}
-          {project.role && (
-            <div>
-              <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2">
-                {language === 'en' ? 'My Role' : '我的角色'}
-              </h4>
-              <p className="text-light/60 text-sm">
-                {project.role[language] || ''}
-              </p>
-            </div>
-          )}
+          <div>
+            <h4 className="text-sm uppercase tracking-wider text-primary/70 mb-2 h-5">
+              {project.role ? (language === 'en' ? 'My Role' : '我的角色') : ''}
+            </h4>
+            <p className="text-light/60 text-sm h-10 overflow-hidden">
+              {project.role ? (project.role[language] || '') : ''}
+            </p>
+          </div>
         </div>
         
         {/* Links */}
