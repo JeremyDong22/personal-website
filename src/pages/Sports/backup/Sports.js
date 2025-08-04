@@ -1,18 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FiAward, FiUsers, FiStar, FiClock } from 'react-icons/fi';
-import { useLanguage } from '../context/LanguageContext';
-import translations from '../context/translations';
+import { useLanguage } from '../../../context/LanguageContext';
+import translations from '../../../context/translations';
 
 // Components
-import Hero from '../components/Hero';
-import Section from '../components/Section';
+import Hero from '../../../components/common/Hero';
+import Section from '../../../components/common/Section';
 
 // Import your actual sports photos
-import twilightBasketball from '../assets/images/sports/twilight_basketball.jpg';
-import varsityBasketball from '../assets/images/sports/varsity_basketball.jpg';
-import highschoolBasketball from '../assets/images/sports/highschool_basketball.jpg';
-import beijingBasketball from '../assets/images/sports/beijing_basketball.jpg';
+import twilightBasketball from '../../../assets/images/sports/twilight_basketball.jpg';
+import varsityBasketball from '../../../assets/images/sports/varsity_basketball.jpg';
+import highschoolBasketball from '../../../assets/images/sports/highschool_basketball.jpg';
+import beijingBasketball from '../../../assets/images/sports/beijing_basketball.jpg';
 import footballCareer from '../assets/images/sports/football_career.jpeg';
 import heroImage from '../assets/images/sports/hero/IMG_1479.JPG';
 
