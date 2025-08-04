@@ -220,6 +220,56 @@ const Projects = () => {
       },
       githubUrl: "https://github.com/JeremyDong22/reddit-growth",
       liveUrl: null
+    },
+    {
+      id: 6,
+      title: {
+        en: "Basketball Shooting Biomechanics Analyzer",
+        zh: "篮球投篮运动力学分析Web App"
+      },
+      description: {
+        en: "One-week project using MediaPipe and advanced filtering techniques to analyze shooting mechanics. Tracks joint movements and foot acceleration peaks to provide feedback and evaluation for basketball enthusiasts.",
+        zh: "耗时一周，基于MediaPipe和多种滤波技术分析投篮时的各个关节、脚加速度的峰值关系，给出篮球投篮运动爱好者反馈与评价。"
+      },
+      image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200&auto=format&fit=crop&q=80",
+      category: "ai",
+      technologies: ["Python", "MediaPipe", "TensorFlow", "OpenCV", "React", "WebRTC"],
+      featured: true,
+      challenges: {
+        en: "Accurately tracking multiple joint positions in real-time while calculating biomechanical metrics and providing instant feedback during basketball shooting motion.",
+        zh: "在篮球投篮动作过程中实时准确跟踪多个关节位置，同时计算生物力学指标并提供即时反馈。"
+      },
+      solutions: {
+        en: "Implemented Kalman filtering for smooth motion tracking, developed custom algorithms for calculating joint angles and acceleration peaks, and created an intuitive visualization system for feedback.",
+        zh: "实施卡尔曼滤波实现平滑运动跟踪，开发自定义算法计算关节角度和加速度峰值，并创建直观的可视化反馈系统。"
+      },
+      githubUrl: "https://github.com/JeremyDong22/basketball-biomechanics",
+      liveUrl: null
+    },
+    {
+      id: 7,
+      title: {
+        en: "Restaurant Operations Management AI Agent",
+        zh: "餐饮运营管理智能体"
+      },
+      description: {
+        en: "End-to-end AI agent system for restaurant management. From data collection, cleaning, and analysis to AI agent integration, helping restaurant entrepreneurs manage their establishments efficiently.",
+        zh: "将智能体管理项目落地在餐饮领域，从数据收集、数据清洗、数据分析，到最终的AI agent集成，帮助餐饮创业者管理自己的门店。"
+      },
+      image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+      category: "ai",
+      technologies: ["Python", "LangChain", "GPT-4", "PostgreSQL", "FastAPI", "React"],
+      featured: true,
+      challenges: {
+        en: "Integrating multiple data sources from POS systems, inventory management, and customer feedback while creating actionable insights through AI agents.",
+        zh: "整合来自POS系统、库存管理和客户反馈的多个数据源，同时通过AI代理创建可操作的洞察。"
+      },
+      solutions: {
+        en: "Built a modular data pipeline with automated ETL processes, implemented specialized AI agents for different operational aspects, and created a unified dashboard for real-time monitoring.",
+        zh: "构建了具有自动化ETL流程的模块化数据管道，为不同运营方面实施专门的AI代理，并创建了统一的实时监控仪表板。"
+      },
+      githubUrl: "https://github.com/JeremyDong22/restaurant-ai-agent",
+      liveUrl: null
     }
   ];
 

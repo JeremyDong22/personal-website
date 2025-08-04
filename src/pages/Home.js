@@ -147,6 +147,68 @@ const featuredProjects = [
       zh: "独立开发者"
     },
     teamSize: "1"
+  },
+  {
+    id: 4,
+    title: {
+      en: "Basketball Shooting Biomechanics Analyzer",
+      zh: "篮球投篮运动力学分析Web App"
+    },
+    description: {
+      en: "One-week project using MediaPipe and advanced filtering techniques to analyze shooting mechanics. Tracks joint movements and foot acceleration peaks to provide feedback and evaluation for basketball enthusiasts.",
+      zh: "耗时一周，基于MediaPipe和多种滤波技术分析投篮时的各个关节、脚加速度的峰值关系，给出篮球投篮运动爱好者反馈与评价。"
+    },
+    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200&auto=format&fit=crop&q=80",
+    tags: ["Python", "MediaPipe", "TensorFlow", "OpenCV", "React"],
+    categories: ['ai', 'sports', 'data'],
+    categoriesZh: ['人工智能', '体育', '数据'],
+    featured: true,
+    githubUrl: "https://github.com/JeremyDong22/basketball-biomechanics",
+    liveUrl: null,
+    tech: {
+      en: "Python, MediaPipe, TensorFlow, OpenCV, React, WebRTC",
+      zh: "Python, MediaPipe, TensorFlow, OpenCV, React, WebRTC"
+    },
+    emoji: "🏀",
+    status: "completed",
+    statusZh: "已完成",
+    duration: "1 week",
+    role: {
+      en: "Lead Developer",
+      zh: "主要开发者"
+    },
+    teamSize: "1"
+  },
+  {
+    id: 5,
+    title: {
+      en: "Restaurant Operations Management AI Agent",
+      zh: "餐饮运营管理智能体"
+    },
+    description: {
+      en: "End-to-end AI agent system for restaurant management. From data collection, cleaning, and analysis to AI agent integration, helping restaurant entrepreneurs manage their establishments efficiently.",
+      zh: "将智能体管理项目落地在餐饮领域，从数据收集、数据清洗、数据分析，到最终的AI agent集成，帮助餐饮创业者管理自己的门店。"
+    },
+    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    tags: ["Python", "LangChain", "GPT-4", "PostgreSQL", "FastAPI"],
+    categories: ['ai', 'automation', 'data'],
+    categoriesZh: ['人工智能', '自动化', '数据'],
+    featured: true,
+    githubUrl: "https://github.com/JeremyDong22/restaurant-ai-agent",
+    liveUrl: null,
+    tech: {
+      en: "Python, LangChain, GPT-4, PostgreSQL, FastAPI, React",
+      zh: "Python, LangChain, GPT-4, PostgreSQL, FastAPI, React"
+    },
+    emoji: "🍴",
+    status: "in-progress",
+    statusZh: "进行中",
+    duration: "2 weeks",
+    role: {
+      en: "Product Manager & Developer",
+      zh: "产品经理兼开发者"
+    },
+    teamSize: "2"
   }
 ];
 
