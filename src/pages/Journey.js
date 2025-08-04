@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import Section from '../components/Section';
+import Section from '../components/common/Section';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';

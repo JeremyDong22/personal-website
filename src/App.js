@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 // Components
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Navbar from './components/common/Navbar';
+import Footer from './components/common/Footer';
 
 // Pages
 import Home from './pages/Home';

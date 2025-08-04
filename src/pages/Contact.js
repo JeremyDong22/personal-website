@@ -4,8 +4,8 @@ import { FiMapPin, FiMail, FiPhone, FiLinkedin, FiMessageSquare, FiInfo } from '
 import { SiWechat } from 'react-icons/si';
 
 // Components
-import ContactForm from '../components/ContactForm';
-import QRCodeModal from '../components/QRCodeModal';
+import ContactForm from '../components/forms/ContactForm';
+import QRCodeModal from '../components/modals/QRCodeModal';
 
 // Language Context
 import { useLanguage } from '../context/LanguageContext';

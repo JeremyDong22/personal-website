@@ -1,7 +1,7 @@
 import React from 'react';
-import SportsHero from '../../components/sports/SportsHero';
-import CareerHighlights from '../../components/sports/CareerHighlights';
-import BasketballTimeline from '../../components/sports/BasketballTimeline';
+import SportsHero from '../../features/sports/SportsHero';
+import CareerHighlights from '../../features/sports/CareerHighlights';
+import BasketballTimeline from '../../features/sports/BasketballTimeline';
 
 /**
  * Sports Career Page

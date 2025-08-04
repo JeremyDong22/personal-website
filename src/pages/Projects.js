@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import Section from '../components/Section';
-import ProjectsHero from '../shared/components/ProjectsHero';
-import ProjectCard from '../shared/components/ProjectCard';
-import ProjectModal from '../shared/components/ProjectModal';
+import Navbar from '../components/common/Navbar';
+import Footer from '../components/common/Footer';
+import Section from '../components/common/Section';
+import ProjectsHero from '../components/common/ProjectsHero';
+import ProjectCard from '../components/cards/ProjectCard';
+import ProjectModal from '../components/modals/ProjectModal';
 
 const Projects = () => {
   const { language } = useLanguage();

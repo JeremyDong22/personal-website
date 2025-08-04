@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiDownload, FiExternalLink } from 'react-icons/fi';
-import Section from '../components/Section';
+import Section from '../components/common/Section';
 import { useLanguage } from '../context/LanguageContext';
 import translations from '../context/translations';
 
