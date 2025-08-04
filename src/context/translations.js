@@ -41,7 +41,7 @@ const translations = {
       },
       subtitle: {
         en: 'MS of Business Analytics + Accounting Student @ UIUC | Seeking Data/PM/Consulting/AI opportunities | CSPO® Certified Scrum Product Owner | Data-Driven Strategist | Startup Environment Experienced | AI Enthusiast',
-        zh: 'UIUC商业分析与会计双学位在读 | 寻求数据/产品/咨询/AI机会 | CSPO®产品经理认证 | 数据驱动战略家 | 创业环境经验丰富 | AI模型开发专家'
+        zh: '毕业于UIUC商业分析与会计双学位 | 寻求数据/产品/咨询/AI机会 | CSPO®产品经理认证 | 数据驱动战略家 | AI创业者'
       },
       viewPortfolio: {
         en: 'View Portfolio',

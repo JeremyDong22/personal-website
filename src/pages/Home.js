@@ -5,10 +5,10 @@ import { SiWechat } from 'react-icons/si';
 import { motion } from 'framer-motion';
 
 // Components
-import Hero from '../components/Hero';
-import Section from '../components/Section';
-import ProjectCard from '../components/ProjectCard';
-import QRCodeModal from '../components/QRCodeModal';
+import Hero from '../components/common/Hero';
+import Section from '../components/common/Section';
+import ProjectCard from '../components/cards/ProjectCard';
+import QRCodeModal from '../components/modals/QRCodeModal';
 
 // Language Context
 import { useLanguage } from '../context/LanguageContext';
@@ -49,7 +49,7 @@ const professionalSkills = [
     titleEn: 'AI & Automation',
     titleZh: 'AI与自动化',
     descriptionEn: 'Expertise in AI-driven automation, developing ChatGPT applications, and creating automated workflows for data collection and analysis.',
-    descriptionZh: '专注于AI驱动自动化，开发ChatGPT应用，创建数据收集和分析的自动化工作流程。'
+    descriptionZh: '专注于利用AI进行敏捷开发，创建数据收集分析的自动化工作流程，帮助企业完成数字化转型与AI融合。'
   }
 ];
 
@@ -266,7 +266,7 @@ const Home = () => {
             <p className="text-light/95 mb-6">
               {language === 'en' 
                 ? "As a Certified Scrum Product Owner (CSPO®) pursuing MS in Business Analytics & BA in Accounting at UIUC, I specialize in data-driven decision making and business strategy. My experience spans across supply chain, manufacturing, technology, and financial services, where I've delivered impactful solutions for cost optimization and operational efficiency."
-                : "作为一名认证Scrum产品负责人（CSPO®），我正在UIUC攻读商业分析硕士和会计学士学位。我专注于数据驱动决策和商业战略。我的经验涵盖供应链、制造业、技术和金融服务领域，为成本优化和运营效率提供了有效的解决方案。"}
+                : "作为一名认证Scrum产品负责人（CSPO®），我毕业于UIUC，获得商业分析硕士和会计学士学位。我专注于数据驱动决策和商业战略。我的经验涵盖供应链、制造业、技术和金融服务领域，为成本优化和运营效率提供了有效的解决方案。"}
             </p>
             <div className="gold-divider"></div>
             <p className="text-light/95 mb-6">

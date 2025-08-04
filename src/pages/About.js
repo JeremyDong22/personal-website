@@ -5,9 +5,9 @@ import { useLanguage } from '../context/LanguageContext';
 import { Link } from 'react-router-dom';
 
 // Components
-import Hero from '../components/Hero';
-import Section from '../components/Section';
-import SkillBar from '../components/SkillBar';
+import Hero from '../components/common/Hero';
+import Section from '../components/common/Section';
+import SkillBar from '../components/common/SkillBar';
 
 // Import hero image
 import aboutImage from '../assets/images/about/background/about_hero.jpeg';
@@ -305,7 +305,7 @@ const About = () => {
           <p className="text-base md:text-xl text-light/90">
             {language === 'en' 
               ? "I'm a passionate developer with a unique journey from accounting to tech." 
-              : "我是一位充满热情的开发者，有着从会计到科技的独特经历。"
+              : "我是一名充满热情的产品经理，有着从会计到科技的独特经历。"
             }
           </p>
         <a 
@@ -394,7 +394,7 @@ const About = () => {
                       transition={{ duration: 0.5, delay: 0.6 }}
                       viewport={{ once: true }}
                     >
-                      {"通过AI，我从一名会计学生蜕变为全栈开发者，证明最有价值的技能不是遵循常规，而是敢于重新定义可能性。"}
+                      {"通过AI，我从一名会计学生蜕变为产品设计师，证明最有价值的技能不是遵循常规，而是敢于重新定义可能性。"}
                     </motion.span>
                   </>
                 )}
