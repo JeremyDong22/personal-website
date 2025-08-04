@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FiDownload } from 'react-icons/fi';
 import { useLanguage } from '../context/LanguageContext';
@@ -149,6 +149,18 @@ const education = [
 
 const About = () => {
   const { language } = useLanguage();
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageSrc, setImageSrc] = useState(null);
+
+  // Preload journey image
+  useEffect(() => {
+    const img = new Image();
+    img.src = journeyImage;
+    img.onload = () => {
+      setImageSrc(journeyImage);
+      setImageLoaded(true);
+    };
+  }, []);
   
   // Function to handle smooth scrolling to sections
   const scrollToSection = (sectionId) => (e) => {
@@ -419,19 +431,27 @@ const About = () => {
             <motion.div 
               className="flex items-center justify-center"
               initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              whileInView={{ opacity: imageLoaded ? 1 : 0, scale: imageLoaded ? 1 : 0.9 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
               viewport={{ once: true, margin: "-100px" }}
             >
-              <div className="w-full h-full flex items-center justify-center">
-                <motion.img
-                  src={journeyImage}
-                  alt={language === 'en' ? "Jeremy's Journey" : "董衡的旅程"}
-                  className="w-full h-full object-cover rounded-lg hover:opacity-95 transition-opacity duration-500"
-                  style={{ maxHeight: '400px' }}
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ duration: 0.3 }}
-                />
+              <div className="w-full h-full flex items-center justify-center relative" style={{ minHeight: '400px' }}>
+                {!imageLoaded && (
+                  <div className="absolute inset-0 bg-dark/20 rounded-lg animate-pulse flex items-center justify-center">
+                    <div className="text-light/50">{language === 'en' ? 'Loading...' : '加载中...'}</div>
+                  </div>
+                )}
+                {imageSrc && (
+                  <motion.img
+                    src={imageSrc}
+                    alt={language === 'en' ? "Jeremy's Journey" : "董衡的旅程"}
+                    className="w-full h-full object-cover rounded-lg hover:opacity-95 transition-opacity duration-500"
+                    style={{ maxHeight: '400px', opacity: imageLoaded ? 1 : 0 }}
+                    whileHover={{ scale: 1.03 }}
+                    transition={{ duration: 0.3 }}
+                    loading="eager"
+                  />
+                )}
               </div>
             </motion.div>
           </div>
