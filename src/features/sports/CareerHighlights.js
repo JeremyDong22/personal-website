@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 import translations from '../../context/translations';
-import Section from '../Section';
+import Section from '../../components/common/Section';
 
 // Import data
 import { careerHighlights } from './data/highlightsData';

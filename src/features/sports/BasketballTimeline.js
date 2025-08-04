@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { FiClock } from 'react-icons/fi';
 import { useLanguage } from '../../context/LanguageContext';
 import translations from '../../context/translations';
-import Section from '../Section';
+import Section from '../../components/common/Section';
 
 // Import timeline images
 import twilightBasketball from '../../assets/images/sports/timeline/uiuc_twilight_team_2021.jpg';

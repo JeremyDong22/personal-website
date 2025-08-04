@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
-import { useLanguage } from '../context/LanguageContext';
-import translations from '../context/translations';
+import { useLanguage } from '../../context/LanguageContext';
+import translations from '../../context/translations';
 
 // Import QR code image
-import wechatQRCode from '../assets/images/contact/wechatQRcode.JPG';
+import wechatQRCode from '../../assets/images/contact/wechatQRcode.JPG';
 
 const QRCodeModal = ({ isOpen, onClose }) => {
   const { language } = useLanguage();

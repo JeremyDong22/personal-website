@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiMenu, FiX, FiGlobe } from 'react-icons/fi';
-import { useLanguage } from '../context/LanguageContext';
-import translations from '../context/translations';
+import { useLanguage } from '../../context/LanguageContext';
+import translations from '../../context/translations';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

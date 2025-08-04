@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiGithub, FiLinkedin, FiMail, FiPhone } from 'react-icons/fi';
 import { SiWechat } from 'react-icons/si';
-import { useLanguage } from '../context/LanguageContext';
-import translations from '../context/translations';
-import QRCodeModal from './QRCodeModal';
+import { useLanguage } from '../../context/LanguageContext';
+import translations from '../../context/translations';
+import QRCodeModal from '../modals/QRCodeModal';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
