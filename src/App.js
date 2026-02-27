@@ -17,6 +17,9 @@ import Journey from './pages/Journey';
 // Language Context
 import { LanguageProvider } from './context/LanguageContext';
 
+// Background image preloader
+import useBackgroundPreloader from './hooks/useBackgroundPreloader';
+
 function App() {
   const location = useLocation();
 
@@ -24,6 +27,9 @@ function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+  // Preload other pages' images while user is on Home page
+  useBackgroundPreloader();
 
   return (
     <LanguageProvider>
