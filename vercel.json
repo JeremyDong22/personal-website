@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "buildCommand": "./build.sh",
-  "outputDirectory": "build",
-  "framework": "create-react-app",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
   "routes": [
     { "handle": "filesystem" },
     { "src": "/.*", "dest": "/index.html" }
   ]
-} 
+}
