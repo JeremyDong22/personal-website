@@ -1,5 +1,10 @@
 # dependencies
 /node_modules
+resume-builder/node_modules
+resume-builder/output
+
+# Vite build output
+/dist
 /.pnp
 .pnp.js
 
