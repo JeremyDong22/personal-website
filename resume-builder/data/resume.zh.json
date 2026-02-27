@@ -1,0 +1,172 @@
+{
+  "meta": {
+    "language": "zh",
+    "version": "1.0",
+    "note": "编辑此文件更新中文简历。运行：node generate.js zh"
+  },
+  "header": {
+    "name": "董  衡",
+    "photo": "assets/photo.jpeg",
+    "contact": [
+      { "type": "location", "value": "广东省深圳市" },
+      { "type": "phone",    "value": "（+86）185-7664-4936" },
+      { "type": "email",    "value": "hengd3@outlook.com" }
+    ],
+    "website": "www.jeremydong.com",
+    "github": "github.com/JeremyDong22",
+    "tagline": "财会 / 产品 / 软硬件 / 销售"
+  },
+  "sections": [
+    {
+      "title": "教育背景",
+      "type": "education_zh",
+      "entries": [
+        { "date": "2024.08 – 2025.05", "institution": "美国伊利诺伊大学（UIUC）", "degree": "商业分析学  硕士", "gpa": "GPA：3.5/4.0" },
+        { "date": "2021.08 – 2024.05", "institution": "美国伊利诺伊大学（UIUC）", "degree": "会计学  学士",   "gpa": "GPA：3.9/4.0" }
+      ],
+      "coursework": "核心课程：敏捷开发管理、数据分析、机器学习、金融学、管理会计、经济学、博弈论、人力管理、供应链管理"
+    },
+    {
+      "title": "职业经历",
+      "type": "experience_zh",
+      "entries": [
+        {
+          "date": "2025.04 – 今",
+          "company": "smartice.ai",
+          "title": "首席研究员",
+          "location": "四川, 成都",
+          "bullets": [
+            "负责AI+餐饮全场景的产品定义与开发，包括进销存、培训、运营、投放，实现感知层的全方位数据采集分析。",
+            "设计Agentic Coding协同工作流（Claude Code Based），高效开发MVP/Demo，实现产品+落地反馈的高效迭代飞轮。",
+            "Fine-tune多模态模型并搭建AI workflow，实现监控智能化巡检，对区域人效形成洞察并帮助门店优化运营效率。",
+            "主导后厨单兵AI设备的硬件定制与设计，对后厨区域的管理控制形成闭环，解决餐饮品牌技术监督不足的问题。",
+            "桌访AI产品lingtin.smartice.ai创作者，多次迭代解决拾音、方言识别、落地会议闭环等实际使用问题。",
+            "创作小红书自动运营AI，智能识别市场趋势，结合品牌知识库撰写获客帖子，并对帖子数据长期追踪并自我进化。"
+          ]
+        },
+        {
+          "date": "2025.07 – 2025.09",
+          "company": "shoot-it.pro",
+          "title": "独立开发者",
+          "location": "广东, 深圳",
+          "bullets": [
+            "Vibe Coding开发三种以MediaPipe生物力学为基础的投篮分析Web App，单人负责产品设计、开发、迭代全流程。",
+            "在私域社群内进行测试与迭代，其中shootit.pro发出3天获得200日均流量，但因实时分析模型对前端要求太高而停滞。"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "实习经历",
+      "type": "experience_zh",
+      "entries": [
+        {
+          "date": "2025.01 – 2025.03",
+          "company": "Source Ready",
+          "title": "增长战略实习生",
+          "location": "圣塔莫妮卡, 美国",
+          "bullets": [
+            "基于AI自动化开发并执行Reddit增长策略，利用Crew.ai与Cursor开发Reddit机器人提升社区互动。",
+            "使用Mixpanel和Ahrefs分析用户行为、bounce rate、留存漏斗及流量来源，以引导投放策略。"
+          ]
+        },
+        {
+          "date": "2024.09 – 2025.05",
+          "company": "US Pharmacopeia",
+          "title": "AI/ML技术咨询者",
+          "location": "芝加哥, 美国",
+          "bullets": [
+            "使用React + MongoDB开发具备自动更新能力的企业知识库，经历从前期规划到后期落地部署的全流程。",
+            "使用Python开发自动化抓取工作流，收集和处理连续制造领域的研究数据，实现每月自动更新医学知识库内容。"
+          ]
+        },
+        {
+          "date": "2024.07 – 2024.08",
+          "company": "凯丰投资（公募基金）",
+          "title": "研究员 TMT",
+          "location": "深圳, 广东",
+          "bullets": [
+            "研究泛娱乐行业，结合Perplexity AI分析市场趋势及舆论走向，整合实地调研结果至投资报告。",
+            "在深圳核心商圈开展实地调研，追踪超2万+人流量、购买率及客群画像，评估市场潜力。"
+          ]
+        },
+        {
+          "date": "2024.05 – 2024.06",
+          "company": "国悦君安私募基金",
+          "title": "投资分析实习生",
+          "location": "上海, 上海",
+          "bullets": [
+            "与标的公司不同部门沟通，了解其市场渗透率、主要客户、技术壁垒及盈利情况。",
+            "使用Wind分析投资行业，利用对标方法寻找潜在标的公司并撰写报告。"
+          ]
+        },
+        {
+          "date": "2023.09 – 2023.12",
+          "company": "Molex（全球电子制造商）",
+          "title": "Go-To-Market实习生",
+          "location": "芝加哥, 美国",
+          "bullets": [
+            "牵头制定战略框架，帮助客户识别中国境外的替代制造地点，评估不同成本结构、商业风险率及关税政策。",
+            "用变量参数建模并基于不同优先级得出三个推荐的国家地区，取得客户采纳并纳入企业战略计划。"
+          ]
+        },
+        {
+          "date": "2023.06 – 2023.08",
+          "company": "BDO（立信会计）",
+          "title": "国际销售咨询实习生",
+          "location": "北京, 北京",
+          "bullets": [
+            "主导英飞凌与赛米控客户销售谈判，以成本优势达成700万元、40% GPM prototype订单，并获华为创投注资。",
+            "协调研发与销售团队，优化产品功能以满足德国市场需求，主持客户需求会议。"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "课外活动",
+      "type": "experience_zh",
+      "entries": [
+        {
+          "date": "2024.09 – 2024.12",
+          "company": "库克县房产价格预测",
+          "title": "预测分析员",
+          "location": "香槟, 美国",
+          "bullets": [
+            "使用R语言的多项式回归、梯度提升和随机森林模型预测伊利诺伊州库克县房产价格，寻找最低均方误差（MSE）。",
+            "通过数据质量检查（一致性、异常值）和清洗（去除缺失/重复数据、转换数据类型）预处理数据集。"
+          ]
+        },
+        {
+          "date": "2022.05 – 2022.08",
+          "company": "哔哩哔哩",
+          "title": "视频创作者",
+          "location": "香槟, 美国",
+          "bullets": [
+            "账户2个月内获8000粉丝、500私域群成员、5位行业专家关注，并线下开设私教课创收4000元。"
+          ]
+        },
+        {
+          "date": "2021.09 – 2024.05",
+          "company": "Twilight篮球俱乐部",
+          "title": "创始人 / 队长",
+          "location": "香槟, 美国",
+          "bullets": [
+            "创建并管理大学篮球俱乐部，3年内在战绩、运营和影响力上发展为UIUC第一规模的华人篮球队。",
+            "与熊猫外卖、饭团外卖等本地品牌建立赞助关系，获得参赛及运营经费约2000美元。"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "其他信息",
+      "type": "skills_zh",
+      "entries": [
+        { "label": "语言",     "value": "中文（母语），英文（流利）" },
+        { "label": "资质证书", "value": "Certified Scrum Product Owner (CSPO) 产品经理证书，Google AI Essential 人工智能基础证书" },
+        { "label": "编程语言", "value": "Python, SQL, JavaScript, HTML, CSS, R" },
+        { "label": "编程工具", "value": "Claude Code, Cursor, n8n, Comfy UI, React, MongoDB" },
+        { "label": "兴趣爱好", "value": "滑雪，高尔夫，户外徒步，篮球，德州扑克" }
+      ]
+    }
+  ]
+}

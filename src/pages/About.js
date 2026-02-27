@@ -1,38 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FiDownload } from 'react-icons/fi';
+import { FiDownload, FiExternalLink } from 'react-icons/fi';
 import { useLanguage } from '../context/LanguageContext';
 import { Link } from 'react-router-dom';
 
 // Components
 import Hero from '../components/common/Hero';
 import Section from '../components/common/Section';
-import SkillBar from '../components/common/SkillBar';
 
 // Import hero image
 import aboutImage from '../assets/images/about/background/about_hero.jpeg';
 import journeyImage from '../assets/images/about/background/journey.jpg';
 
-// Skills data
-const technicalSkills = [
-  { name: 'Python', percentage: 95, color: 'primary' },
-  { name: 'SQL', percentage: 90, color: 'blue' },
-  { name: 'R', percentage: 85, color: 'green' },
-  { name: 'Java', percentage: 75, color: 'purple' },
-  { name: 'NumPy/Pandas', percentage: 90, color: 'blue' },
-  { name: 'Scikit-learn', percentage: 85, color: 'orange' },
-];
-
-const softSkills = [
-  { name: 'Data Analysis', percentage: 95, color: 'primary' },
-  { name: 'Machine Learning', percentage: 90, color: 'blue' },
-  { name: 'Business Strategy', percentage: 85, color: 'green' },
-  { name: 'Market Research', percentage: 80, color: 'purple' },
-  { name: 'AI Automation', percentage: 90, color: 'orange' },
-];
-
 // Experience data
 const experiences = [
+  {
+    id: 0,
+    role: 'Lead Researcher',
+    company: 'smartice.ai',
+    companyDescription: 'AI-Powered Restaurant Management',
+    period: 'Apr 2025 - Present',
+    website: 'https://smartice.ai',
+    description: 'Leading full-stack AI product development for restaurant management — covering inventory, training, visual inspection, marketing automation, and hardware. Designed agentic coding workflows (Claude Code based) to rapidly build and iterate MVPs. Fine-tuned multimodal models for intelligent kitchen monitoring and co-created lingtin.smartice.ai for table-side AI conversations.',
+    logoUrl: '/assets/images/logos/smartice.png'
+  },
   {
     id: 1,
     role: 'Growth Analyst Intern',
@@ -305,8 +296,8 @@ const About = () => {
       <Hero
         title={language === 'en' ? "My Journey" : "我的旅程"}
         subtitle={language === 'en' 
-          ? <>Learn more about my <a href="#skills" onClick={scrollToSection('skills')} className="btn-link">skills</a>, <a href="#experience" onClick={scrollToSection('experience')} className="btn-link">professional experience</a>, and <a href="#education" onClick={scrollToSection('education')} className="btn-link">education</a></>
-          : <>了解更多关于我的<a href="#skills" onClick={scrollToSection('skills')} className="btn-link">技能</a>、<a href="#experience" onClick={scrollToSection('experience')} className="btn-link">专业经验</a>和<a href="#education" onClick={scrollToSection('education')} className="btn-link">教育背景</a></>
+          ? <>Learn more about my <a href="#experience" onClick={scrollToSection('experience')} className="btn-link">professional experience</a> and <a href="#education" onClick={scrollToSection('education')} className="btn-link">education</a></>
+          : <>了解更多关于我的<a href="#experience" onClick={scrollToSection('experience')} className="btn-link">专业经验</a>和<a href="#education" onClick={scrollToSection('education')} className="btn-link">教育背景</a></>
         }
         image={aboutImage}
         reversed
@@ -465,52 +456,6 @@ const About = () => {
         </div>
       </Section>
       
-      {/* Skills Section */}
-      <Section
-        id="skills"
-        title={language === 'en' ? "Technical Expertise" : "技术专长"}
-        subtitle={language === 'en' ? "Data Science & Business Analytics Skills" : "数据科学与商业分析技能"}
-        dark
-        className="px-4 sm:px-6"
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
-          {/* Technical Skills */}
-          <div>
-            <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-white">{language === 'en' ? "Programming & Tools" : "编程与工具"}</h3>
-            {technicalSkills.map((skill, index) => (
-              <SkillBar
-                key={skill.name}
-                name={skill.name}
-                percentage={skill.percentage}
-                color={skill.color}
-                index={index}
-              />
-            ))}
-          </div>
-          
-          {/* Soft Skills */}
-          <div>
-            <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-white">{language === 'en' ? "Domain Expertise" : "领域专长"}</h3>
-            {softSkills.map((skill, index) => (
-              <SkillBar
-                key={skill.name}
-                name={skill.name}
-                percentage={skill.percentage}
-                color={skill.color}
-                index={index}
-              />
-            ))}
-          </div>
-        </div>
-      </Section>
-      
-      {/* Decorative Separator */}
-      <div className="relative my-16">
-        <div className="absolute left-0 right-0 top-1/2 transform -translate-y-1/2 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
-        <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rotate-45 border-2 border-primary/20 bg-darkgray"></div>
-        <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 rotate-45 border-2 border-primary/30 bg-darkgray"></div>
-      </div>
-      
       {/* Experience Section */}
       <Section
         id="experience"
@@ -530,10 +475,17 @@ const About = () => {
             >
               <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                 <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center">
+                  {exp.company === 'smartice.ai' && (
+                    <img
+                      src="/assets/images/logos/smartice.png"
+                      alt="smartice.ai"
+                      className="w-12 h-12 object-contain rounded-lg"
+                    />
+                  )}
                   {exp.company === 'Source Ready' && (
-                    <img 
-                      src="/assets/images/logos/sourceready.png" 
-                      alt="Source Ready" 
+                    <img
+                      src="/assets/images/logos/sourceready.png"
+                      alt="Source Ready"
                       className="w-12 h-12 object-contain"
                     />
                   )}
@@ -575,6 +527,7 @@ const About = () => {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl md:text-2xl font-bold">{language === 'en' ? exp.role : 
+                    exp.company === 'smartice.ai' ? '首席研究员' :
                     exp.company === 'Source Ready' ? '增长战略实习生' :
                     exp.company === 'US Pharmacopeia' ? 'AI/ML技术咨询者' :
                     exp.company === 'Kaifeng Investment' ? 'TMT研究员实习生' :
@@ -584,13 +537,14 @@ const About = () => {
                     exp.role
                   }</h3>
                   <div className="flex flex-wrap items-center gap-2 text-sm md:text-base">
-                    <a 
-                      href={exp.website} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="text-primary font-medium hover:text-lightgold transition-colors"
+                    <a
+                      href={exp.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary font-medium hover:text-lightgold transition-colors underline underline-offset-2 inline-flex items-center gap-1"
                     >
-                      {language === 'en' ? exp.company : 
+                      {language === 'en' ? exp.company :
+                        exp.company === 'smartice.ai' ? 'smartice.ai' :
                         exp.company === 'Source Ready' ? 'SourceReady' :
                         exp.company === 'US Pharmacopeia' ? '美国药典' :
                         exp.company === 'Kaifeng Investment' ? '凯丰投资' :
@@ -599,9 +553,11 @@ const About = () => {
                         exp.company === 'BDO Consulting' ? 'BDO立信' :
                         exp.company
                       }
+                      <FiExternalLink className="w-3 h-3 opacity-70" />
                     </a>
                     <span className="text-gray-500">•</span>
                     <span className="text-gray-500 italic text-xs md:text-sm">{language === 'en' ? exp.companyDescription : 
+                      exp.company === 'smartice.ai' ? 'AI+餐饮全场景管理' :
                       exp.company === 'Source Ready' ? '初创供应链引擎' :
                       exp.company === 'US Pharmacopeia' ? '制药标准组织' :
                       exp.company === 'Kaifeng Investment' ? '共同基金' :
@@ -613,12 +569,28 @@ const About = () => {
                   </div>
                   <p className="text-gray-500 mb-4 text-sm md:text-base">{exp.period}</p>
                   <div className="text-white font-medium text-sm md:text-base">
-                    {exp.description.split('. ').filter(sentence => sentence.trim().length > 0).map((sentence, i, arr) => (
+                    {language === 'zh' && exp.company === 'smartice.ai' ? (
+                      // Chinese bullets from resume.zh.json (6 bullets, not splittable from English description)
+                      [
+                        '负责AI+餐饮全场景的产品定义与开发，包括进销存、培训、运营、投放，实现感知层的全方位数据采集分析',
+                        '设计Agentic Coding协同工作流（Claude Code Based），高效开发MVP/Demo，实现产品+落地反馈的高效迭代飞轮',
+                        'Fine-tune多模态模型并搭建AI workflow，实现监控智能化巡检，对区域人效形成洞察并帮助门店优化运营效率',
+                        '主导后厨单兵AI设备的硬件定制与设计，对后厨区域的管理控制形成闭环，解决餐饮品牌技术监督不足的问题',
+                        '桌访AI产品lingtin.smartice.ai创作者，多次迭代解决拾音、方言识别、落地会议闭环等实际使用问题',
+                        '创作小红书自动运营AI，智能识别市场趋势，结合品牌知识库撰写获客帖子，并对帖子数据长期追踪并自我进化',
+                      ].map((bullet, i) => (
+                        <div key={i} className="flex items-start mb-2 last:mb-0">
+                          <span className="text-primary font-bold mr-2 mt-1">•</span>
+                          <span>{bullet}</span>
+                        </div>
+                      ))
+                    ) : (
+                    exp.description.split('. ').filter(sentence => sentence.trim().length > 0).map((sentence, i, arr) => (
                       <div key={i} className="flex items-start mb-2 last:mb-0">
                         <span className="text-primary font-bold mr-2 mt-1">•</span>
-                        <span>{language === 'en' ? 
-                          (sentence + (i < arr.length - 1 && sentence.trim().slice(-1) !== '.' ? '.' : '')) : 
-                          (exp.company === 'Source Ready' ? 
+                        <span>{language === 'en' ?
+                          (sentence + (i < arr.length - 1 && sentence.trim().slice(-1) !== '.' ? '.' : '')) :
+                          (exp.company === 'Source Ready' ?
                             (i === 0 ? '基于AI自动化开发并执行Reddit增长策略，通过Crew.ai与Cursor工具，训练Reddit机器人提升社区互动' : 
                              i === 1 ? '利用PRAW（Python Reddit API工具包）及Pandas进行社区互动的数据分析，识别用户互动趋势，精准投放营销' : 
                              '通过Mixpanel仪表盘可视化漏斗、流程和留存报告，揭示增长洞察') :
@@ -640,7 +612,8 @@ const About = () => {
                             sentence)
                         }</span>
                       </div>
-                    ))}
+                    ))
+                    )}
                   </div>
                 </div>
               </div>

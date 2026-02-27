@@ -9,10 +9,10 @@ const Resume = () => {
   const { language } = useLanguage();
   const [activeResume, setActiveResume] = useState('en'); // Default to English resume
 
-  // Resume file paths - use process.env.PUBLIC_URL to ensure correct paths in GitHub Pages
+  // Resume file paths (served from public/assets/documents/)
   const resumeFiles = {
-    en: `${process.env.PUBLIC_URL}/assets/documents/Resume_English.pdf`,
-    zh: `${process.env.PUBLIC_URL}/assets/documents/Resume_Chinese.pdf`
+    en: '/assets/documents/Resume_English.pdf',
+    zh: '/assets/documents/Resume_Chinese.pdf'
   };
 
   return (

@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "language": "en",
+    "version": "1.0",
+    "note": "Edit this file to update your English resume. Run: node generate.js en"
+  },
+  "header": {
+    "name": "Jeremy Dong",
+    "contact": [
+      { "type": "email",    "value": "hengd3@outlook.com" },
+      { "type": "phone",    "value": "(217) 974 0277" },
+      { "type": "linkedin", "value": "www.linkedin.com/in/jeremy-dong-176092256" },
+      { "type": "location", "value": "Champaign, IL 61820" }
+    ]
+  },
+  "sections": [
+    {
+      "title": "EDUCATION",
+      "type": "education",
+      "entries": [
+        {
+          "institution": "University of Illinois Urbana-Champaign, Gies College of Business",
+          "degrees": [
+            { "degree": "M.S. in Business Analytics (Merit-based Scholarship)", "gpa": "GPA: 3.5/4.0", "date": "Expected May 2025" },
+            { "degree": "B.S. in Accountancy", "gpa": "GPA: 3.9/4.0", "date": "May 2024" }
+          ],
+          "coursework": "Corporate Finance, Managerial Accounting, Data Analytics, Supply Chain Management"
+        }
+      ]
+    },
+    {
+      "title": "PROFESSIONAL EXPERIENCE",
+      "type": "experience",
+      "entries": [
+        {
+          "company": "smartice.ai",
+          "location": "Chengdu, China",
+          "title": "Lead Researcher",
+          "date": "Apr 2025 – Present",
+          "bullets": [
+            "Led full-stack AI product development for restaurant management, covering inventory, training, operations, and marketing automation to enable comprehensive data collection across all touchpoints.",
+            "Designed Agentic Coding collaborative workflows (Claude Code based) to rapidly build MVPs and demos, creating an efficient product-to-field-feedback iteration flywheel.",
+            "Fine-tuned multimodal models and built AI workflows for intelligent surveillance inspection, generating area-level efficiency insights to help stores optimize operations.",
+            "Led hardware customization and design for kitchen-focused AI devices, closing the loop on back-of-house management and addressing restaurant brands' operational oversight gap.",
+            "Created lingtin.smartice.ai, a table-side AI conversation product, iterating to solve real-world issues including audio pickup, dialect recognition, and meeting-to-action closure.",
+            "Built a Xiaohongshu automated marketing AI that identifies market trends, generates acquisition posts from brand knowledge, and self-evolves through long-term post performance tracking."
+          ]
+        },
+        {
+          "company": "shoot-it.pro",
+          "location": "Shenzhen, China",
+          "title": "Independent Developer",
+          "date": "Jul 2025 – Sep 2025",
+          "bullets": [
+            "Vibe Coded three MediaPipe biomechanics-based shooting analysis web apps, owning full product design, development, and iteration cycle solo.",
+            "Tested and iterated within private community; achieved 200 DAU within 3 days of launch, but stalled as real-time analysis models proved too demanding for frontend."
+          ]
+        },
+        {
+          "company": "Source Ready (Supply Chain SaaS Startup)",
+          "location": "Santa Monica, CA",
+          "title": "Growth Analyst Intern",
+          "date": "Jan 2025 – Mar 2025",
+          "bullets": [
+            "Enhanced Google SEO by 300% by creating Reddit strategy and collaborating with high-authority press & media.",
+            "Developed and executed an AI-driven Reddit growth strategy, integrating Crew.ai and Cursor (Python Reddit API Wrapper) to enhance engagement through a custom-trained Reddit bot.",
+            "Analyzed user behavior, bounce rate, retention funnel, and traffic sources via Mixpanel and Ahrefs to guide ad strategy."
+          ]
+        },
+        {
+          "company": "US Pharmacopeia",
+          "location": "Chicago, IL",
+          "title": "AI/ML Technical Consultant",
+          "date": "Sep 2024 – May 2025",
+          "bullets": [
+            "Built a self-updating enterprise knowledge base using React + MongoDB, managing the full lifecycle from planning to production deployment.",
+            "Developed an automated scraping workflow in Python to collect and process research data on continuous manufacturing, enabling monthly auto-updates to the medical knowledge base."
+          ]
+        },
+        {
+          "company": "Kaifeng Investment (Mutual Fund)",
+          "location": "Shenzhen, Guangdong",
+          "title": "Investment Researcher (TMT)",
+          "date": "Jul 2024 – Aug 2024",
+          "bullets": [
+            "Researched the pan-entertainment sector, leveraging Perplexity AI for market trend insights and Wind for financial data analysis, integrating findings from field investigations into reports.",
+            "Conducted field investigations at major retail locations in Shenzhen, tracking foot traffic (20k+), purchase rates, and customer demographics to evaluate market viability."
+          ]
+        },
+        {
+          "company": "GYJA Private Equity",
+          "location": "Shanghai, China",
+          "title": "Investment Analyst Intern",
+          "date": "May 2024 – Jun 2024",
+          "bullets": [
+            "Communicated across departments of target companies to assess market penetration, key clients, technology barriers, and profitability.",
+            "Analyzed investment sectors using Wind; applied best-in-class benchmarking methodology to identify potential targets and authored investment reports."
+          ]
+        },
+        {
+          "company": "Molex (Global Electronics Manufacturer)",
+          "location": "Chicago, IL",
+          "title": "Go-To-Market Intern",
+          "date": "Sep 2023 – Dec 2023",
+          "bullets": [
+            "Led strategic framework development to help clients identify alternative manufacturing locations outside China, evaluating cost structures, business risk rates, and tariff policies.",
+            "Built parametric cost models and recommended three country-regions by priority; findings were adopted into client corporate strategy."
+          ]
+        },
+        {
+          "company": "BDO Consulting",
+          "location": "Beijing, China",
+          "title": "International Sales Consultant Intern",
+          "date": "Jun 2023 – Aug 2023",
+          "bullets": [
+            "Led Infineon and Semikron sales negotiations, closing a ¥7M, 40% GPM prototype order through cost advantage positioning and securing Huawei Ventures investment.",
+            "Coordinated R&D and Sales teams to align product features with German market needs; facilitated client requirement sessions."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "LEADERSHIP AND INVOLVEMENT",
+      "type": "experience",
+      "entries": [
+        {
+          "company": "Cook County Property Price Prediction",
+          "location": "Champaign, IL",
+          "title": "Predictive Analytics Project",
+          "date": "Sep 2024 – Dec 2024",
+          "bullets": [
+            "Used polynomial regression, gradient boosting, and random forest models in R to predict Illinois Cook County property prices, minimizing MSE through model comparison."
+          ]
+        },
+        {
+          "company": "Bilibili.com",
+          "location": "Champaign, IL",
+          "title": "Influencer (Kinesiology Channel)",
+          "date": "May 2022 – Aug 2022",
+          "bullets": [
+            "Gained 8,000 followers, 500 private community members, and $2,000 in revenue within two months through kinesiology video content."
+          ]
+        },
+        {
+          "company": "Twilight Illini Basketball Club",
+          "location": "Champaign, IL",
+          "title": "Founder / Captain",
+          "date": "Sep 2021 – May 2024",
+          "bullets": [
+            "Built the most competitive Chinese student basketball team at UIUC in 3 years across record, operations, and influence.",
+            "Secured ~$2,000 in sponsorships from local brands (Panda Express, FanTuan) in exchange for brand promotion."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "SKILLS & CERTIFICATIONS",
+      "type": "skills",
+      "entries": [
+        { "label": "Tech Skills",    "value": "Python, SQL, JavaScript, HTML/CSS, R, Excel, Tableau, MySQL, AWS, Machine Learning Models." },
+        { "label": "Tools",          "value": "Claude Code, Cursor, n8n, Comfy UI, React, MongoDB, Mixpanel, Ahrefs." },
+        { "label": "General Skills", "value": "Financial Statement Analysis, Scrum Framework, Risk Control, Variance Analysis, Inventory Control." },
+        { "label": "Certifications", "value": "Certified Scrum Product Owner (CSPO), Google AI Essentials." },
+        { "label": "Languages",      "value": "English (fluent), Mandarin Chinese (native)." }
+      ]
+    }
+  ]
+}
