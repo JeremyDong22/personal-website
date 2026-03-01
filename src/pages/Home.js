@@ -53,162 +53,103 @@ const professionalSkills = [
   }
 ];
 
-// Featured projects data
+// Most recent 6 projects (reverse-chronological by last commit date)
 const featuredProjects = [
   {
-    id: 1,
+    id: 10,
     title: {
-      en: "Logistics Aggregation Solution",
-      zh: "菜鸟物流价格查询系统"
+      en: "InventoryEntry – Voice-Powered SmartICE Inventory System",
+      zh: "野百灵库存管理系统 – 语音 AI 驱动的库存录入"
     },
     description: {
-      en: "Built in just 2 weeks, this Node.js logistics system provides optimal shipping recommendations based on item specifications and destination countries. Features intelligent weight estimation, automated item classification, and AI-powered conversation flow.",
-      zh: "仅用2周时间构建，这个基于Node.js的物流系统根据物品规格和目的地国家提供最佳运输建议。具有智能重量估算、自动物品分类和AI驱动的对话流程。"
+      en: "Restaurant chain inventory management system with both manual and voice-based entry. Uses iFlytek ASR for real-time Chinese speech transcription and Alibaba Qwen for AI-structured data extraction from free-form speech. Supports 4-role RBAC permissions, deployed live at inv.smartice.ai.",
+      zh: "连锁餐厅库存管理系统，支持手动录入和语音录入两种模式——讯飞 ASR 实时中文语音识别 + 阿里云通义千问 AI 结构化提取库存数据。4 角色 RBAC 权限控制，线上运行于 inv.smartice.ai。"
     },
-    image: "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=1200&auto=format&fit=crop&q=80",
-    tags: ["Node.js", "Express.js", "SQLite3", "OpenAI API", "JavaScript"],
-    categories: ['backend', 'automation'],
-    categoriesZh: ['后端', '自动化'],
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&auto=format&fit=crop&q=80",
+    technologies: ["React 19", "Vite 6", "TypeScript", "FastAPI", "Supabase", "iFlytek ASR", "Alibaba Qwen"],
     featured: true,
-    githubUrl: "https://github.com/JeremyDong22/Logistics-Aggregation-Solution",
-    liveUrl: null,
-    tech: {
-      en: "Node.js, Express.js, SQLite3, OpenAI API, JavaScript",
-      zh: "Node.js, Express.js, SQLite3, OpenAI API, JavaScript"
-    },
-    emoji: "📦",
-    status: "completed",
-    statusZh: "已完成",
-    duration: "2 weeks",
-    role: {
-      en: "Lead Developer",
-      zh: "主要开发者"
-    },
-    teamSize: "1"
+    githubUrl: "https://github.com/JeremyDong22/InventoryEntryOfSmartICE",
+    liveUrl: "https://inv.smartice.ai"
   },
   {
-    id: 2,
+    id: 19,
     title: {
-      en: "JD Price Intelligence Crawler",
-      zh: "京东价格爬虫工具"
+      en: "SightLink – Smart Badge Hardware Assembly Guide",
+      zh: "SightLink – 智能抓拍工牌硬件组装交互指南"
     },
     description: {
-      en: "A sophisticated 3-day prototype for e-commerce price monitoring that uses computer vision and browser automation to avoid detection. Crawls product pages, extracts pricing data, and provides real-time market intelligence.",
-      zh: "一个用于电子商务价格监控的3天原型，使用计算机视觉和浏览器自动化以避免被检测。爬取产品页面，提取价格数据，并提供实时市场情报。"
+      en: "Interactive hardware assembly and operation guide for the SightLink intelligent employee badge system featuring automatic face capture and identification. A web-based step-by-step guide with progress tracking and validation checkpoints.",
+      zh: "SightLink 智能员工工牌系统的交互式硬件组装与操作指南。工牌具有自动人脸抓拍与识别功能，Web 指南含进度追踪和验证检查点，引导技术人员独立完成部署。"
     },
-    image: "/images/jd-logo.jpg",
-    tags: ["Python", "Selenium", "OpenCV", "PyAutoGUI", "Flask"],
-    categories: ['backend', 'automation'],
-    categoriesZh: ['后端', '自动化'],
-    featured: true,
-    githubUrl: "https://github.com/JeremyDong22/JD_Price_Crawler",
-    liveUrl: null,
-    tech: {
-      en: "Python, Selenium, OpenCV, PyAutoGUI, Flask",
-      zh: "Python, Selenium, OpenCV, PyAutoGUI, Flask"
-    },
-    emoji: "🔍",
-    status: "completed",
-    statusZh: "已完成",
-    duration: "3 days",
-    role: {
-      en: "Solo Developer",
-      zh: "独立开发者"
-    },
-    teamSize: "1"
-  },
-  {
-    id: 3,
-    title: {
-      en: "XHS Content Crawler with Supabase",
-      zh: "小红书爬虫与Supabase集成"
-    },
-    description: {
-      en: "An automated content harvesting tool for Xiaohongshu (Little Red Book) that extracts posts, images, and engagement metrics. Features automatic keyword detection, content filtering by likes, and seamless Supabase integration for storage.",
-      zh: "一个针对小红书的自动内容采集工具，可提取帖子、图片和互动指标。具有自动关键词检测、按点赞数过滤内容，以及与Supabase无缝集成以进行存储的功能。"
-    },
-    image: "/images/xhs-interface.jpg",
-    tags: ["Python", "Selenium", "Supabase", "Chrome WebDriver", "PostgreSQL"],
-    categories: ['backend', 'automation', 'data'],
-    categoriesZh: ['后端', '自动化', '数据'],
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&auto=format&fit=crop&q=80",
+    technologies: ["HTML5", "CSS3", "JavaScript", "Interactive Step Guide"],
     featured: false,
-    githubUrl: "https://github.com/JeremyDong22/XHS_Crawler_supabase",
-    liveUrl: null,
-    tech: {
-      en: "Python, Selenium, Supabase, Chrome WebDriver, PostgreSQL",
-      zh: "Python, Selenium, Supabase, Chrome WebDriver, PostgreSQL"
-    },
-    emoji: "📱",
-    status: "completed",
-    statusZh: "已完成",
-    duration: "1 week",
-    role: {
-      en: "Solo Developer",
-      zh: "独立开发者"
-    },
-    teamSize: "1"
+    githubUrl: "https://github.com/JeremyDong22/sightlink-hardware-guide",
+    liveUrl: null
   },
   {
-    id: 4,
+    id: 9,
     title: {
-      en: "Basketball Shooting Biomechanics Analyzer",
-      zh: "篮球投篮运动力学分析Web App"
+      en: "Maiyouweng – B2B Grain & Oil Options Trading Platform",
+      zh: "卖油翁 – B2B 粮油含权贸易平台"
     },
     description: {
-      en: "One-week project using MediaPipe and advanced filtering techniques to analyze shooting mechanics. Tracks joint movements and foot acceleration peaks to provide feedback and evaluation for basketball enthusiasts.",
-      zh: "耗时一周，基于MediaPipe和多种滤波技术分析投篮时的各个关节、脚加速度的峰值关系，给出篮球投篮运动爱好者反馈与评价。"
+      en: "Full-stack B2B platform for China's grain and oil options-embedded trade market — a complex derivative pricing model where buyers receive embedded optionality on commodity prices. Features basis pricing, fund flow management, and an interactive HTML5 business logic visualizer.",
+      zh: "面向中国粮油含权贸易市场的 B2B 全栈平台。实现了基差定价、资金流转、盈亏计算，并附有交互式 HTML5 业务逻辑可视化模型，Docker Compose 一键部署。"
     },
-    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200&auto=format&fit=crop&q=80",
-    tags: ["Python", "MediaPipe", "TensorFlow", "OpenCV", "React"],
-    categories: ['ai', 'sports', 'data'],
-    categoriesZh: ['人工智能', '体育', '数据'],
+    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&auto=format&fit=crop&q=80",
+    technologies: ["React", "TypeScript", "FastAPI", "PostgreSQL", "Docker"],
     featured: true,
-    githubUrl: "https://github.com/JeremyDong22/basketball-biomechanics",
-    liveUrl: null,
-    tech: {
-      en: "Python, MediaPipe, TensorFlow, OpenCV, React, WebRTC",
-      zh: "Python, MediaPipe, TensorFlow, OpenCV, React, WebRTC"
-    },
-    emoji: "🏀",
-    status: "completed",
-    statusZh: "已完成",
-    duration: "1 week",
-    role: {
-      en: "Lead Developer",
-      zh: "主要开发者"
-    },
-    teamSize: "1"
+    githubUrl: "https://github.com/JeremyDong22/maiyouweng",
+    liveUrl: null
   },
   {
-    id: 5,
+    id: 25,
     title: {
-      en: "Restaurant Operations Management AI Agent",
-      zh: "餐饮运营管理智能体"
+      en: "Taobao / Tmall MCP Server for AI Assistants",
+      zh: "淘宝 / 天猫 AI 助手 MCP 服务器"
     },
     description: {
-      en: "End-to-end AI agent system for restaurant management. From data collection, cleaning, and analysis to AI agent integration, helping restaurant entrepreneurs manage their establishments efficiently.",
-      zh: "将智能体管理项目落地在餐饮领域，从数据收集、数据清洗、数据分析，到最终的AI agent集成，帮助餐饮创业者管理自己的门店。"
+      en: "Model Context Protocol (MCP) server that lets AI assistants like Claude directly call tools to scrape Taobao / Tmall product data. Accepts multiple input formats and maintains a persistent Playwright browser session to preserve login state.",
+      zh: "让 Claude 等 AI 助手直接调用工具爬取淘宝/天猫商品数据的 MCP 服务器。支持多种输入格式，通过持久化 Playwright Session 保持登录状态，输出结构化 Markdown。"
     },
-    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
-    tags: ["Python", "LangChain", "GPT-4", "PostgreSQL", "FastAPI"],
-    categories: ['ai', 'automation', 'data'],
-    categoriesZh: ['人工智能', '自动化', '数据'],
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&auto=format&fit=crop&q=80",
+    technologies: ["Python", "Playwright", "MCP Protocol", "Chromium", "uv"],
+    featured: false,
+    githubUrl: "https://github.com/JeremyDong22/taobao_mcp",
+    liveUrl: null
+  },
+  {
+    id: 20,
+    title: {
+      en: "XHS Multi-Account Crawler & AI Annotation Platform",
+      zh: "小红书多账号爬取与 AI 数据标注平台"
+    },
+    description: {
+      en: "Full-stack data collection and AI labeling platform for Xiaohongshu. FastAPI backend manages multiple isolated Chrome account instances via Playwright, feeds images/text to Gemini Flash for automatic classification, with real-time SSE-based status monitoring.",
+      zh: "面向小红书的全栈数据采集与 AI 标注平台。FastAPI 后端通过 Playwright 管理多个独立 Chrome 账号实例，Gemini Flash 进行图文分类标注，SSE 实时展示浏览器状态。"
+    },
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop&q=80",
+    technologies: ["Python", "FastAPI", "Playwright", "Gemini Flash", "Next.js 16", "PostgreSQL"],
     featured: true,
-    githubUrl: "https://github.com/JeremyDong22/restaurant-ai-agent",
-    liveUrl: null,
-    tech: {
-      en: "Python, LangChain, GPT-4, PostgreSQL, FastAPI, React",
-      zh: "Python, LangChain, GPT-4, PostgreSQL, FastAPI, React"
+    githubUrl: "https://github.com/JeremyDong22/XHSCOfSmartICE",
+    liveUrl: null
+  },
+  {
+    id: 8,
+    title: {
+      en: "EarOfSmartICE – SDR Communication Monitor",
+      zh: "EarOfSmartICE – 软件定义无线电通信监测系统"
     },
-    emoji: "🍴",
-    status: "in-progress",
-    statusZh: "进行中",
-    duration: "2 weeks",
-    role: {
-      en: "Product Manager & Developer",
-      zh: "产品经理兼开发者"
+    description: {
+      en: "Restaurant communication monitoring and analysis system using Software Defined Radio (SDR). Intercepts and analyzes wireless communication channels in the restaurant environment — a novel approach to operations monitoring that goes beyond cameras.",
+      zh: "使用软件定义无线电（SDR）技术的餐厅通信监测与分析系统。拦截并分析餐厅环境中的无线通信频道，是超越摄像头监控的全新运营监测探索。"
     },
-    teamSize: "2"
+    image: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&auto=format&fit=crop&q=80",
+    technologies: ["SDR", "Python", "Signal Processing", "HTML"],
+    featured: false,
+    githubUrl: "https://github.com/JeremyDong22/EarOfSmartICE",
+    liveUrl: null
   }
 ];
 

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+// Contact page — directly shows contact info (no toggle buttons)
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiMapPin, FiMail, FiPhone, FiLinkedin, FiMessageSquare, FiInfo } from 'react-icons/fi';
+import { FiMapPin, FiMail, FiPhone, FiLinkedin, FiExternalLink } from 'react-icons/fi';
 import { SiWechat } from 'react-icons/si';
 
 // Components
-import ContactForm from '../components/forms/ContactForm';
 import QRCodeModal from '../components/modals/QRCodeModal';
 
 // Language Context
@@ -14,28 +14,16 @@ import translations from '../context/translations';
 const Contact = () => {
   const { language } = useLanguage();
   const t = translations.contact;
-  
-  const [showContactForm, setShowContactForm] = useState(false);
-  const [showContactInfo, setShowContactInfo] = useState(false);
+
   const [showQRModal, setShowQRModal] = useState(false);
-  
-  const toggleContactForm = () => {
-    setShowContactForm(!showContactForm);
-    if (showContactInfo) setShowContactInfo(false);
-  };
-  
-  const toggleContactInfo = () => {
-    setShowContactInfo(!showContactInfo);
-    if (showContactForm) setShowContactForm(false);
-  };
-  
+
   return (
     <div className="bg-dark min-h-screen">
       {/* QR Code Modal */}
       <QRCodeModal isOpen={showQRModal} onClose={() => setShowQRModal(false)} />
-      
-      {/* Header and Buttons Combined Section */}
+
       <div className="container mx-auto px-4 pt-24 md:pt-28">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -43,171 +31,106 @@ const Contact = () => {
           className="text-center mb-10"
         >
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-primary">{t.title[language]}</h1>
-          <p className="text-lg text-light/80 max-w-2xl mx-auto mb-8">
+          <p className="text-lg text-light/80 max-w-2xl mx-auto">
             {t.subtitle[language]}
           </p>
         </motion.div>
-        
-        {/* Contact Buttons */}
-        <div className="max-w-3xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            {/* Send Message Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="w-full"
-            >
-              <button
-                onClick={toggleContactForm}
-                className="w-full bg-darkgray border-2 border-primary hover:bg-primary/10 transition-colors duration-300 p-6 rounded-lg text-center flex flex-col items-center justify-center gap-3 h-full"
-              >
-                <div className="bg-primary/20 p-3 rounded-full">
-                  <FiMessageSquare size={28} className="text-primary" />
-                </div>
-                <h3 className="text-lg md:text-xl font-bold">{t.sendMessage[language]}</h3>
-                <p className="text-light/80 text-sm md:text-base">
-                  {language === 'en' ? 'Fill out a quick form to send me an email directly' : '填写简单表单直接发送邮件给我'}
-                </p>
-              </button>
-            </motion.div>
-            
-            {/* Contact Info Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="w-full"
-            >
-              <button
-                onClick={toggleContactInfo}
-                className="w-full bg-darkgray border-2 border-primary hover:bg-primary/10 transition-colors duration-300 p-6 rounded-lg text-center flex flex-col items-center justify-center gap-3 h-full"
-              >
-                <div className="bg-primary/20 p-3 rounded-full">
-                  <FiInfo size={28} className="text-primary" />
-                </div>
-                <h3 className="text-lg md:text-xl font-bold">{t.contactInfo[language]}</h3>
-                <p className="text-light/80 text-sm md:text-base">
-                  {language === 'en' ? 'View my contact details and availability' : '查看我的联系方式和可用性'}
-                </p>
-              </button>
-            </motion.div>
-          </div>
-          
-          {/* Conditional Content */}
-          {showContactForm && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mb-16"
-            >
-              <h3 className="text-2xl font-bold mb-6">{t.sendMessage[language]}</h3>
-              <ContactForm />
-            </motion.div>
-          )}
-          
-          {showContactInfo && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mb-16"
-            >
-              <h3 className="text-2xl font-bold mb-6">{t.contactInfo[language]}</h3>
-              
-              <div className="bg-darkgray border border-primary/20 p-8 rounded-lg">
-                {/* Location */}
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="bg-primary/20 p-3 rounded-full text-primary">
-                    <FiMapPin size={24} />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold mb-1">{t.location[language]}</h4>
-                    <p className="text-light/80">{language === 'en' ? 'Champaign, IL' : '深圳，广东'}</p>
-                  </div>
-                </div>
-                
-                {/* Email */}
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="bg-primary/20 p-3 rounded-full text-primary">
-                    <FiMail size={24} />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold mb-1">{t.email[language]}</h4>
-                    <a 
-                      href="mailto:hengd3@outlook.com" 
-                      className="text-light/80 hover:text-primary transition-colors"
-                    >
-                      hengd3@outlook.com
-                    </a>
-                  </div>
-                </div>
-                
-                {/* Phone */}
-                <div className="flex items-start gap-4 mb-8">
-                  <div className="bg-primary/20 p-3 rounded-full text-primary">
-                    <FiPhone size={24} />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold mb-1">{language === 'en' ? 'Phone' : '电话'}</h4>
-                    {language === 'en' ? (
-                      <a 
-                        href="tel:+12179740277" 
-                        className="text-light/80 hover:text-primary transition-colors"
-                      >
-                        +1 (217) 974-0277
-                      </a>
-                    ) : (
-                      <a 
-                        href="tel:+8618576644936" 
-                        className="text-light/80 hover:text-primary transition-colors"
-                      >
-                        +86 185-7664-4936
-                      </a>
-                    )}
-                  </div>
-                </div>
-                
-                {/* Social Links */}
-                <div className="flex gap-4 mt-6">
-                  <a
-                    href="https://www.linkedin.com/in/jeremy-dong-176092256"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="LinkedIn"
-                    className="text-light hover:text-primary transition-colors"
-                  >
-                    <FiLinkedin size={24} />
-                  </a>
-                  <a
-                    href="mailto:hengd3@outlook.com"
-                    className="text-light hover:text-primary transition-colors"
-                    aria-label="Email"
-                  >
-                    <FiMail size={24} />
-                  </a>
-                  <button
-                    className="text-light hover:text-primary transition-colors bg-transparent border-0 p-0 cursor-pointer"
-                    aria-label="WeChat"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setShowQRModal(true);
-                    }}
-                  >
-                    <SiWechat size={24} />
-                  </button>
-                </div>
+
+        {/* Contact Info Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="max-w-2xl mx-auto mb-16"
+        >
+          <div className="bg-darkgray border border-primary/20 p-8 rounded-lg">
+            {/* Location */}
+            <div className="flex items-start gap-4 mb-6">
+              <div className="bg-primary/20 p-3 rounded-full text-primary flex-shrink-0">
+                <FiMapPin size={24} />
               </div>
-            </motion.div>
-          )}
-        </div>
+              <div>
+                <h4 className="text-lg font-semibold mb-1">{t.location[language]}</h4>
+                <p className="text-light/70">{language === 'en' ? 'Champaign, IL' : '深圳，广东'}</p>
+              </div>
+            </div>
+
+            {/* Email */}
+            <div className="flex items-start gap-4 mb-6">
+              <div className="bg-primary/20 p-3 rounded-full text-primary flex-shrink-0">
+                <FiMail size={24} />
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold mb-1">{t.email[language]}</h4>
+                <a
+                  href="mailto:hengd3@outlook.com"
+                  className="text-primary underline underline-offset-2 hover:text-lightgold transition-colors font-medium flex items-center gap-1.5"
+                >
+                  hengd3@outlook.com
+                  <FiExternalLink size={14} className="opacity-60" />
+                </a>
+              </div>
+            </div>
+
+            {/* Phone */}
+            <div className="flex items-start gap-4 mb-8">
+              <div className="bg-primary/20 p-3 rounded-full text-primary flex-shrink-0">
+                <FiPhone size={24} />
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold mb-1">{language === 'en' ? 'Phone' : '电话'}</h4>
+                {language === 'en' ? (
+                  <a
+                    href="tel:+12179740277"
+                    className="text-primary underline underline-offset-2 hover:text-lightgold transition-colors font-medium flex items-center gap-1.5"
+                  >
+                    +1 (217) 974-0277
+                    <FiExternalLink size={14} className="opacity-60" />
+                  </a>
+                ) : (
+                  <a
+                    href="tel:+8618576644936"
+                    className="text-primary underline underline-offset-2 hover:text-lightgold transition-colors font-medium flex items-center gap-1.5"
+                  >
+                    +86 185-7664-4936
+                    <FiExternalLink size={14} className="opacity-60" />
+                  </a>
+                )}
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="border-t border-primary/10 pt-6 flex gap-5">
+              <a
+                href="https://www.linkedin.com/in/jeremy-dong-176092256"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="text-light/50 hover:text-primary transition-colors"
+              >
+                <FiLinkedin size={24} />
+              </a>
+              <a
+                href="mailto:hengd3@outlook.com"
+                className="text-light/50 hover:text-primary transition-colors"
+                aria-label="Email"
+              >
+                <FiMail size={24} />
+              </a>
+              <button
+                className="text-light/50 hover:text-primary transition-colors bg-transparent border-0 p-0 cursor-pointer"
+                aria-label="WeChat"
+                onClick={() => setShowQRModal(true)}
+              >
+                <SiWechat size={24} />
+              </button>
+            </div>
+          </div>
+        </motion.div>
       </div>
-      
+
       {/* Map Section */}
-      <div className="w-full mt-12">
+      <div className="w-full">
         <div className="h-96 w-full">
           <iframe
             title="Location Map"
@@ -225,4 +148,4 @@ const Contact = () => {
   );
 };
 
-export default Contact; 
+export default Contact;
