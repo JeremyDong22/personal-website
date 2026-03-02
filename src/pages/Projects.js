@@ -145,7 +145,7 @@ const Projects = () => {
         zh: "设计了基于手腕角速度、位置和关节角度阈值的多条件出手检测算法。使用 ONNX Runtime Web 直接在浏览器中运行 YOLOv11，性能接近原生。"
       },
       githubUrl: "https://github.com/JeremyDong22/realtimeshootingcoach",
-      liveUrl: null
+      liveUrl: "https://shoot-it.pro"
     },
     {
       id: 3,
@@ -195,7 +195,7 @@ const Projects = () => {
         zh: "优化了单模型推理管道以消除多阶段处理的延迟开销，并使用 WebSocket 在后端检测引擎和 Vue.js 前端之间进行实时帧流传输。"
       },
       githubUrl: "https://github.com/JeremyDong22/eyesofsmartice-realtime",
-      liveUrl: null
+      liveUrl: "https://eyes.smartice.ai"
     },
     {
       id: 5,
@@ -396,7 +396,7 @@ const Projects = () => {
         zh: "通过 Supabase Realtime 订阅实现跨设备即时状态同步，使用 Promise.all 并行数据库查询减少加载时间，并在 PostgreSQL 行级安全策略中设计了基于角色的条件审批逻辑。"
       },
       githubUrl: "https://github.com/JeremyDong22/RoleplayOfSmartICE",
-      liveUrl: null
+      liveUrl: "https://roleplay.smartice.ai"
     },
     {
       id: 13,
@@ -421,7 +421,7 @@ const Projects = () => {
         zh: "实现了感知桌位的 QR 码生成系统，编码了位置和问卷版本元数据，并在 Supabase 中构建了聚合分析视图，用于跨门店 A/B 测试性能比较。"
       },
       githubUrl: "https://github.com/JeremyDong22/echo-of-smartice",
-      liveUrl: null
+      liveUrl: "https://echo.smartice.ai"
     },
     {
       id: 14,
@@ -446,7 +446,7 @@ const Projects = () => {
         zh: "实现了每个门店可配置半径的地理围栏，在 GPS 受限环境中添加了后备手动验证，并使用 Supabase 订阅构建了实时多门店合规性仪表板。"
       },
       githubUrl: "https://github.com/JeremyDong22/KBDOfSmartICE",
-      liveUrl: null
+      liveUrl: "https://kbd.smartice.ai"
     },
     {
       id: 15,
@@ -496,7 +496,7 @@ const Projects = () => {
         zh: "设计了带有大型食物摄影的卡片式菜单布局，实现了流畅的分类导航，并通过懒加载和响应式图片尺寸优化了图片加载性能。"
       },
       githubUrl: "https://github.com/JeremyDong22/MansionOfSmartICE",
-      liveUrl: null
+      liveUrl: "https://mansion.smartice.ai"
     },
     {
       id: 17,
@@ -521,7 +521,7 @@ const Projects = () => {
         zh: "使用 next-i18next 实现无缝双语支持，将内容组织为基于角色的区域（技术与运营），并使用 Vercel 进行零维护托管。"
       },
       githubUrl: "https://github.com/JeremyDong22/SoloOfSmartICE",
-      liveUrl: null
+      liveUrl: "https://solo.smartice.ai"
     },
     {
       id: 18,
@@ -546,7 +546,7 @@ const Projects = () => {
         zh: "实现了 Service Worker 缓存用于离线功能，使用 IndexedDB 进行本地数据持久化，并构建了冲突解决机制，在网络恢复时将离线记录同步到 Supabase。"
       },
       githubUrl: "https://github.com/JeremyDong22/reimbursement-smartice",
-      liveUrl: null
+      liveUrl: "https://payoff.smartice.ai"
     },
     {
       id: 19,
@@ -852,14 +852,20 @@ const Projects = () => {
     }
   ];
 
-  // Filter projects when activeFilter changes
+  // Filter and sort: live-URL projects first, then by id (date order)
   useEffect(() => {
-    setFilteredProjects(
-      activeFilter === 'all'
-        ? projects
-        : projects.filter(project => project.category === activeFilter)
-    );
-  }, [activeFilter, projects]);
+    const filtered = activeFilter === 'all'
+      ? projects
+      : projects.filter(project => project.category === activeFilter);
+    const sorted = [...filtered].sort((a, b) => {
+      const aLive = a.liveUrl ? 0 : 1;
+      const bLive = b.liveUrl ? 0 : 1;
+      if (aLive !== bLive) return aLive - bLive;
+      return a.id - b.id;
+    });
+    setFilteredProjects(sorted);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeFilter]);
 
   // Handle filter click
   const handleFilterClick = (filter) => {
@@ -910,7 +916,7 @@ const Projects = () => {
         
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             {filteredProjects.map((project, index) => (
               <div 
                 key={project.id}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FiGithub } from 'react-icons/fi';
+import { FiGithub, FiExternalLink } from 'react-icons/fi';
 
 const ProjectCard = ({
   project = {},
@@ -106,11 +106,22 @@ const ProjectCard = ({
           {project.description?.[language] || ''}
         </p>
 
-        {/* Bottom row: "click to expand" hint + GitHub icon */}
+        {/* Bottom row: live URL or "click for details" hint + GitHub icon */}
         <div className="flex items-center justify-between mt-4 pt-3 border-t border-primary/10">
-          <span className="text-xs text-light/30">
-            {language === 'en' ? 'Click for details' : '点击查看详情'}
-          </span>
+          {project.liveUrl ? (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={e => e.stopPropagation()}
+              className="text-xs text-primary/70 hover:text-primary transition-colors flex items-center gap-1"
+            >
+              <FiExternalLink size={12} />
+              {project.liveUrl.replace(/^https?:\/\//, '')}
+            </a>
+          ) : (
+            <span />
+          )}
 
           {project.githubUrl && (
             <a

@@ -245,11 +245,7 @@ const ProjectModal = ({ project, isOpen, onClose, language, translations }) => {
                     whileTap={{ scale: 0.97 }}
                   >
                     <FiExternalLink size={18} />
-                    <span>
-                      {translations && translations.projectDetails.viewProject 
-                        ? translations.projectDetails.viewProject[language] 
-                        : language === 'en' ? 'Live Preview' : '在线预览'}
-                    </span>
+                    <span>{project.liveUrl.replace(/^https?:\/\//, '')}</span>
                   </motion.a>
                 )}
               </div>

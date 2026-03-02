@@ -9,6 +9,7 @@ import Hero from '../components/common/Hero';
 import Section from '../components/common/Section';
 import ProjectCard from '../components/cards/ProjectCard';
 import QRCodeModal from '../components/modals/QRCodeModal';
+import ProjectModal from '../components/modals/ProjectModal';
 
 // Language Context
 import { useLanguage } from '../context/LanguageContext';
@@ -157,6 +158,8 @@ const Home = () => {
   const { language } = useLanguage();
   const t = translations.home;
   const [showQRModal, setShowQRModal] = useState(false);
+  const [modalProject, setModalProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div>
@@ -306,7 +309,13 @@ const Home = () => {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredProjects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} language={language} index={index} />
+            <ProjectCard
+              key={project.id}
+              project={project}
+              language={language}
+              index={index}
+              onViewDetails={(p) => { setModalProject(p); setIsModalOpen(true); }}
+            />
           ))}
         </div>
         <div className="text-center mt-12">
@@ -330,6 +339,15 @@ const Home = () => {
           {language === 'en' ? "Get In Touch" : "联系我"} <FiArrowRight />
         </Link>
       </Section>
+
+      {/* Project Details Modal */}
+      <ProjectModal
+        project={modalProject}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        language={language}
+        translations={translations}
+      />
     </div>
   );
 };
