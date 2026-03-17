@@ -849,6 +849,106 @@ const Projects = () => {
       },
       githubUrl: "https://github.com/JeremyDong22/linux-stt",
       liveUrl: null
+    },
+    {
+      id: 31,
+      title: {
+        en: "Lingtin – Smart Table Visit Management System",
+        zh: "铃亭 – 智能桌台到访管理系统"
+      },
+      description: {
+        en: "Full-stack restaurant table visit management system built with Next.js and TypeScript. Tracks customer arrivals, table occupancy, and visit history across multiple restaurant locations. Uses Supabase (PostgreSQL + pgvector) for real-time data sync, with a multi-agent AI architecture for automated operational insights.",
+        zh: "基于 Next.js 和 TypeScript 的全栈餐厅桌台到访管理系统。跨多个门店追踪顾客到访、桌台占用和历史记录。使用 Supabase（PostgreSQL + pgvector）实现实时数据同步，集成多智能体 AI 架构自动生成运营洞察。"
+      },
+      image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&auto=format&fit=crop&q=80",
+      category: "fullstack",
+      technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "pgvector", "AI Agents"],
+      featured: false,
+      challenges: {
+        en: "Building a real-time multi-location table management system that reliably tracks visit states and syncs data instantly across devices in a busy restaurant environment.",
+        zh: "构建实时多门店桌台管理系统，在繁忙餐厅环境中可靠追踪到访状态并跨设备即时同步数据。"
+      },
+      solutions: {
+        en: "Leveraged Supabase real-time subscriptions for instant updates, designed a normalized schema for multi-location data isolation, and integrated AI agents for automated daily operational report generation.",
+        zh: "利用 Supabase 实时订阅实现即时更新，设计规范化 Schema 隔离多门店数据，并集成 AI 智能体自动生成每日运营报告。"
+      },
+      githubUrl: "https://github.com/JeremyDong22/lingtinofsmartice",
+      liveUrl: null
+    },
+    {
+      id: 32,
+      title: {
+        en: "MtOfSmartICE – Meituan Multi-Store Data Crawler",
+        zh: "MtOfSmartICE – 美团多门店数据爬虫"
+      },
+      description: {
+        en: "Automated daily data crawler for Meituan (美团管家) and Dianping (大众点评) merchant backends. Uses Chrome DevTools Protocol (CDP) with a group account to aggregate equity package sales, business revenue summaries, and dish-level sales statistics across all restaurant locations. Runs headlessly on a schedule.",
+        zh: "针对美团管家和大众点评商家后台的自动化每日数据爬虫。通过 Chrome DevTools Protocol（CDP）使用集团账号，跨所有门店聚合权益包售卖、综合营业统计和菜品销售数据。支持定时无头运行。"
+      },
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop&q=80",
+      category: "automation",
+      technologies: ["Python", "CDP", "Selenium", "Supabase", "美团", "大众点评"],
+      featured: false,
+      challenges: {
+        en: "Reliably scraping data from two different merchant backend platforms (Meituan and Dianping) with complex login flows, anti-bot detection, and aggregating data across dozens of store accounts.",
+        zh: "从美团和大众点评两个不同商家后台平台可靠抓取数据，应对复杂登录流程、反爬检测，并跨数十个门店账号聚合数据。"
+      },
+      solutions: {
+        en: "Used CDP-only browser control (bypassing WebDriver detection) with group account login for multi-store aggregation, implemented automatic Chrome launch and session persistence, and stored results in Supabase for downstream analysis.",
+        zh: "采用仅 CDP 浏览器控制（绕过 WebDriver 检测），使用集团账号登录实现多门店聚合，实现 Chrome 自动启动和会话持久化，并将结果存入 Supabase 供下游分析使用。"
+      },
+      githubUrl: "https://github.com/JeremyDong22/MtOfSmartICE",
+      liveUrl: null
+    },
+    {
+      id: 33,
+      title: {
+        en: "KOL Blogger Tracker – Influencer Campaign Management",
+        zh: "博主追踪系统 – KOL 网红营销管理平台"
+      },
+      description: {
+        en: "Electron-based desktop app for tracking KOL (Key Opinion Leader) influencer campaigns. Manages blogger outreach lists, tracks post submission status, stores content links, and generates campaign performance reports. Built with React + Vite and supports web deployment via GitHub Pages.",
+        zh: "基于 Electron 的桌面应用，用于追踪 KOL 网红营销活动。管理博主外联名单、追踪投稿状态、存储内容链接并生成营销活动效果报告。使用 React + Vite 构建，支持通过 GitHub Pages 进行 Web 部署。"
+      },
+      image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=1200&auto=format&fit=crop&q=80",
+      category: "fullstack",
+      technologies: ["Electron", "React", "Vite", "JavaScript", "GitHub Pages"],
+      featured: false,
+      challenges: {
+        en: "Building a cross-platform tool that works both as a desktop Electron app and a web app for team members who prefer browser access, while keeping a single codebase.",
+        zh: "构建一个既能作为 Electron 桌面应用、又能作为 Web 应用运行的跨平台工具，同时保持单一代码库，满足偏好浏览器访问的团队成员需求。"
+      },
+      solutions: {
+        en: "Used separate Vite configs (vite.config.js for Electron, vite.gh-pages.config.js for web) to build two deployment targets from the same source, with conditional logic handling the different environments.",
+        zh: "使用独立的 Vite 配置文件（Electron 版和 GitHub Pages 版）从同一源码构建两个部署目标，通过条件逻辑处理不同运行环境。"
+      },
+      githubUrl: "https://github.com/JeremyDong22/kol-of-smartice",
+      liveUrl: null
+    },
+    {
+      id: 34,
+      title: {
+        en: "ClawBoss – Boss Zhipin Auto Job Application Tool",
+        zh: "ClawBoss – Boss 直聘自动投递简历工具"
+      },
+      description: {
+        en: "Browser bookmarklet that automates batch job applications on Boss Zhipin (Boss直聘). Automatically iterates through job listings, clicks 'Connect Now', skips already-contacted positions, handles infinite scroll to load more listings, implements rate-limit protection to pause when the platform detects automation, and supports resuming from a checkpoint.",
+        zh: "浏览器书签工具，实现 Boss 直聘批量自动投递简历。自动遍历职位列表、点击「立即沟通」、跳过已沟通职位、处理无限滚动加载更多职位，内置限流保护在平台检测到自动化时暂停，并支持从断点续投。"
+      },
+      image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1200&auto=format&fit=crop&q=80",
+      category: "automation",
+      technologies: ["JavaScript", "Bookmarklet", "Chrome", "DOM Automation"],
+      featured: false,
+      challenges: {
+        en: "Boss Zhipin actively detects browser extensions and automation scripts. A traditional extension or WebDriver approach would be flagged immediately.",
+        zh: "Boss 直聘会主动检测浏览器扩展和自动化脚本，传统的扩展程序或 WebDriver 方案会立即被识别。"
+      },
+      solutions: {
+        en: "Used a Bookmarklet (native browser bookmark) approach instead of an extension — bookmarklets run as native browser code and are invisible to anti-automation detection. Added activation code gate and real-time progress panel.",
+        zh: "采用书签脚本（Bookmarklet）而非扩展程序——书签脚本作为原生浏览器代码运行，对反自动化检测不可见。添加激活码验证和实时进度面板。"
+      },
+      githubUrl: "https://github.com/JeremyDong22/boss-auto-apply",
+      liveUrl: null
     }
   ];
 
