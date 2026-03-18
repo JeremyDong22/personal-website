@@ -26,6 +26,10 @@ const translations = {
       en: 'Contact',
       zh: '联系'
     },
+    blog: {
+      en: 'Blog',
+      zh: '博客'
+    },
     language: {
       en: '中文简体',
       zh: 'English'

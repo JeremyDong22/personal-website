@@ -38,6 +38,7 @@ const Navbar = () => {
     { name: translations.nav.sports[language] || 'Sports Career', path: '/sports' },
     { name: translations.nav.resume[language], path: '/resume' },
     { name: translations.nav.contact[language], path: '/contact' },
+    { name: translations.nav.blog[language], path: '/blog' },
   ];
 
   return (

@@ -13,6 +13,7 @@ import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import Resume from './pages/Resume';
 import Journey from './pages/Journey';
+import Blog from './pages/Blog';
 
 // Language Context
 import { LanguageProvider } from './context/LanguageContext';
@@ -44,6 +45,7 @@ function App() {
             <Route path="/resume" element={<Resume />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/journey" element={<Journey />} />
+            <Route path="/blog" element={<Blog />} />
           </Routes>
         </main>
         <Footer />

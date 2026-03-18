@@ -31,21 +31,25 @@ const Projects = () => {
         en: "All Projects",
         zh: "所有项目"
       },
-      ai: {
-        en: "AI & Computer Vision",
-        zh: "AI 与计算机视觉"
+      restaurant: {
+        en: "Restaurant Tech",
+        zh: "餐饮数字化"
       },
-      web: {
-        en: "Web & Product Development",
-        zh: "Web 与产品开发"
+      sports: {
+        en: "Sports Tech",
+        zh: "体育科技"
       },
-      data: {
-        en: "Data Engineering & Crawlers",
-        zh: "数据工程与爬虫"
+      finance: {
+        en: "Finance & Commodities",
+        zh: "金融与大宗商品"
       },
-      automation: {
-        en: "Automation & Systems",
-        zh: "自动化与系统工具"
+      agriculture: {
+        en: "Agriculture",
+        zh: "农业"
+      },
+      tools: {
+        en: "Developer Tools",
+        zh: "开发者工具"
       }
     },
     projectDetails: {
@@ -108,7 +112,7 @@ const Projects = () => {
         zh: "上传两段视频（自己 vs 库里等专业球员），立刻获得 3D 骨架对比与解剖学反馈。MediaPipe BlazePose 每帧提取 33 个关键点，归一化体型消除身高差异，时间轴对齐后在浏览器内并排或叠加渲染 3D 骨架，优先输出核心关节改进建议。"
       },
       image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1200&auto=format&fit=crop&q=80",
-      category: "ai",
+      category: "sports",
       technologies: ["React 18", "TypeScript", "Three.js", "React Three Fiber", "MediaPipe BlazePose", "Zustand", "Vite"],
       featured: true,
       challenges: {
@@ -133,7 +137,7 @@ const Projects = () => {
         zh: "纯前端 AI 投篮教练，结合 MediaPipe Holistic 姿态估计和 YOLOv11 篮球检测，无需后端服务器。通过手腕角速度（>300°/s）和位置（高于肩部）精准识别出手瞬间，追踪篮球 U 型弹道底部反推完整投篮弧线，并录制调试视频供回溯分析。"
       },
       image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200&auto=format&fit=crop&q=80",
-      category: "ai",
+      category: "sports",
       technologies: ["MediaPipe Holistic", "YOLOv11", "ONNX Runtime Web", "HTML5 / CSS3 / JS", "MediaRecorder API"],
       featured: true,
       challenges: {
@@ -158,7 +162,7 @@ const Projects = () => {
         zh: "四阶段渐进式 AI 餐厅监控管道：检测全员 → 区分员工/顾客 → 分析员工行为 → 输出运营洞察。Linux RTX 3060 机器每 30 秒从 ONVIF IP 摄像头自动截帧并同步至 Supabase，MacBook M4 负责训练管理，通过 ONVIF 协议自动发现局域网摄像头。"
       },
       image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&auto=format&fit=crop&q=80",
-      category: "ai",
+      category: "restaurant",
       technologies: ["Python", "YOLO (Ultralytics)", "OpenCV", "Supabase", "ONVIF", "Shell Script"],
       featured: true,
       challenges: {
@@ -183,7 +187,7 @@ const Projects = () => {
         zh: "基于 Vue.js 和单模型 YOLO 检测的生产级实时餐厅监控系统，专为低延迟现场部署设计。无需多阶段批处理，可即时在餐厅门店对员工和顾客进行实时检测。"
       },
       image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&auto=format&fit=crop&q=80",
-      category: "ai",
+      category: "restaurant",
       technologies: ["Vue.js", "YOLO", "Python", "Real-time Inference", "WebSocket"],
       featured: false,
       challenges: {
@@ -208,7 +212,7 @@ const Projects = () => {
         zh: "从 RTSP IP 摄像头拉流的实时人脸检测与追踪系统，使用 InsightFace Buffalo_L 模型处理，通过 Flask 提供实时浏览器监控界面。支持多摄像头流，双检测后端：OpenCV Cascade（稳定）和 InsightFace Buffalo_L（高精度）。"
       },
       image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200&auto=format&fit=crop&q=80",
-      category: "ai",
+      category: "restaurant",
       technologies: ["Python", "OpenCV", "InsightFace Buffalo_L", "Flask", "RTSP"],
       featured: false,
       challenges: {
@@ -233,7 +237,7 @@ const Projects = () => {
         zh: "符合 ONVIF 规范的 IP 摄像头监控系统，用于厨房传菜口监控。提供实时浏览器视频流查看、快照抓取和网络中断后自动重连功能，通过 ONVIF 协议自动发现局域网摄像头。"
       },
       image: "https://images.unsplash.com/photo-1556909114-44e3e9399a2b?w=1200&auto=format&fit=crop&q=80",
-      category: "ai",
+      category: "restaurant",
       technologies: ["Python", "Flask", "OpenCV", "zeep (ONVIF)", "RTSP", "HTML5"],
       featured: false,
       challenges: {
@@ -258,7 +262,7 @@ const Projects = () => {
         zh: "基于 LangGraph 构建的多智能体系统，用于查询 Supabase 中的餐厅和社交媒体帖子数据。五个专项智能体顺序协作：初始规划 → 验证规划 → SQL 生成 → 向量相似检索生成 → 综合输出，同时支持结构化 SQL 和 pgvector 语义检索。"
       },
       image: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&auto=format&fit=crop&q=80",
-      category: "ai",
+      category: "restaurant",
       technologies: ["Python", "LangGraph", "OpenAI API", "Google Gemini API", "Supabase", "pgvector"],
       featured: false,
       challenges: {
@@ -283,7 +287,7 @@ const Projects = () => {
         zh: "使用软件定义无线电（SDR）技术的餐厅通信监测与分析系统。拦截并分析餐厅环境中的无线通信频道，提供超越摄像头监控维度的运营通信模式情报，是餐厅运营监控的全新探索方向。"
       },
       image: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&auto=format&fit=crop&q=80",
-      category: "ai",
+      category: "restaurant",
       technologies: ["SDR (Software Defined Radio)", "Python", "Signal Processing", "HTML"],
       featured: false,
       challenges: {
@@ -309,7 +313,7 @@ const Projects = () => {
         zh: "面向中国粮油含权贸易市场的 B2B 全栈平台。买方可嵌入商品价格期权的复杂衍生品定价模式。实现了基差定价、资金流转、盈亏计算，并附有交互式 HTML5 业务逻辑可视化模型和完整中文业务文档体系，Docker Compose 一键部署。"
       },
       image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&auto=format&fit=crop&q=80",
-      category: "web",
+      category: "finance",
       technologies: ["React", "TypeScript", "FastAPI", "PostgreSQL", "Docker", "Docker Compose"],
       featured: true,
       challenges: {
@@ -334,7 +338,7 @@ const Projects = () => {
         zh: "连锁餐厅库存管理系统，支持手动录入和语音录入两种模式——讯飞 ASR 实时中文语音识别 + 阿里云通义千问 AI 结构化提取库存数据。4 角色 RBAC 权限控制（管理员/店长/员工/查看），线上运行于 inv.smartice.ai。"
       },
       image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&auto=format&fit=crop&q=80",
-      category: "web",
+      category: "restaurant",
       technologies: ["React 19", "Vite 6", "TypeScript", "Tailwind CSS v4", "FastAPI", "Supabase", "iFlytek ASR", "Alibaba Qwen"],
       featured: true,
       challenges: {
@@ -359,7 +363,7 @@ const Projects = () => {
         zh: "面向餐厅经营者的 AI 驱动社交媒体数据分析平台。提供多维度指标（访客、曝光、买家趋势）、竞品排序筛选、话题趋势分析，以及 AI Agent 任务调度器用于自动化数据分析作业。支持中英双语界面，使用 Tremor React 图表组件。"
       },
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80",
-      category: "web",
+      category: "restaurant",
       technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Tremor React", "AI Agent"],
       featured: false,
       challenges: {
@@ -384,7 +388,7 @@ const Projects = () => {
         zh: "面向真实连锁餐厅（绵阳/德阳店）运营场景的角色扮演任务管理 PWA。支持店长、厨师、值班经理三种角色，按 8 个运营时段分配任务。值班经理提交需店长审核，其余角色自动批准。使用 Supabase Realtime 跨设备同步，Promise.all 并行查询优化性能。"
       },
       image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&auto=format&fit=crop&q=80",
-      category: "web",
+      category: "restaurant",
       technologies: ["React", "TypeScript", "Next.js", "Supabase", "PostgreSQL", "PWA", "Supabase Realtime"],
       featured: false,
       challenges: {
@@ -409,7 +413,7 @@ const Projects = () => {
         zh: "用于管理餐厅顾客问卷的 React + TypeScript 管理后台。具有桌边问卷 QR 码生成与管理、不同问卷版本的 A/B 测试和回答分析功能。为连锁餐厅大规模收集和分析顾客满意度数据而设计。"
       },
       image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&auto=format&fit=crop&q=80",
-      category: "web",
+      category: "restaurant",
       technologies: ["React", "TypeScript", "Supabase", "QR Code API", "A/B Testing"],
       featured: false,
       challenges: {
@@ -434,7 +438,7 @@ const Projects = () => {
         zh: "连锁餐厅开闭店打卡系统，配备地图化界面。员工通过感知地理位置的地图 UI 确认门店开店和闭店流程，确保全链条门店的运营合规性。使用 TypeScript 构建，实现类型安全的多门店管理。"
       },
       image: "https://images.unsplash.com/photo-1568992688065-536aad8a12f6?w=1200&auto=format&fit=crop&q=80",
-      category: "web",
+      category: "restaurant",
       technologies: ["TypeScript", "React", "Map API", "Geolocation", "Supabase"],
       featured: false,
       challenges: {
@@ -459,7 +463,7 @@ const Projects = () => {
         zh: "农悦悦微信小程序的 Web 浏览器 Demo，支持买方（采购商）、卖方（农户）、司机三种角色，覆盖订单从创建到签收的完整流程，共 13 个功能页面，手机端视图优先设计，含完整 Mock 数据。"
       },
       image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1200&auto=format&fit=crop&q=80",
-      category: "web",
+      category: "agriculture",
       technologies: ["HTML5", "CSS3", "JavaScript", "WeChat Mini Program Logic", "Mock Data"],
       featured: false,
       challenges: {
@@ -484,7 +488,7 @@ const Projects = () => {
         zh: "为智能冰点大厦餐厅设计的交互式数字菜单应用，展示地道云南菜肴。为餐厅顾客提供沉浸式浏览体验，包含视觉丰富的菜品展示、食材详情和点餐引导。"
       },
       image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
-      category: "web",
+      category: "restaurant",
       technologies: ["Next.js", "React", "JavaScript", "Responsive Design"],
       featured: false,
       challenges: {
@@ -509,7 +513,7 @@ const Projects = () => {
         zh: "SmartICE 团队内部网站，用于知识共享、学习资源和团队协作。支持中英双语，通过导航栏语言切换，部署于 Vercel，服务于 SmartICE 餐饮科技团队。"
       },
       image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&auto=format&fit=crop&q=80",
-      category: "web",
+      category: "restaurant",
       technologies: ["Next.js", "React", "Tailwind CSS", "next-i18next", "Vercel"],
       featured: false,
       challenges: {
@@ -534,7 +538,7 @@ const Projects = () => {
         zh: "用于追踪和管理费用报销的 PWA，支持跨设备实时同步。为 SmartICE 餐饮团队设计，支持提交、追踪和审批费用申请，含照片凭证上传和状态通知功能。"
       },
       image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&auto=format&fit=crop&q=80",
-      category: "web",
+      category: "restaurant",
       technologies: ["HTML5", "CSS3", "JavaScript", "PWA", "Supabase", "Real-time Sync"],
       featured: false,
       challenges: {
@@ -559,7 +563,7 @@ const Projects = () => {
         zh: "SightLink 智能员工工牌系统的交互式硬件组装与操作指南。SightLink 工牌具有自动人脸抓拍与识别功能。这个基于 Web 的指南引导技术人员逐步完成设备组装、配置和故障排除，并追踪进度。"
       },
       image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&auto=format&fit=crop&q=80",
-      category: "web",
+      category: "restaurant",
       technologies: ["HTML5", "CSS3", "JavaScript", "Interactive Step Guide"],
       featured: false,
       challenges: {
@@ -585,7 +589,7 @@ const Projects = () => {
         zh: "面向小红书的全栈数据采集与 AI 标注平台。FastAPI 后端通过 Playwright 管理多个独立 Chrome 账号实例，按关键词自动爬取帖子并推送给 Gemini Flash 进行图文分类标注。Next.js 前端通过 SSE 实时展示浏览器状态与数据清洗可视化。"
       },
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop&q=80",
-      category: "data",
+      category: "restaurant",
       technologies: ["Python", "FastAPI", "Playwright", "Google Gemini Flash", "Next.js 16", "React 19", "PostgreSQL", "SSE"],
       featured: true,
       challenges: {
@@ -610,7 +614,7 @@ const Projects = () => {
         zh: "通过 Selenium Chrome 自动化提取小红书帖子、图片和互动数据的内容采集工具。按最低点赞数过滤内容，将元数据和图片上传至 Supabase 数据库和存储，关键词驱动搜索，可配置过滤阈值。"
       },
       image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=1200&auto=format&fit=crop&q=80",
-      category: "data",
+      category: "restaurant",
       technologies: ["Python", "Selenium", "Chrome WebDriver", "Supabase", "PostgreSQL"],
       featured: false,
       challenges: {
@@ -635,7 +639,7 @@ const Projects = () => {
         zh: "多方案京东商品爬虫，具有智能页面检测和类人浏览器交互。结合 Selenium、Pyppeteer、图像识别（OpenCV + PyAutoGUI）和 BeautifulSoup 绕过反爬措施。包含 Flask Web 界面用于搜索和结果查看，可检测商品列表中的价格变动。"
       },
       image: "https://images.unsplash.com/photo-1556742393-d75f468bfcb0?w=1200&auto=format&fit=crop&q=80",
-      category: "data",
+      category: "restaurant",
       technologies: ["Python", "Selenium", "Pyppeteer", "BeautifulSoup", "Flask", "PyAutoGUI", "OpenCV"],
       featured: false,
       challenges: {
@@ -660,7 +664,7 @@ const Projects = () => {
         zh: "通过四步管道从大众点评 App 采集餐厅排名数据：PyAutoGUI UI 定位 → 截图采集 → Google Gemini AI 图像识别文字 → 上传至 Supabase。通过在 App 截图层面操作，绕过大众点评的网页访问限制，无需 DOM 访问。"
       },
       image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=1200&auto=format&fit=crop&q=80",
-      category: "data",
+      category: "restaurant",
       technologies: ["Python", "PyAutoGUI", "Pillow", "Google Gemini Vision", "Supabase"],
       featured: false,
       challenges: {
@@ -685,7 +689,7 @@ const Projects = () => {
         zh: "面向多品牌连锁餐厅（2 品牌、6 门店以上，可扩展至 50 家）的完整 PostgreSQL 数据库设计。双成本率财务分析体系、10 层配料嵌套多级 BOM 食谱管理、批次追踪库存管理、RBAC 权限控制、pgcrypto 成本数据加密。28 张核心数据表，含存储过程、触发器和审计日志。"
       },
       image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=1200&auto=format&fit=crop&q=80",
-      category: "data",
+      category: "restaurant",
       technologies: ["PostgreSQL 14+", "pgcrypto", "uuid-ossp", "pg_trgm", "SQL", "Stored Procedures", "Triggers"],
       featured: false,
       challenges: {
@@ -711,7 +715,7 @@ const Projects = () => {
         zh: "让 Claude 等 AI 助手直接调用工具爬取淘宝/天猫商品数据的 MCP 服务器。支持多种输入格式（商品 ID、直链、短链、含链接的中文分享文本）。通过持久化 Playwright 浏览器 Session 保持登录状态，输出包含图片、规格参数、评价、问答的结构化 Markdown。"
       },
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&auto=format&fit=crop&q=80",
-      category: "automation",
+      category: "tools",
       technologies: ["Python", "Playwright", "MCP (Model Context Protocol)", "Chromium headless", "uv"],
       featured: false,
       challenges: {
@@ -736,7 +740,7 @@ const Projects = () => {
         zh: "MCP 服务器向 AI 智能体暴露两个工具：Schema 探索和自定义 SQL 查询执行，查询 Supabase 物化视图追踪 4 家餐厅的 57 个 KPI 指标。只读访问，通过 Pydantic 验证防止 SQL 注入，通过 .mcp.json 与 Claude Code 集成实现 AI 驱动的数据分析。"
       },
       image: "https://images.unsplash.com/photo-1605792657660-596af9009e82?w=1200&auto=format&fit=crop&q=80",
-      category: "automation",
+      category: "restaurant",
       technologies: ["Python 3.11+", "MCP Protocol", "Supabase", "Pydantic", "uv", "Claude Code"],
       featured: false,
       challenges: {
@@ -761,7 +765,7 @@ const Projects = () => {
         zh: "在 9100 端口伪装成热敏打印机的 TCP 服务，无需实体硬件即可拦截任意 POS 终端的 ESC/POS 指令。将原始打印命令解析为结构化小票数据，通过 REST API 对外暴露，并经 Cloudflare Workers 实时同步至 Supabase。搭配 systemd 守护进程和日志轮转设计用于 7x24 生产环境运行。"
       },
       image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&auto=format&fit=crop&q=80",
-      category: "automation",
+      category: "restaurant",
       technologies: ["Python", "Flask", "ESC/POS Protocol", "SQLite", "systemd", "Cloudflare Workers", "Supabase"],
       featured: false,
       challenges: {
@@ -786,7 +790,7 @@ const Projects = () => {
         zh: "具有 AI 自然语言对话界面的智能物流价格查询系统。用户可用纯中文按物品类型、重量和目的地国家查询运费，未指定重量时 AI 自动估算物品重量。两周内使用 Node.js、Express、SQLite3 和 OpenAI GPT-3.5-turbo 构建。"
       },
       image: "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=1200&auto=format&fit=crop&q=80",
-      category: "automation",
+      category: "tools",
       technologies: ["Node.js", "Express.js", "SQLite3", "OpenAI GPT-3.5-turbo", "JavaScript"],
       featured: false,
       challenges: {
@@ -811,7 +815,7 @@ const Projects = () => {
         zh: "基于 Yazi（高性能 Rust 异步终端文件管理器）的 fork，引入锚点导航机制——向深层目录导航时根目录始终固定在最左侧面板，类似 VSCode 的资源管理器侧边栏。Shift+方向键动态调整项目根目录而不丢失上下文。继承 Yazi 全部异步 I/O、语法高亮、图片预览（Kitty/iTerm2/Sixel）和 Lua 插件能力。"
       },
       image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=1200&auto=format&fit=crop&q=80",
-      category: "automation",
+      category: "tools",
       technologies: ["Rust", "Async I/O", "Lua Plugin System", "Kitty Protocol", "Sixel", "Terminal UI"],
       featured: false,
       challenges: {
@@ -836,7 +840,7 @@ const Projects = () => {
         zh: "使用 SenseVoice 模型的轻量级 Linux 即按即说语音转文字工具。按住 Control 键录音，松开触发转录。作为开发者生产力工具设计，用于终端的免手动文字输入，无需云端依赖。"
       },
       image: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=1200&auto=format&fit=crop&q=80",
-      category: "automation",
+      category: "tools",
       technologies: ["Python", "SenseVoice", "Linux", "PyAudio", "Keyboard Hooks"],
       featured: false,
       challenges: {
@@ -854,14 +858,14 @@ const Projects = () => {
       id: 31,
       title: {
         en: "Lingtin – Smart Table Visit Management System",
-        zh: "铃亭 – 智能桌台到访管理系统"
+        zh: "灵听 – 智能桌台到访管理系统"
       },
       description: {
         en: "Full-stack restaurant table visit management system built with Next.js and TypeScript. Tracks customer arrivals, table occupancy, and visit history across multiple restaurant locations. Uses Supabase (PostgreSQL + pgvector) for real-time data sync, with a multi-agent AI architecture for automated operational insights.",
         zh: "基于 Next.js 和 TypeScript 的全栈餐厅桌台到访管理系统。跨多个门店追踪顾客到访、桌台占用和历史记录。使用 Supabase（PostgreSQL + pgvector）实现实时数据同步，集成多智能体 AI 架构自动生成运营洞察。"
       },
       image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&auto=format&fit=crop&q=80",
-      category: "fullstack",
+      category: "restaurant",
       technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "pgvector", "AI Agents"],
       featured: false,
       challenges: {
@@ -886,7 +890,7 @@ const Projects = () => {
         zh: "针对美团管家和大众点评商家后台的自动化每日数据爬虫。通过 Chrome DevTools Protocol（CDP）使用集团账号，跨所有门店聚合权益包售卖、综合营业统计和菜品销售数据。支持定时无头运行。"
       },
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop&q=80",
-      category: "automation",
+      category: "restaurant",
       technologies: ["Python", "CDP", "Selenium", "Supabase", "美团", "大众点评"],
       featured: false,
       challenges: {
@@ -911,7 +915,7 @@ const Projects = () => {
         zh: "基于 Electron 的桌面应用，用于追踪 KOL 网红营销活动。管理博主外联名单、追踪投稿状态、存储内容链接并生成营销活动效果报告。使用 React + Vite 构建，支持通过 GitHub Pages 进行 Web 部署。"
       },
       image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=1200&auto=format&fit=crop&q=80",
-      category: "fullstack",
+      category: "restaurant",
       technologies: ["Electron", "React", "Vite", "JavaScript", "GitHub Pages"],
       featured: false,
       challenges: {
@@ -936,7 +940,7 @@ const Projects = () => {
         zh: "浏览器书签工具，实现 Boss 直聘批量自动投递简历。自动遍历职位列表、点击「立即沟通」、跳过已沟通职位、处理无限滚动加载更多职位，内置限流保护在平台检测到自动化时暂停，并支持从断点续投。"
       },
       image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1200&auto=format&fit=crop&q=80",
-      category: "automation",
+      category: "tools",
       technologies: ["JavaScript", "Bookmarklet", "Chrome", "DOM Automation"],
       featured: false,
       challenges: {
