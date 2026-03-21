@@ -11,9 +11,11 @@ export const LanguageProvider = ({ children }) => {
     return savedLanguage || 'en';
   });
 
-  // Update localStorage when language changes
+  // Sync <html lang> attribute so browser knows the page language
+  // This prevents Chrome from offering/applying auto-translation on Chinese pages
   useEffect(() => {
     localStorage.setItem('language', language);
+    document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
   }, [language]);
 
   // Toggle language function
