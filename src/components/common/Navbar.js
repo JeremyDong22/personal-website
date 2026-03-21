@@ -48,8 +48,8 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        {/* Logo — always bilingual, never fully translated */}
-        <Link to="/" className="text-2xl font-heading font-bold">
+        {/* Logo — translate="no" prevents browser auto-translation of the name */}
+        <Link to="/" className="text-2xl font-heading font-bold" translate="no">
           {language === 'zh' ? (
             <><span className="gold-text">董衡</span><span className="text-light"> Jeremy</span></>
           ) : (

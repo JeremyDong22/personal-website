@@ -88,6 +88,7 @@ const BlogPost = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="space-y-6 text-gray-300 text-base md:text-lg leading-relaxed"
+            translate="no"
           >
             {blocks.map((block, i) => {
               if (block.type === 'paragraph') {
