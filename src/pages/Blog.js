@@ -2,8 +2,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import Navbar from '../components/common/Navbar';
-import Footer from '../components/common/Footer';
 import { motion } from 'framer-motion';
 import { FiArrowRight } from 'react-icons/fi';
 import blogPosts from '../data/blogPosts';
@@ -30,8 +28,7 @@ const Blog = () => {
   };
 
   return (
-    <div className="min-h-screen bg-darkest text-white flex flex-col">
-      <Navbar />
+    <div className="min-h-screen text-white flex flex-col">
 
       <main className="flex-1 px-6 py-24">
         <div className="max-w-2xl mx-auto">
@@ -82,8 +79,6 @@ const Blog = () => {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };
