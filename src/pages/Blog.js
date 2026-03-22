@@ -1,4 +1,4 @@
-// Blog list page — shows all posts as clickable cards
+// Blog list page — shows all posts as clickable cards, newest first
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
@@ -18,7 +18,9 @@ const Blog = () => {
     read: { en: 'Read more', zh: '阅读全文' },
   };
 
-  // Format date as e.g. "March 22, 2026" / "2026年3月22日"
+  // Sort newest first
+  const sortedPosts = [...blogPosts].sort((a, b) => new Date(b.date) - new Date(a.date));
+
   const formatDate = (dateStr) => {
     const d = new Date(dateStr);
     if (language === 'zh') {
@@ -29,9 +31,8 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen text-white flex flex-col">
-
       <main className="flex-1 px-6 py-24">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {/* Page header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -46,10 +47,11 @@ const Blog = () => {
           </motion.div>
 
           {/* Post list */}
-          <div className="space-y-8">
-            {blogPosts.map((post, i) => {
+          <div className="space-y-6">
+            {sortedPosts.map((post, i) => {
               const title = post.title[language] || post.title.zh;
               const excerpt = post.excerpt[language] || post.excerpt.zh;
+              const category = language === 'zh' ? 'AI创业' : 'AI Entrepreneurship';
 
               return (
                 <motion.article
@@ -60,9 +62,13 @@ const Blog = () => {
                 >
                   <Link to={`/blog/${post.slug}`} className="block group">
                     <div className="border border-white/10 rounded-2xl p-8 bg-dark/40 hover:bg-dark/70 hover:border-primary/30 transition-all duration-300">
-                      <time className="text-primary text-sm tracking-wide block mb-3">
-                        {formatDate(post.date)}
-                      </time>
+                      {/* Category tag + date row */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="inline-block text-xs font-medium tracking-widest uppercase px-3 py-1 rounded-full border border-primary/50 text-primary bg-primary/10">
+                          {category}
+                        </span>
+                        <time className="text-gray-500 text-sm">{formatDate(post.date)}</time>
+                      </div>
                       <h2 className="font-heading text-xl md:text-2xl font-semibold text-white group-hover:text-primary transition-colors leading-snug mb-3">
                         {title}
                       </h2>

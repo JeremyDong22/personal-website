@@ -42,7 +42,7 @@ const BlogPost = () => {
   return (
     <div className="min-h-screen text-white flex flex-col">
       <main className="flex-1 px-6 py-20">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           {/* Back link */}
           <motion.div
             initial={{ opacity: 0, x: -12 }}
@@ -65,9 +65,13 @@ const BlogPost = () => {
             transition={{ duration: 0.5 }}
             className="mb-12"
           >
-            <time className="text-primary text-sm tracking-wide block mb-4">
-              {formatDate(post.date)}
-            </time>
+            {/* Category tag + date */}
+            <div className="flex items-center gap-3 mb-5">
+              <span className="inline-block text-xs font-medium tracking-widest uppercase px-3 py-1 rounded-full border border-primary/50 text-primary bg-primary/10">
+                {language === 'zh' ? 'AI创业' : 'AI Entrepreneurship'}
+              </span>
+              <time className="text-gray-500 text-sm">{formatDate(post.date)}</time>
+            </div>
             <h1 className="font-heading text-3xl md:text-4xl font-bold text-white leading-snug">
               {title}
             </h1>
