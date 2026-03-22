@@ -119,7 +119,11 @@ const blogPosts = [
         { type: 'paragraph', text: '我想象中的画面很酷：拍个照，系统自动识别单据；如果有错别字，辉哥不需要拿手去敲键盘，按住麦克风说一句"嘿，这个可乐的乐识别错了，不是勒索的勒，是快乐的乐"，系统就能自动改过来。我还特意接了讯飞的API，觉得这套丝滑的语音交互简直完美。' },
         { type: 'paragraph', text: '系统做出来了，然后立刻在现实中摔得粉碎。' },
         { type: 'paragraph', text: '我忽略了一个极其致命的物理条件：后厨和收货区，是一个极其嘈杂的环境。风机声、锅碗瓢盆的碰撞声、供应商的扯皮声交织在一起，语音识别在真实噪音面前简直是个笑话。语音纠偏不仅没能帮上忙，反而频频报错，逼得辉哥最后还是得满手油污地去点手机键盘。' },
-        { type: 'paragraph', text: '这让我感到非常挫败。我一直习惯去解构和抽象事物的本质，但这次在泥坑里打滚，让我真正具象化了那篇被圈内奉为圭臬的文章——Anthropic发布的《Building Effective Agents》。' },
+        { type: 'paragraph', parts: [
+          { text: '这让我感到非常挫败。我一直习惯去解构和抽象事物的本质，但这次在泥坑里打滚，让我真正具象化了那篇被圈内奉为圭臬的文章——Anthropic发布的' },
+          { text: '《Building Effective Agents》', href: 'https://www.anthropic.com/engineering/building-effective-agents' },
+          { text: '。' },
+        ] },
         { type: 'paragraph', text: '这篇文章的核心哲学极其克制，甚至可以说是反直觉的：' },
         {
           type: 'list',
@@ -161,7 +165,11 @@ const blogPosts = [
         { type: 'paragraph', text: 'The vision was cool: take a photo, system auto-reads the receiving slip; if there\'s a misread, Hui Ge just holds the mic and says "Hey, that Cola was misread — wrong character" and the system fixes it. I even integrated iFlytek\'s API. It felt perfect.' },
         { type: 'paragraph', text: 'The system shipped. Then reality smashed it.' },
         { type: 'paragraph', text: 'I had ignored a brutally obvious physical constraint: the kitchen and receiving area are deafeningly loud. Exhaust fans, clattering cookware, suppliers arguing over deliveries — voice recognition in real kitchen noise is a joke. The voice correction didn\'t help at all; it just generated errors, forcing Hui Ge to poke at a phone screen with oil-covered fingers anyway.' },
-        { type: 'paragraph', text: 'That failure forced me to actually internalize something I\'d read but hadn\'t felt — Anthropic\'s essay "Building Effective Agents," which the AI community treats almost like scripture.' },
+        { type: 'paragraph', parts: [
+          { text: 'That failure forced me to actually internalize something I\'d read but hadn\'t felt — Anthropic\'s essay ' },
+          { text: '"Building Effective Agents"', href: 'https://www.anthropic.com/engineering/building-effective-agents' },
+          { text: ', which the AI community treats almost like scripture.' },
+        ] },
         { type: 'paragraph', text: 'The core philosophy is remarkably restrained — almost counterintuitive:' },
         {
           type: 'list',

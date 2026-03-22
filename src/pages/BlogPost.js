@@ -92,11 +92,25 @@ const BlogPost = () => {
           >
             {blocks.map((block, i) => {
               if (block.type === 'paragraph') {
-                return (
-                  <p key={i} className="text-gray-300">
-                    {block.text}
-                  </p>
-                );
+                // Support both plain text and rich parts with inline links
+                const content = block.parts
+                  ? block.parts.map((part, pi) =>
+                      part.href ? (
+                        <a
+                          key={pi}
+                          href={part.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
+                        >
+                          {part.text}
+                        </a>
+                      ) : (
+                        <span key={pi}>{part.text}</span>
+                      )
+                    )
+                  : block.text;
+                return <p key={i} className="text-gray-300">{content}</p>;
               }
               if (block.type === 'list') {
                 return (
