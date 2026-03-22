@@ -128,13 +128,26 @@ const BlogPost = () => {
                 );
               }
               if (block.type === 'image') {
+                // Portrait phone screenshots get centered with max-width; landscape fills container
+                const isPortrait = block.portrait;
                 return (
                   <figure key={i} className="my-8">
-                    <img
-                      src={block.src}
-                      alt={block.alt}
-                      className="w-full rounded-xl object-cover max-h-[520px]"
-                    />
+                    {isPortrait ? (
+                      <div className="flex justify-center">
+                        <img
+                          src={block.src}
+                          alt={block.alt}
+                          className="rounded-xl shadow-lg"
+                          style={{ maxWidth: '360px', width: '100%' }}
+                        />
+                      </div>
+                    ) : (
+                      <img
+                        src={block.src}
+                        alt={block.alt}
+                        className="w-full rounded-xl object-cover max-h-[520px]"
+                      />
+                    )}
                     {block.caption && (
                       <figcaption className="text-center text-gray-500 text-sm mt-3 italic">
                         {block.caption}
@@ -144,15 +157,17 @@ const BlogPost = () => {
                 );
               }
               if (block.type === 'images') {
+                // Portrait gallery: cap each image width based on count to avoid cramping
+                const perItemMax = block.items.length >= 3 ? '180px' : '280px';
                 return (
                   <figure key={i} className="my-8">
-                    <div className="flex gap-3 justify-center">
+                    <div className="flex gap-4 justify-center flex-wrap">
                       {block.items.map((img, j) => (
-                        <div key={j} className="flex-1 min-w-0 max-w-[200px]">
+                        <div key={j} style={{ maxWidth: perItemMax, flex: '1 1 auto', minWidth: 0 }}>
                           <img
                             src={img.src}
                             alt={img.alt}
-                            className="w-full rounded-xl object-cover shadow-lg"
+                            className="w-full rounded-xl shadow-lg"
                           />
                         </div>
                       ))}
