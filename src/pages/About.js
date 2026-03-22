@@ -459,8 +459,8 @@ const About = () => {
       {/* Experience Section */}
       <Section
         id="experience"
-        title={language === 'en' ? "Professional Experience" : "实习经历"}
-        subtitle={language === 'en' ? "My internships and consulting work" : "我的实习与咨询工作经验"}
+        title={language === 'en' ? "Professional Experience" : "专业经历"}
+        subtitle={language === 'en' ? "My work across industries and ventures" : "跨行业的工作与创业经历"}
         className="px-4 sm:px-6"
       >
         <div className="max-w-3xl mx-auto">
