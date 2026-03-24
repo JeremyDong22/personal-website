@@ -61,7 +61,7 @@ const blogPosts = [
         { type: 'paragraph', text: '然后用户可以说："我不想你抽20张，你抽40张行不行？"或者："你以后能不能设置一个定时任务，每天固定时间看他在不在？有没有戴帽子？"' },
         { type: 'paragraph', text: '这就是把画笔交给用户。用户的AI工作流，用户自己设计——是定时的也好，数量也好，怎么获取也好。只要AI有工具、AI有数据，那就不是问题。' },
         { type: 'paragraph', text: '我不确定这条路最终会走到哪。但至少到目前为止，每次我试图替用户想好一切的时候，都会被现实打脸。而每次我把决策权交出去的时候，事情反而跑起来了。' },
-        { type: 'paragraph', text: '也许最好的产品，就是一支画笔。' },
+        { type: 'paragraph', text: '也许AI产品最好的形态，还是那个AI Native的、糟糕的聊天框——把当初在终端运行Claude Code给我带来的惊喜，原封不动地传递给我们的用户。' },
       ],
       en: [
         { type: 'heading', level: 2, text: 'The Workflows I Designed for Users — Nobody Used Them' },
@@ -110,7 +110,7 @@ const blogPosts = [
         { type: 'paragraph', text: 'Then the user can say: "I don\'t want 20 samples, make it 40." Or: "Can you set up a scheduled task to check every day at a fixed time whether they\'re at their post? Whether they\'re wearing hats?"' },
         { type: 'paragraph', text: 'That\'s handing users the paintbrush. Users design their own AI workflows — scheduled or on-demand, sample size, retrieval method. As long as AI has tools and data, nothing is off the table.' },
         { type: 'paragraph', text: 'I don\'t know where this path ultimately leads. But so far, every time I tried to think of everything for users, reality slapped me. And every time I handed over the decision-making, things actually started working.' },
-        { type: 'paragraph', text: 'Maybe the best product is just a paintbrush.' },
+        { type: 'paragraph', text: 'Maybe the best form of an AI product is still that AI-native, janky little chat box — delivering the same surprise that running Claude Code in a terminal gave me, straight to our users.' },
       ],
     },
   },
