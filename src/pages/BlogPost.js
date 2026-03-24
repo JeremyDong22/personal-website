@@ -180,6 +180,24 @@ const BlogPost = () => {
                   </figure>
                 );
               }
+              if (block.type === 'iframe') {
+                return (
+                  <figure key={i} className="my-8">
+                    <iframe
+                      src={block.src}
+                      title={block.alt || ''}
+                      className="w-full rounded-xl border border-white/10"
+                      style={{ height: block.height || '500px', background: '#0f1117' }}
+                      sandbox="allow-scripts"
+                    />
+                    {block.caption && (
+                      <figcaption className="text-center text-gray-500 text-sm mt-3 italic">
+                        {block.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                );
+              }
               return null;
             })}
           </motion.article>

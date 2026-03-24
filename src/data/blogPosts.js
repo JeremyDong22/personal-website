@@ -1,6 +1,121 @@
 // Blog posts data — add new posts to the beginning of this array (newest first)
 const blogPosts = [
   {
+    id: 4,
+    slug: 'symptom-driven-development',
+    date: '2026-03-24',
+    title: {
+      zh: 'Vibe Coding 为什么非要学架构不可？SDD 症状驱动开发宣言',
+      en: 'Why Must Vibe Coders Learn Architecture? The SDD (Symptom Driven Development) Manifesto',
+    },
+    excerpt: {
+      zh: '有 bug 再说，大不了学。症状出现之前没人能说服我要怎么做。',
+      en: 'Fix it when it breaks, learn when you must. Nobody can convince me to act before symptoms appear.',
+    },
+    content: {
+      zh: [
+        { type: 'paragraph', text: 'SDD 不会翻车，因为只有翻车了才需要 develop。' },
+        { type: 'paragraph', text: '这句话听起来像抬杠，但它准确描述了我过去一年写代码的方式。我给它起了个名字：SDD——Symptom Driven Development，症状驱动开发。本来想叫 Syndrome Driven Development，后来觉得太像在说自己有病。' },
+
+        { type: 'paragraph', text: '你大概听说过 TDD——Test Driven Development，测试驱动开发。很长一段时间里，TDD 是工程界的"政治正确"：先写测试，再写代码，确保每一步都不会出错。它的逻辑是：预判所有可能的失败模式，提前防御。' },
+        { type: 'paragraph', text: 'SDD 的逻辑正好反过来：先上线，出了问题再说。' },
+
+        { type: 'paragraph', text: '先说背景。我不是程序员出身，我是个会计专业的，靠 Cursor + Claude Code 写了一整套餐饮语音管理系统——灵听（Lingtin）。前端 Next.js（React 框架），后端 NestJS（Node.js 框架），数据库 Supabase（云端 PostgreSQL），语音转录用阿里 DashScope（语音识别服务），AI 分析用 DeepSeek（大语言模型）。听起来技术栈挺唬人的，但这些选型没有一个是我"设计"出来的，全是遇到问题之后被逼出来的。' },
+        { type: 'paragraph', text: '这就是 SDD 的核心：不预设架构，只响应症状。' },
+
+        { type: 'paragraph', text: '做灵听的时候，我从来没坐下来画过架构图。流程是这样的：客户说"我想看每桌客人说了什么"，我就去想怎么录音、怎么转录、怎么存。转录太慢了？加个异步处理。DashScope（阿里的语音识别）偶尔挂？加个讯飞作为 fallback（备用方案）。负面反馈没人跟进？加个行动建议推送。' },
+        { type: 'paragraph', text: '每一个功能、每一个 fallback（备用方案）、每一个 retry（重试机制），都是因为我测试出了一个问题，或者客户反馈了一个症状，我才去加的。没症状，我不动。' },
+
+        { type: 'paragraph', text: '举个具体的例子。' },
+        { type: 'paragraph', text: '有段时间，我的同事一直跟我反馈说语音转录后的文本"不通顺"，经常有语气词、重复的词，读起来很别扭。他负责业务层的事情，不碰代码，只知道结果不好。' },
+        { type: 'paragraph', text: '我打开 pipeline 图，一秒定位到"文本清洗"那个节点。点进去看了一眼——原来清洗函数用的是正则表达式，规则是去掉"啊"、"噢"、"呃"以及两个字以上的叠词。正则能做的事情是有限的，它只能按模式匹配删字，但没法理解语义。"那个那个那个"它能删，但"就是说这个味道确实是确实不太行"这种口语化的重复，它删不干净。' },
+        { type: 'paragraph', text: '解法很简单：把正则清洗换成 LLM（大语言模型）清洗。LLM 能理解语义，把口语整理成书面表达，保留完整意思。我跟 AI 说了一句"把这个清洗函数从正则改成 LLM 调用"，它三分钟改完了。然后我回到 pipeline 图上，点开这个节点，检查 AI 写的 prompt（给大模型的指令）——确认它的清洗逻辑是对的，上线。' },
+        { type: 'paragraph', text: '整个过程不到十分钟。如果我之前就"提前规划"了文本清洗方案，我可能一开始就上了 LLM——但那时候 LLM 调用一次几毛钱，而正则是免费的。在 MVP（最小可行产品）阶段，正则完全够用。等到用户量上来、对质量有了更高要求，症状出现了，我再升级。' },
+        { type: 'paragraph', text: '这就是 SDD：问题不存在的时候，我在 solve 什么？' },
+
+        { type: 'paragraph', text: '我甚至很久没有去检查过我的代码库里有多少模块、多少文件。因为不需要。我只关心数据的 pipeline（数据处理流水线）：录音进来 → 转录 → 清洗 → 打标 → 存库 → 展示。哪个环节出问题，我就去哪个环节修。至于"我是否要多加一个函数去干这个事儿"——AI 已经帮我 handle 了。function 都是 AI 定义的。我负责业务逻辑，它负责代码结构。' },
+
+        { type: 'paragraph', text: '下面这张图就是我日常用的 pipeline 图——我自己设计的，两层架构：主线是业务流水线从左到右，点击每个节点能看到具体实现细节，包括 AI 的 prompt 原文。不是扁平的，但也只有两层，刚好够用。' },
+        { type: 'iframe', src: '/assets/documents/sdd-work-graph.html', alt: 'Lingtin Pipeline DAG', height: '520px', caption: '我的 work-graph：两层 pipeline 视图。主线是业务流，点击节点看实现细节。' },
+
+        { type: 'paragraph', text: '有了这张图之后，我隐隐觉得，业内应该有更专业、更通用的做法吧？于是去搜了一下，找到了 C4 模型。' },
+        { type: 'paragraph', text: 'C4 是软件行业很经典的架构文档框架，分四层：Context（系统在什么生态里）、Container（有哪些技术组件）、Component（每个组件内部怎么分）、Code（具体代码结构）。我还看了 C4 发明者 Simon Brown 的演讲，他的初衷很好——让不同角色的人都能用同一套文档理解系统，产品经理看第一层，架构师看第二层，开发者看第三四层。' },
+        { type: 'paragraph', text: '我让 Claude 帮我画了一张完整的 C4 四层图。' },
+        { type: 'iframe', src: '/assets/documents/sdd-c4-architecture.html', alt: 'C4 Architecture Diagram', height: '520px', caption: 'C4 四层架构图：Context → Container → Component → Code。点击顶部 Tab 切换层级。' },
+
+        { type: 'paragraph', text: '画是画出来了。我切了四个 Tab，看了五分钟，关掉了。' },
+        { type: 'paragraph', text: '不是因为画得不好。是因为我一个人看这四张图，脑子像是换了四遍一样。Context 图让我想"我的系统在生态里是什么角色"，Container 图让我想"我的技术组件怎么分布"，Component 图让我想"模块之间怎么调用"，Code 图让我想"类和函数怎么设计"——每切一张图，我就得代入一个不同的"角色"去思考。但我只有一个人啊。我管你这儿那儿的？我能看懂最重要。' },
+        { type: 'paragraph', text: '更关键的是：如果真的出了问题，我还得把自己代入这四个角色挨个排查，这让我觉得极其多余。因为 vibe coding 本身就是 problem solving——问题是，如果没有 problem，我在 solve 什么？C4 让我去思考"架构长什么样"，但架构本身不是问题。页面加载慢是问题，语音转录不干净是问题，客户说"这个功能不好用"是问题。' },
+
+        { type: 'paragraph', text: '说到页面加载慢，这是另一个 SDD 的典型案例。' },
+        { type: 'paragraph', text: '灵听有段时间页面加载特别慢，我一直以为是数据库服务器在新加坡、延迟太高。正准备迁移服务器，我让 Claude 用 Context7（AI 文档查询工具）搜了一下业内的通用方案——结果发现根本不是服务器的问题，是前端缓存策略的问题。解决方案叫 SWR（stale-while-revalidate，一种缓存策略），React 生态的标准做法。Claude 十分钟帮我接上了，页面秒开。' },
+        { type: 'paragraph', text: '如果我一开始就按 C4 的思路去"设计"缓存架构，我可能会花一天时间画图、评估 Redis 和 CDN 的方案。但实际上我需要的只是一个前端库。症状出现，搜一下，解决，继续。' },
+
+        { type: 'paragraph', text: '这就是我和传统团队最大的分歧。传统团队搭 MVP（最小可行产品）的时候就要考虑并发、异步、竞态——我搭 MVP 只关心核心逻辑跑不跑得通。用户多了，出现了并发问题，我再去研究并发。这种 iteration（迭代）在传统团队看来像是没有远见，在我看来是在避免造轮子。SaaS 的核心价值就在于它的那几条 pipeline，传统的软件工程问题，公开平台早已有成熟方案。我要做的不是重新发明缓存策略，而是 focus 在主线上：客户到底有没有被我们的产品解决了真实的问题。' },
+
+        { type: 'paragraph', text: '读到这里，你可能会有这些问题：' },
+        { type: 'list', items: [
+          '"你会 lose control 的。"——也许。但到目前为止，我没有遇到过因为"不了解自己代码库结构"而失控的情况。AI 帮我管着呢。',
+          '"到处都是 bug 怎么办？"——那就修。SDD 的意思不是"不修 bug"，而是"不在 bug 出现之前花精力预防一个可能永远不会出现的问题"。',
+          '"spaghetti code（代码缠绕）怎么办？"——传统开发确实容易写成一团面条。但用 AI 写码的时候，代码结构是 AI 决定的。我告诉它业务逻辑，它自己决定函数怎么拆、模块怎么分。如果真的缠绕了，我让 AI 重构，比我自己理清楚快十倍。',
+          '"你这不是懒吗？"——不是。这是对认知资源的合理分配。我的注意力是稀缺资源，我选择把它全部投入到客户的业务问题上，而不是预防性的架构规划上。',
+        ] },
+
+        { type: 'paragraph', text: '症状出现之前，没人能说服我要怎么做。' },
+      ],
+      en: [
+        { type: 'paragraph', text: 'SDD doesn\'t crash and burn, because you only need to develop after things crash and burn.' },
+        { type: 'paragraph', text: 'That sounds like a paradox, but it accurately describes how I\'ve been writing code for the past year. I call it SDD — Symptom Driven Development. (I almost called it Syndrome Driven Development, but that sounded like a diagnosis.)' },
+
+        { type: 'paragraph', text: 'You\'ve probably heard of TDD — Test Driven Development. For years, TDD has been the engineering world\'s gold standard: write the test first, then write the code, make sure nothing breaks. The logic is appealing: anticipate every possible failure, build defenses in advance.' },
+        { type: 'paragraph', text: 'SDD flips that on its head: ship first, fix when something breaks.' },
+
+        { type: 'paragraph', text: 'Some background. I\'m not a programmer by training — I studied accounting. I built an entire voice-powered restaurant management system called Lingtin using Cursor + Claude Code. Next.js frontend, NestJS backend, Supabase for the database, Alibaba\'s DashScope for speech-to-text, DeepSeek for AI analysis. The tech stack sounds intimidating, but none of these choices were "designed." Every single one was forced by a real problem.' },
+        { type: 'paragraph', text: 'That\'s the core of SDD: no pre-designed architecture, only responses to symptoms.' },
+
+        { type: 'paragraph', text: 'When building Lingtin, I never once sat down to draw an architecture diagram. The flow was simple: a customer says "I want to see what each table said," so I figure out how to record, transcribe, and store. Transcription too slow? Add async processing. DashScope goes down sometimes? Add a Xunfei fallback. Negative feedback getting ignored? Add an action item push notification.' },
+        { type: 'paragraph', text: 'Every feature, every fallback, every retry was added because I tested something and found a problem, or a customer reported a symptom. No symptom, I don\'t touch it.' },
+
+        { type: 'paragraph', text: 'Here\'s a concrete example.' },
+        { type: 'paragraph', text: 'For a while, my colleague kept telling me that the transcribed text was "unreadable" — full of filler words and awkward repetitions. He handles the business side, doesn\'t touch code. He just knew the output was bad.' },
+        { type: 'paragraph', text: 'I opened the pipeline graph, located the "text cleaning" node in one second. Clicked in — turns out the cleaning function was using regex: strip "uh," "ah," "oh," and repeated phrases of two or more characters. Regex can only pattern-match and delete. It catches "that that that" but can\'t clean up "so basically the taste is like really is really not great" — that kind of spoken-language redundancy requires understanding meaning, not just matching patterns.' },
+        { type: 'paragraph', text: 'The fix was obvious: swap regex cleaning for LLM cleaning. An LLM understands semantics — it can restructure spoken language into clean written text while preserving the full meaning. I told the AI "change this cleaning function from regex to an LLM call." Three minutes later, done. Then I went back to the pipeline graph, clicked the node, checked the prompt the AI wrote — confirmed the logic was correct, shipped it.' },
+        { type: 'paragraph', text: 'The whole thing took under ten minutes. If I\'d "planned ahead" for text cleaning, I might have started with LLM from day one — but back then, each LLM call cost money, and regex was free. At the MVP stage, regex was fine. When user volume grew and quality demands rose, the symptom appeared, and I upgraded.' },
+        { type: 'paragraph', text: 'That\'s SDD: if the problem doesn\'t exist yet, what exactly am I solving?' },
+
+        { type: 'paragraph', text: 'I haven\'t checked how many modules or files are in my codebase in months. Because I don\'t need to. I only care about the data pipeline: recording in → transcription → cleaning → tagging → database → display. Whichever node has a problem, that\'s where I go. As for "should I add a function for this?" — AI already handles that. Functions are defined by AI. I handle business logic, it handles code structure.' },
+
+        { type: 'paragraph', text: 'Here\'s the pipeline graph I use daily — I designed it myself, two-layer architecture: the main line shows business flow left to right, click any node to see implementation details including the raw AI prompts. Not flat, but only two layers. Just enough.' },
+        { type: 'iframe', src: '/assets/documents/sdd-work-graph.html', alt: 'Lingtin Pipeline DAG', height: '520px', caption: 'My work-graph: two-layer pipeline view. Main line is business flow, click nodes for implementation details.' },
+
+        { type: 'paragraph', text: 'After building this graph, I had a nagging feeling there must be something more professional, more standard out there. So I searched around and found the C4 model.' },
+        { type: 'paragraph', text: 'C4 is a classic software architecture documentation framework with four layers: Context (where the system sits in its ecosystem), Container (what technical components exist), Component (what\'s inside each component), and Code (actual class-level structure). I even watched the creator Simon Brown\'s talk — his intent is genuinely great: let different roles understand the same system through one unified set of docs. Product managers see layer 1, architects see layer 2, developers see layers 3-4.' },
+        { type: 'paragraph', text: 'I had Claude draw a complete four-layer C4 diagram for Lingtin.' },
+        { type: 'iframe', src: '/assets/documents/sdd-c4-architecture.html', alt: 'C4 Architecture Diagram', height: '520px', caption: 'C4 four-layer architecture: Context → Container → Component → Code. Click tabs to switch levels.' },
+
+        { type: 'paragraph', text: 'It turned out beautifully. I flipped through all four tabs, spent five minutes, and closed it.' },
+        { type: 'paragraph', text: 'Not because it was poorly made. Because looking at four different diagrams of the same system felt like switching brains four times. The Context diagram makes me think "what\'s my system\'s role in the ecosystem," the Container diagram makes me think "how are my tech components distributed," the Component diagram makes me think "how do modules call each other," and the Code diagram makes me think "how are classes and functions designed." Each tab requires a different mental persona. But I\'m just one person. I don\'t care about any of that. What matters is that I can understand it.' },
+        { type: 'paragraph', text: 'More critically: if something actually breaks, I\'d have to inhabit all four personas to troubleshoot. That feels profoundly unnecessary. Because vibe coding is fundamentally problem solving — and if there\'s no problem, what am I solving? C4 asks me to think about "what does the architecture look like," but architecture itself isn\'t a problem. Slow page loads are a problem. Dirty transcriptions are a problem. A customer saying "this feature doesn\'t work" is a problem.' },
+
+        { type: 'paragraph', text: 'Speaking of slow page loads — that\'s another textbook SDD case.' },
+        { type: 'paragraph', text: 'Lingtin had a period where pages loaded painfully slowly. I assumed it was the database server in Singapore — too much latency. I was about to migrate the server when I had Claude search for standard industry solutions using Context7 (an AI documentation tool). Turns out it wasn\'t a server problem at all. It was a frontend caching issue. The solution was called SWR (stale-while-revalidate) — a standard React pattern. Claude integrated it in ten minutes. Pages loaded instantly.' },
+        { type: 'paragraph', text: 'If I\'d started by "designing" a caching architecture the C4 way, I might have spent a full day diagramming Redis and CDN options. In reality, all I needed was a frontend library. Symptom appeared, searched, solved, moved on.' },
+
+        { type: 'paragraph', text: 'This is where I diverge most from traditional teams. Traditional teams think about concurrency, async patterns, and race conditions when building an MVP. I only care whether the core logic works. When users grow and concurrency issues appear, then I study concurrency. This kind of iteration looks like lack of foresight to traditional teams. To me, it\'s avoiding reinventing wheels. The core value of a SaaS lies in its pipelines. Traditional software engineering problems already have mature solutions on public platforms. My job isn\'t to reinvent caching strategies — it\'s to stay focused on the main line: are customers actually getting their real problems solved by our product?' },
+
+        { type: 'paragraph', text: 'At this point, you probably have some questions:' },
+        { type: 'list', items: [
+          '"You\'ll lose control." — Maybe. But so far, I haven\'t encountered a situation where not understanding my codebase structure caused me to lose control. AI keeps track of it for me.',
+          '"Bugs everywhere, what then?" — Then I fix them. SDD doesn\'t mean "don\'t fix bugs." It means "don\'t spend energy preventing a bug that might never appear."',
+          '"What about spaghetti code?" — Traditional development absolutely breeds spaghetti. But when AI writes the code, code structure is AI\'s decision. I describe business logic, it decides how to split functions and organize modules. If things get tangled, I ask AI to refactor — ten times faster than untangling it myself.',
+          '"Isn\'t this just laziness?" — No. It\'s rational allocation of cognitive resources. My attention is scarce, and I choose to invest all of it in solving customer problems, not in preventive architecture planning.',
+        ] },
+
+        { type: 'paragraph', text: 'Before symptoms appear, nobody can convince me what to do.' },
+      ],
+    },
+  },
+  {
     id: 1,
     slug: 'mianyang-cursor-summer',
     date: '2025-06-15',
@@ -17,9 +132,10 @@ const blogPosts = [
         { type: 'paragraph', text: '有时候我觉得，人生的路径规划就是个伪命题。' },
         { type: 'paragraph', text: '比如我，从UIUC（伊利诺伊大学香槟分校）毕业，手里拿着全美排名第一的会计专业学位。但我花了三年时间"速通"了这个专业，不是因为我多热爱，而是因为我太讨厌它了，只想赶紧结束这场折磨。毕业时，其实我是有机会去康奈尔的，他们甚至给了一学期两万美金的奖学金offer。听起来是个顺理成章的精英叙事，对吧？但我没去。' },
         { type: 'paragraph', text: '我转身选了一个只有一年学制的数据分析硕士。原因很简单：时代变了。在这个AI快要把桌子掀了的时代，顶着个传统商科学历，不如去攒点真正能保命的技术底牌。' },
+        { type: 'paragraph', text: '其实这个感觉，本科的时候就有了。在UIUC那几年，我没亲手写过一篇论文，communication课天天在那儿划水，最喜欢的是历史、文科类的水课——因为AI最好骗人。我不是在偷懒，只是很早就开始用AI摸边界，感觉这东西的天花板大得有点可怕。' },
         { type: 'paragraph', text: '毕业后，我没有顺理成章地去卷四大或者华尔街。我和另外一个对AI陷入狂热的朋友一拍即合，直接回国创业。特别好笑的是，我们俩都不是技术背景出身。如果放在十年前，两个不懂代码的人说要去做软件，大概率会被当成骗子。' },
         { type: 'paragraph', text: '但我们碰上了Cursor。' },
-        { type: 'paragraph', text: 'Cursor是我们接触的第一个AI工具，也是我们真正意义上的"技术合伙人"。在拿它糊弄出几个Demo之后，我突然看透了一件事：只要你试错和迭代的速度足够快，你可以用它做任何跟软件开发有关的东西。' },
+        { type: 'paragraph', text: 'Cursor是我们接触的第一个AI工具，也是我们真正意义上的"技术合伙人"。Andrej Karpathy把这种方式叫做"vibe coding"——不从Hello World出发，而是从需求出发，让AI把代码拼出来，你只需要把握方向。在拿它糊弄出几个Demo之后，我突然看透了一件事：只要你试错和迭代的速度足够快，你可以用它做任何跟软件开发有关的东西。' },
         { type: 'paragraph', text: '很多人对"学技术"有种执念，觉得必须先报个班，跟着课本从"Hello World"敲起，学完底层逻辑再来谈开发。这其实是错的。这就好比你想吃盘番茄炒蛋，非得先去考个厨师证。' },
         { type: 'paragraph', text: '真正的解法是：一头扎进场景里，找到客户的痛点，然后直接给他端上一盘"菜"（Deliverable）。如果这盘菜难吃，你再去看是盐放多了还是火候不够。' },
         { type: 'paragraph', text: '在这个过程中，你通常只会遇到两种问题：' },
@@ -31,8 +147,9 @@ const blogPosts = [
           ],
         },
         { type: 'paragraph', text: '这时候，你再去学什么是缓存，什么是数据库。带着伤口去找药，才是最高效的迭代。在AI时代，阻挡大多数人的根本不是代码有多难，而是他们害怕"不知道自己不知道什么"，从而永远停留在准备阶段。' },
-        { type: 'paragraph', text: '带着这种"不知天高地厚"的极客心态，我和合伙人决定去找真实的场景。找了一圈，最后机缘巧合地遇到了一位做餐饮的老板。他很支持我们，包吃包住还给点生活费，唯一的要求就是让我们想想，AI到底能怎么在他的门店里落地。' },
-        { type: 'paragraph', text: '于是，四川绵阳的夏天，35到37度的高温下，门店外多了一个奇观：我搬了把椅子坐在街头，因为店里生意太火爆根本挤不进去。我就那么大汗淋漓地坐着，耳朵里塞着耳麦，整整听了两周店里的嘈杂声——服务员怎么点单、后厨怎么催菜、店长怎么沟通。我在用最原始的方法，解构这家餐厅的运行逻辑。' },
+        { type: 'paragraph', text: '带着这种"不知天高地厚"的极客心态，我和合伙人开始找真实的场景。我的合伙人比我大二十岁，在上海做VC，也是我以前实习时遇到的一个老板。两年前我们在上海见过面，聊了很久AI会怎么发展——那时候Cursor还不存在，很多都只是一种感觉。读硕士的时候Cursor出来了，我给他打了个电话，说：我觉得现在可以做了。他那边刚好在接触一个餐饮客户，我们立刻一拍即合。' },
+        { type: 'paragraph', text: '这家餐厅在四川绵阳，做火锅也做烤肉，两个品牌。财务数据非常漂亮——开新店平均四个月回本，年化回报率接近300%，这个数字在餐饮里几乎是离谱的。老板愿意让我们入驻：包吃包住，一个月一万块生活费，刚好够活。唯一的要求是看看AI能不能在门店里真正落地。这么好的实验田还给工资，我没多想就答应了。' },
+        { type: 'paragraph', text: '于是，四川绵阳的夏天，35到40度的高温下，门店外多了一个奇观：我搬了把椅子坐在街头，因为店里生意太火爆根本挤不进去。我就那么大汗淋漓地坐着，耳朵里塞着耳麦，整整听了两周店里的嘈杂声——服务员怎么点单、后厨怎么催菜、店长怎么沟通。我在用最原始的方法，解构这家餐厅的运行逻辑。' },
         { type: 'image', portrait: true, src: '/assets/images/blog/mianyang-vibe-coding.jpg', alt: '在绵阳餐厅外 vibe coding', caption: '门店门口的等候区，Cursor的代码架构，和一瓶乌龙茶。' },
         { type: 'paragraph', text: '两周后，我自认为找到了第一个可以降维打击的突破口：门店巡检。' },
         { type: 'paragraph', text: '我发现店长每天巡店，都需要拿着一张纸质的Checklist，走到一个地方打一个勾。总部想要检查，只能等一周或一个月后统一回收纸质表格。这太反人类了！我当即决定，用代码撸一个线上共享的To-Do List系统，让管理层随时能看到门店的打勾情况，实现代办事项的自动化追踪。' },
@@ -50,15 +167,18 @@ const blogPosts = [
         { type: 'paragraph', text: '一个真实店长的巡店路径是：进门看门头，顺路看大厅桌面，走到深处看后厨，最后拐角看水电气。我的系统强行打断了他们的物理动线，逼着他们在手机上跳跃式地找选项。' },
         { type: 'paragraph', text: '更致命的是，我发现他们以前在纸上打勾，很多时候也只是应付检查。既然本来就不做，现在搬到线上，只是把"物理敷衍"变成了"赛博敷衍"，不仅增加了工作量，而且系统收集到的数据全是没有意义的假数据。' },
         { type: 'paragraph', text: '那一刻我明白了，在没有真实数据抓手的情况下，任何试图用软件去"管理"人性的产品，都是伪需求。' },
+        { type: 'paragraph', text: '门店员工的思考回路其实非常清楚：你又不给我涨工资，我凭什么为你改变做事方式？我本来就要应付检查，现在搬到手机上，人不来门店，我更开心了，随便打个勾，你来查我就说那天疏忽了。面对这种根植于人性的惰性，光靠一个自动化的破SaaS，压根解决不了问题。' },
         { type: 'paragraph', text: '既然此路不通，那就立刻抛弃。没有任何沉没成本。' },
+        { type: 'paragraph', text: '这是我在绵阳第一个淘汰的产品。后来还废了二十多个，也有一些真的work了。每次失败，我都会更清楚地知道，AI在这个时代究竟是什么：不是一个帮你偷懒的工具，而是一种学习力——有了它，你才有底气去接触自己完全不懂的领域，然后一步步摸索、迭代，把事情做成。' },
       ],
       en: [
         { type: 'paragraph', text: 'Sometimes I think life planning is a false premise altogether.' },
         { type: 'paragraph', text: 'Take me, for example. I graduated from UIUC (University of Illinois Urbana-Champaign) with a degree in accounting — the #1 ranked program in the country. But I spent three years "speedrunning" that major, not out of passion, but because I despised it and just wanted out. When I graduated, Cornell was on the table — they even offered me a $20,000-per-semester scholarship. Sounds like the classic elite narrative, right? I turned it down.' },
         { type: 'paragraph', text: 'Instead, I pivoted to a one-year master\'s in data analytics. The reason was simple: the world had changed. In an era where AI is flipping the table, a traditional business degree felt like the wrong bet. I wanted technical leverage — the kind that actually matters.' },
+        { type: 'paragraph', text: 'That instinct goes back to undergrad. At UIUC I never wrote a single paper myself, spent my communication courses coasting, and gravitated toward history and liberal arts electives — the easy ones where AI does most of the work. I wasn\'t being lazy. I was testing limits. The ceiling kept moving.' },
         { type: 'paragraph', text: 'After graduating, I didn\'t take the obvious path to Big Four or Wall Street. A friend equally obsessed with AI and I looked at each other, shrugged, and flew back to China to start a company. The funny part? Neither of us had a technical background. Ten years ago, two people who couldn\'t code claiming they\'d build software would\'ve been laughed out of the room.' },
         { type: 'paragraph', text: 'Then we found Cursor.' },
-        { type: 'paragraph', text: 'Cursor was the first AI tool we touched — and effectively our third co-founder. After hacking together a few demos, something clicked: if you iterate fast enough, you can build almost anything software-related with it.' },
+        { type: 'paragraph', text: 'Cursor was the first AI tool we touched — and effectively our third co-founder. Andrej Karpathy calls this approach "vibe coding" — you don\'t start from first principles, you start from a need and let the AI assemble the code while you steer. After hacking together a few demos, something clicked: if you iterate fast enough, you can build almost anything software-related with it.' },
         { type: 'paragraph', text: 'A lot of people believe you have to "learn to code" first — take a course, start from Hello World, understand every layer before building anything real. That\'s wrong. It\'s like saying you need a culinary degree before you can scramble some eggs.' },
         { type: 'paragraph', text: 'The real move is to dive into a real scenario, find a customer\'s pain point, and put a deliverable in front of them. If it doesn\'t work, figure out whether it was the wrong problem or wrong execution.' },
         { type: 'paragraph', text: 'In practice, you\'ll hit one of two types of problems:' },
@@ -70,8 +190,9 @@ const blogPosts = [
           ],
         },
         { type: 'paragraph', text: 'That\'s when you go learn about caching, databases, whatever. Learning from wounds is the most efficient form of iteration. In the AI era, what holds most people back isn\'t the difficulty of code — it\'s the fear of "not knowing what they don\'t know," which keeps them perpetually in preparation mode.' },
-        { type: 'paragraph', text: 'Armed with that blissfully overconfident hacker mindset, my co-founder and I went looking for real scenarios. We eventually stumbled into a relationship with a restaurant owner. He was generous — housing, meals, a stipend — and asked only that we figure out how AI could actually work on his shop floor.' },
-        { type: 'paragraph', text: 'So there I was: Mianyang, Sichuan, summer, 35–37°C outside. The restaurant was so busy I couldn\'t get a seat inside. I dragged a chair onto the sidewalk and sat there sweating through my shirt, earbuds in, listening to the chaos of a working restaurant for two straight weeks — how servers took orders, how the kitchen managed tickets, how the manager coordinated everything. I was doing user research the old-fashioned way.' },
+        { type: 'paragraph', text: 'Armed with that blissfully overconfident hacker mindset, my co-founder and I went looking for real scenarios. My co-founder was twenty years older than me — a Shanghai-based VC and, before that, a boss from an internship years earlier. We\'d met in Shanghai two years prior and spent an evening talking about where AI was heading — back when Cursor didn\'t exist and most of it was still just feeling. When I started my master\'s and Cursor arrived, I called him: I think we can actually do this now. He\'d just started talking to a restaurant client. We decided on the spot.' },
+        { type: 'paragraph', text: 'The restaurant was in Mianyang, Sichuan — a city most people outside China have never heard of. They ran a hotpot brand and a BBQ brand. The financials were striking: new locations paid back in about four months, annualized returns around 300% — nearly absurd by restaurant industry standards. The deal was housing and meals, plus ¥10,000 a month, just enough to live on. An experimental sandbox that also paid us. I didn\'t think twice.' },
+        { type: 'paragraph', text: 'So there I was: Mianyang, Sichuan, summer, 35–40°C outside. The restaurant was so busy I couldn\'t get a seat inside. I dragged a chair onto the sidewalk and sat there sweating through my shirt, earbuds in, listening to the chaos of a working restaurant for two straight weeks — how servers took orders, how the kitchen managed tickets, how the manager coordinated everything. I was doing user research the old-fashioned way.' },
         { type: 'image', portrait: true, src: '/assets/images/blog/mianyang-vibe-coding.jpg', alt: 'Vibe coding outside the restaurant in Mianyang', caption: 'Outside Pingjie Hotpot. Gold osmanthus oolong, a stack of errors, and a city backdrop.' },
         { type: 'paragraph', text: 'Two weeks in, I thought I\'d found my first breakthrough: store inspection.' },
         { type: 'paragraph', text: 'I noticed the manager did daily walkthroughs with a paper checklist, ticking boxes as he moved through the space. HQ had to wait weeks to collect these forms. This seemed absurdly inefficient. I built a shared digital to-do system — managers could see real-time check-in status across all locations.' },
@@ -89,7 +210,9 @@ const blogPosts = [
         { type: 'paragraph', text: 'A real manager\'s path is spatial: entrance first, then the dining floor, then the kitchen, then the back corner for utilities. My system forced them to jump around a phone screen searching for items that didn\'t match their physical flow.' },
         { type: 'paragraph', text: 'Worse: I realized those paper checkboxes were never really about compliance. They were theater. Moving the theater online just transformed "physical checkbox-faking" into "digital checkbox-faking" — with more friction and completely useless data.' },
         { type: 'paragraph', text: 'I understood then: any product trying to "manage" human behavior through software, without a real data hook, is solving a fake problem.' },
+        { type: 'paragraph', text: 'The employee logic was completely rational from where they stood: you\'re not paying me more, so why would I change how I work? I was already faking compliance on paper — now I can do it on a phone, and you\'re not even here to check. Against that kind of institutionalized inertia, a shiny SaaS doesn\'t fix anything.' },
         { type: 'paragraph', text: 'When a path is blocked, abandon it. No sunk cost.' },
+        { type: 'paragraph', text: 'That was the first product I killed in Mianyang. Over the following months, I killed twenty more. Some things eventually worked. But every failure sharpened the same understanding: AI isn\'t a productivity shortcut — it\'s a learning leverage. It gives you the nerve to walk into a domain you know nothing about, iterate until you understand it, and actually build something that lasts.' },
       ],
     },
   },

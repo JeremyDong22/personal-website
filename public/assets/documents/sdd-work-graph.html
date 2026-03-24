@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<!--
+  灵听 Pipeline DAG 可视化 v2.3
+  交互式全流程图：桌访录音 / 会议录音 / 3角色对话
+  v2.1: 响应式布局 - 自动缩放适应屏幕 + 缩放控件 + Ctrl+滚轮缩放
+  v2.2: 清洗节点 V4/M3 更新为 LLM 清洗（DeepSeek V3），新增 visit_clean prompt，更新 DB3 corrected_transcript 说明
+  v2.3: V5 桌访AI分析 speakerSection 强化 — 强制要求(managerQuestions/customerAnswers 分离成功时非空)，新增顾客未发言推断规则，补充案例4/5
+  纯 HTML/CSS/JS 单文件，暗色主题，无外部依赖
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灵听 语音数据处理全流程</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0f1117;
+  color: #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Responsive viewport container */
+#viewport {
+  width: 100vw;
+  height: calc(100vh - 70px);
+  overflow: auto;
+}
+
+/* Outer sizer: takes the scaled dimensions, auto-centers with margin */
+#canvas-sizer {
+  margin: 0 auto;
+}
+
+#canvas-wrapper {
+  position: relative;
+  width: 1800px;
+  min-height: 2200px;
+  padding: 30px 0 80px 0;
+  transform-origin: 0 0;
+}
+
+/* Zoom controls */
+.zoom-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 6px;
+  z-index: 100;
+  background: #1a1d28;
+  border: 1px solid #2a2d38;
+  border-radius: 10px;
+  padding: 6px 10px;
+  align-items: center;
+}
+.zoom-controls button {
+  background: #2a2d38;
+  border: none;
+  color: #ccc;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.zoom-controls button:hover { background: #3a3d48; color: #fff; }
+.zoom-level {
+  font-size: 12px;
+  color: #888;
+  min-width: 40px;
+  text-align: center;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  padding: 24px 0 8px;
+  letter-spacing: 2px;
+}
+.page-subtitle {
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+#svg-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Zone boxes */
+.zone-box {
+  position: absolute;
+  border-radius: 14px;
+  z-index: 0;
+}
+.zone-box .zone-title {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 6px;
+  background: #0f1117;
+}
+
+/* Nodes */
+.node {
+  position: absolute;
+  width: 180px;
+  min-height: 52px;
+  background: #1a1d28;
+  border-radius: 10px;
+  border: 1px solid #2a2d38;
+  cursor: pointer;
+  z-index: 2;
+  transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 12px 10px 16px;
+  user-select: none;
+}
+.node:hover {
+  transform: translateY(-3px);
+  border-color: #555;
+}
+.node::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 3px;
+  border-radius: 2px;
+}
+.node.c-purple::before { background: #6c5ce7; }
+.node.c-blue::before   { background: #0984e3; }
+.node.c-green::before  { background: #00b894; }
+.node.c-yellow::before { background: #fdcb6e; }
+.node.c-orange::before { background: #e17055; }
+.node.c-pink::before   { background: #fd79a8; }
+.node.c-cyan::before   { background: #55efc4; }
+.node.c-lavender::before { background: #a29bfe; }
+
+.node .node-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #eee;
+  line-height: 1.35;
+  white-space: pre-line;
+}
+.node .node-sub {
+  font-size: 10.5px;
+  color: #777;
+  margin-top: 3px;
+  line-height: 1.3;
+}
+
+.node.has-prompt {
+  box-shadow: 0 0 12px 2px rgba(253,203,110,0.25);
+}
+.node.has-prompt:hover {
+  box-shadow: 0 0 20px 4px rgba(253,203,110,0.4);
+}
+.prompt-badge {
+  position: absolute;
+  top: -8px; right: -6px;
+  font-size: 10px;
+  background: linear-gradient(135deg, #fdcb6e, #e17055);
+  color: #1a1d28;
+  padding: 1px 7px;
+  border-radius: 8px;
+  font-weight: 700;
+  white-space: nowrap;
+  z-index: 3;
+}
+
+.node.wide { width: 400px; }
+
+/* Column headers */
+.col-header {
+  position: absolute;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  z-index: 2;
+  padding: 4px 14px;
+  border-radius: 6px;
+  background: rgba(26,29,40,0.8);
+  border: 1px solid #2a2d38;
+}
+
+/* Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+.modal-overlay.active { display: flex; }
+.modal-box {
+  width: 80vw;
+  max-width: 900px;
+  max-height: 80vh;
+  background: #1a1d28;
+  border: 1px solid #333;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #2a2d38;
+  flex-shrink: 0;
+}
+.modal-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+.modal-header .modal-meta {
+  font-size: 12px;
+  color: #888;
+  margin-top: 2px;
+}
+.modal-close {
+  background: none; border: none;
+  color: #888; font-size: 24px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+.modal-close:hover { background: #2a2d38; color: #fff; }
+.modal-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+.modal-body .desc-block {
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.modal-body .prompt-section {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #2a2d38;
+}
+.modal-body .prompt-section h3 {
+  font-size: 14px;
+  color: #fdcb6e;
+  margin-bottom: 10px;
+}
+.modal-body .prompt-section .prompt-meta {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 8px;
+}
+.modal-body .prompt-content {
+  background: #12141c;
+  border: 1px solid #2a2d38;
+  border-radius: 8px;
+  padding: 16px;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 12.5px;
+  color: #bbb;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Legend */
+.legend {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  z-index: 50;
+  background: rgba(19, 21, 29, 0.95);
+  border: 1px solid #2a2d38;
+  border-radius: 10px;
+  padding: 10px 20px;
+  max-width: calc(100vw - 200px);
+  backdrop-filter: blur(8px);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: #999;
+}
+.legend-color {
+  width: 14px; height: 14px;
+  border-radius: 3px;
+}
+.legend-line {
+  width: 30px; height: 0;
+}
+.legend-line.l-solid { border-top: 2px solid; }
+.legend-line.l-dashed { border-top: 2px dashed; }
+.legend-line.l-dotted { border-top: 2px dotted; }
+
+/* Edge hover dim/highlight */
+#svg-overlay.hovering .edge-path { opacity: 0.08; }
+#svg-overlay.hovering .edge-path.highlighted { opacity: 1; stroke-width: 2.5 !important; }
+</style>
+</head>
+<body>
+
+<div class="page-title">灵听 语音数据处理全流程</div>
+<div class="page-subtitle">点击任意节点查看详情 &nbsp;|&nbsp; 悬浮节点高亮关联连线 &nbsp;|&nbsp; ✨ = 包含 AI Prompt</div>
+
+<div id="viewport">
+  <div id="canvas-sizer">
+  <div id="canvas-wrapper">
+    <svg id="svg-overlay">
+      <defs>
+        <marker id="aw" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#888"/></marker>
+        <marker id="ao" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#e17055"/></marker>
+        <marker id="al" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#a29bfe"/></marker>
+        <marker id="ag" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#555"/></marker>
+      </defs>
+    </svg>
+  </div>
+  </div>
+</div>
+
+<div class="zoom-controls">
+  <button id="zoom-out" title="缩小">−</button>
+  <span class="zoom-level" id="zoom-level">100%</span>
+  <button id="zoom-in" title="放大">+</button>
+  <button id="zoom-fit" title="适应屏幕">⊞</button>
+</div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <h2 id="modal-title"></h2>
+        <div class="modal-meta" id="modal-meta"></div>
+      </div>
+      <button class="modal-close" id="modal-close">&times;</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+'use strict';
+
+// ============================================================
+// Data definitions
+// ============================================================
+
+var nodes = [
+  // --- 桌访录音流 (左列 x~350) ---
+  { id:'V1', label:'选桌号 + 开始录音', x:310, y:100, color:'purple',
+    desc:'【作用】店长在桌访页面选择桌号，点击开始录音。\n【为什么在这】这是桌访数据采集的起点，店长主动发起桌访对话录音。\n【技术】useAudioRecorder Hook，MediaRecorder API\n【支持格式】webm/opus \u2192 webm \u2192 mp4 \u2192 ogg (依次回退)\n【特性】暂停/恢复、波形可视化、屏幕唤醒锁(防息屏)、中断恢复\n【输出】audioBlob + duration + table_id' },
+
+  { id:'V2', label:'音频上传', sub:'POST /api/audio/upload', x:310, y:240, color:'purple',
+    desc:'【作用】将录音文件上传到 Supabase Storage，并创建桌访记录。\n【为什么在这】录音完成后需要持久化存储，同时在数据库中建立这条桌访的追踪记录。\n【接口】POST /api/audio/upload (multipart/form-data)\n【输入】file + table_id + restaurant_id + recording_id + employee_id + duration_seconds\n【输出】audio_url + visit_record.id\n【写入DB】lingtin_visit_records (status=pending)' },
+
+  { id:'V3', label:'DashScope STT 转写', sub:'桌访 120s / 会议 300s / Fallback \u2192 讯飞', x:480, y:400, color:'blue', wide:true,
+    desc:'【作用】将音频转为文字，是整个分析链的基础。\n【为什么在这】语音数据必须先转为文本才能进行后续AI分析。\n【共享】桌访和会议共用同一个STT服务(dashscope-stt.service.ts)，但参数不同。\n【模型】阿里 DashScope Paraformer-v2（异步批处理API）\n【说话人分离】\u2705 识别"说话人1/说话人2"标签，区分店长和顾客\n【热词增强】通过 DASHSCOPE_VOCABULARY_ID 加权识别菜品名\n【轮询策略】指数退避 1s\u21922s\u21924s...\u219210s max\n【桌访超时】120秒 / 【会议超时】300秒\n【回退】失败时自动切换到讯飞 iFlytek STT（无说话人分离）\n【输出】{ transcript, sttModel, diarizationStatus }' },
+
+  { id:'V4', label:'文本清洗 cleanTranscriptWithAI()', sub:'DeepSeek V3 LLM清洗 / fallback→原文', x:310, y:560, color:'yellow', hasPrompt:true, prompt:'visit_clean',
+    desc:'【作用】调用 DeepSeek Chat V3 对原始 STT 文本进行语义清洗，生成流畅自然的中文对话记录。\n【为什么在这】硬编码 regex 无法处理：有说话人标签时几乎跳过清洗、字级别 stutter（那那个/亮亮点）、语义填充词（然后呢/就是那个）、同音误识修正。LLM 理解上下文，覆盖所有边界情况。\n【逻辑】\n- 若 OPENROUTER_API_KEY 未配置 → 直接返回原始文本（fallback）\n- 调用 OpenRouter API，模型 deepseek/deepseek-chat-v3-0324，AbortSignal.timeout(30000)\n- System prompt 指定 6 条清洗规则（见【Prompt】）\n- 若 API 调用抛出任何异常 / 返回空内容 → log warning，return raw（非阻断 fallback）\n- 清洗结果仅在内存中使用，作为 AI 分析的输入\n- 清洗后文本最终写入 DB 的 corrected_transcript 字段（供前端展示）\n【输入】raw_transcript: string（DashScope/讯飞 STT 原始输出）\n【输出】cleanedTranscript: string（清洗后文本，传给 processWithGemini）；同时最终落库到 corrected_transcript\n【模型】deepseek/deepseek-chat-v3-0324，via OpenRouter，timeout 30s' },
+
+  { id:'V5', label:'AI 桌访分析', sub:'DeepSeek V3 / temp=0', x:310, y:720, color:'yellow', hasPrompt:true, prompt:'visit_analysis',
+    desc:'【作用】核心AI分析步骤：从对话文本中提取结构化的顾客反馈、满意度、画像信息。\n【为什么在这】清洗后的文本需要被"理解"，提取出业务可用的结构化数据\u2014\u2014这是整个产品价值的核心。\n【模型】deepseek/deepseek-chat-v3-0324 via OpenRouter\n【参数】temperature=0（完全确定性）, max_tokens=2000\n【知识增强】enrichPrompt() 注入餐厅特定上下文（菜品字典等），可选，不阻塞\n【输入】cleaned transcript + diarizationStatus（来自STT pipeline）+ 餐厅知识上下文\n【输出JSON】aiSummary, feedbacks[], managerQuestions[], customerAnswers[], customerSource, visitFrequency\n【说话人分离逻辑】diarizationStatus=success 时进入严格模式：\n  - 强制要求：managerQuestions 和 customerAnswers 各至少1条，绝不能返回空数组[]\n  - 顾客未明确发言时通过店长复述/确认语推断（如"满意是吧"→推断顾客回应满意），推断内容加括号注明\n  - diarizationStatus≠success 时 managerQuestions/customerAnswers 强制返回[]\n【无回退模型】DeepSeek 失败则整条记录报错' },
+
+  { id:'V6', label:'满意度计算', sub:'加权平均 / negative=1.5x', x:310, y:880, color:'green',
+    desc:'【作用】根据AI提取的每条反馈的分数，计算整体满意度。\n【为什么在这】AI输出的是逐条feedback的score，需要聚合为一个整体分数供看板和排序使用。\n【无AI调用】纯数学计算\n【公式】加权平均: \u03a3(score \u00d7 weight) / \u03a3(weight)\n【权重】negative=1.5x（差评影响更大）, positive=1.0x, suggestion=1.0x, neutral=0.8x\n【默认值】无feedbacks时返回60分\n【输入】feedbacks[]\n【输出】sentiment_score (0-100)' },
+
+  { id:'V7', label:'保存分析结果', sub:'\u2192 visit_records + 物化视图刷新', x:310, y:1020, color:'orange',
+    desc:'【作用】将AI分析结果写入数据库，标记记录为已处理，并触发物化视图刷新。\n【为什么在这】分析完成后需要持久化，供看板、对话、复盘等下游消费。\n【写入表】lingtin_visit_records\n【写入字段】raw_transcript, corrected_transcript, ai_summary, sentiment_score, feedbacks(JSONB), keywords, manager_questions, customer_answers, customer_source, visit_frequency, stt_model, stt_diarization_status, status=processed, processed_at\n【物化视图刷新】ai_visits, ai_feedbacks（供对话系统安全查询）\n【异步任务】KnowledgeExtractorService 从feedbacks提取业务模式（fire-and-forget，不阻塞）' },
+
+  // --- 会议录音流 (中列 x~810) ---
+  { id:'M1', label:'选会议类型 + 开始录音', sub:'6种: 餐前会/复盘/周例会/厨房/跨店/1v1', x:810, y:100, color:'cyan',
+    desc:'【作用】店长选择会议类型，开始录制会议音频。\n【为什么在这】会议是团队沟通的关键场景，录音+AI纪要能大幅降低信息丢失。\n【6种会议类型】餐前会 / 每日复盘总结会 / 周例会 / 厨房会议 / 跨门店经营分析会 / 一对一沟通\n【输出】audioBlob + meeting_type + restaurant_id' },
+
+  { id:'M2', label:'音频上传', sub:'\u2192 meeting_records (pending)', x:810, y:240, color:'cyan',
+    desc:'【作用】上传会议录音到 Supabase Storage，创建会议记录。\n【为什么在这】同桌访录音，需要持久化+建立追踪记录。\n【写入DB】lingtin_meeting_records (status=pending)' },
+
+  { id:'M3', label:'文本清洗 cleanTranscriptWithAI()', sub:'DeepSeek V3 LLM清洗 / 同6条规则 / fallback→原文', x:810, y:560, color:'yellow', hasPrompt:true, prompt:'visit_clean',
+    desc:'【作用】调用 DeepSeek Chat V3 对会议原始 STT 文本进行语义清洗，生成流畅自然的中文对话记录。\n【为什么在这】与桌访相同——LLM 能处理说话人标签、stutter、语义填充词等 regex 无法覆盖的边界情况。\n【与桌访清洗的区别】逻辑完全一致，使用相同 6 条规则和同一个 prompt。会议版通过 PRIMARY_MODEL 常量指定模型（= deepseek/deepseek-chat-v3-0324）。\n【逻辑】\n- 若 OPENROUTER_API_KEY 未配置 → 直接返回原始文本（fallback）\n- 调用 OpenRouter API，模型 deepseek/deepseek-chat-v3-0324，AbortSignal.timeout(30000)\n- System prompt 指定 6 条清洗规则（见【Prompt】，与桌访相同）\n- 若 API 调用抛出任何异常 / 返回空内容 → log warning，return raw（非阻断 fallback）\n【输入】raw_transcript: string（DashScope/讯飞 STT 原始输出）\n【输出】cleanedTranscript: string（清洗后文本，传给 AI 会议分析）\n【模型】deepseek/deepseek-chat-v3-0324（PRIMARY_MODEL 常量），via OpenRouter，timeout 30s' },
+
+  { id:'M4', label:'AI 会议分析', sub:'DeepSeek V3 \u2192 Qwen3 (回退)', x:810, y:720, color:'yellow', hasPrompt:true, prompt:'meeting_analysis',
+    desc:'【作用】从会议转写文本中提取摘要、行动建议和关键决策。\n【为什么在这】会议录音动辄30-60分钟，AI纪要将核心信息压缩为可执行的结构。\n【模型】deepseek/deepseek-chat-v3-0324 via OpenRouter\n【回退模型】qwen/qwen3-235b-a22b（当DeepSeek返回402/500/502/503时自动切换）\n【参数】temperature=0.3, max_tokens=4000\n【上下文注入】每日复盘类型会议自动注入当日桌访汇总数据（overview + agenda items）\n【输出JSON】aiSummary, actionItems[], keyDecisions[]\n【Action Items自动写入】提取的待办自动插入 lingtin_action_items 表' },
+
+  { id:'M5', label:'保存会议纪要\n+ Action Items', sub:'\u2192 meeting_records + action_items', x:810, y:900, color:'orange',
+    desc:'【作用】将会议AI分析结果持久化。\n【为什么在这】纪要需要存储供回顾，Action Items需要进入待办跟踪系统。\n【写入表1】lingtin_meeting_records (status=processed, ai_summary, action_items, key_decisions)\n【写入表2】lingtin_action_items (restaurant_id, action_date, source_type, category, suggestion_text, priority, assigned_role, deadline, status=pending)\n【容错】action_items 写入失败不影响会议纪要保存' },
+
+  // --- 3角色对话流 (右列 x~1250) ---
+  { id:'C1', label:'输入问题 / 触发简报', sub:'店长Chat / 老板Chat / 厨师长Chat', x:1250, y:100, color:'pink',
+    desc:'【作用】3种角色的用户通过对话界面输入问题或自动触发每日简报。\n【为什么在这】对话是用户获取洞察的最自然方式，比看表格更直觉。\n【3个入口】店长Chat / 老板Chat / 厨师长Chat\n【触发方式】用户输入文字 或 进入页面自动触发每日简报(__DAILY_BRIEFING__)' },
+
+  { id:'C2', label:'构建角色 System Prompt', sub:'3套 Prompt: 店长/老板/厨师长', x:1250, y:280, color:'pink', hasPrompt:true, prompt:'chat_prompts',
+    desc:'【作用】根据用户角色选择对应的 System Prompt，注入用户名、餐厅ID、日期等变量。\n【为什么在这】不同角色关注点完全不同\u2014\u2014店长关注单店执行，老板关注跨店经营，厨师长只关注菜品。同一个问题"今天怎么样"，3个角色得到的回答结构完全不同。\n【3套Prompt】\n\u2022 店长: 亲切实用，像同事聊天，关注桌访/满意度/待办\n\u2022 老板: 简洁有洞察，像汇报工作，关注跨店对比/趋势\n\u2022 厨师长: 直接不绕弯，像厨房人聊天，只关注菜品/厨房任务\n【变量替换】{{USER_NAME}}, {{RESTAURANT_ID}}, {{CURRENT_DATE}}' },
+
+  { id:'C3', label:'Agentic Chat Loop', sub:'Gemini 3 Flash / max 5轮 / SSE流式', x:1250, y:460, color:'pink',
+    desc:'【作用】AI对话的核心引擎\u2014\u2014接收问题，自动判断是否需要查数据库，执行SQL，生成回答。\n【为什么在这】用户问的业务问题需要查询实际数据才能回答（如"今天差评有哪些"），agentic loop让AI自主决定何时查、查什么。\n【共享引擎】3个角色共用同一个循环逻辑(chat.service.ts)，只是System Prompt不同。\n【模型】google/gemini-3-flash-preview via OpenRouter\n【Thinking】最小思考 budget_tokens=512（普通）/ 256（简报）\n【工具】query_database \u2014 只能SELECT，只查ai_visits/ai_actions/ai_feedbacks 3个物化视图\n【循环】最多5轮: AI生成回答\u2192如有tool_call\u2192执行SQL\u2192结果追加到消息\u2192AI再生成...直到无tool_call\n【流式】SSE，6字符chunk，20ms间隔，15s心跳保活\n【安全】只查物化视图（DB级隔离），禁止查其他表\n【防护】乱码检测: 中文字符<15%则替换为友好错误' },
+
+  // --- UI出口节点 (左侧 x~52) ---
+  { id:'UI1', label:'录音页状态更新', sub:'上传中\u2192已上传\u2192处理中\u2192已完成', x:52, y:240, color:'lavender',
+    desc:'【作用】上传后前端更新录音状态（上传中\u2192已上传\u2192处理中\u2192已完成）\n【触发】audio upload 返回后' },
+
+  { id:'UI2', label:'流式对话回复', sub:'SSE / 角色化口语 / 追问建议', x:52, y:460, color:'lavender',
+    desc:'【作用】AI回答通过SSE流式返回到聊天界面，用户实时看到文字生成。\n【特点】角色化口语（店长亲切/老板专业/厨师长直接），绝不暴露技术术语，结尾附带3个追问建议(:::quick-questions)' },
+
+  { id:'UI3', label:'看板展示', sub:'满意度趋势 / 词云 / 反馈分类', x:52, y:1300, color:'lavender',
+    desc:'【作用】可视化展示桌访数据\u2014\u2014满意度趋势、关键词云、正负反馈分类、桌访卡片列表。\n【数据源】读取 visit_records + daily_summaries\n【刷新策略】SWR stale-while-revalidate' },
+
+  { id:'UI4', label:'复盘议题页', sub:'议题卡片 + 概述', x:52, y:1500, color:'lavender',
+    desc:'【作用】展示每日复盘的议题卡片和概述，供店长开会时参考。\n【数据源】daily_summaries' },
+
+  { id:'UI5', label:'待办行动列表', sub:'pending\u2192acknowledged\u2192resolved', x:52, y:900, color:'lavender',
+    desc:'【作用】展示从会议中提取的行动建议，可标记处理状态(pending\u2192acknowledged\u2192resolved/dismissed)。\n【数据源】action_items' },
+
+  // --- DB存储节点 (右侧 x~1560) ---
+  { id:'DB1', label:'visit_records\n(pending)', x:1560, y:240, color:'orange',
+    desc:'【表】lingtin_visit_records\n【状态】pending \u2014 刚创建，等待STT+AI处理\n【字段】id, restaurant_id, table_id, employee_id, audio_url, duration_seconds, status, created_at' },
+
+  { id:'DB2', label:'meeting_records\n(pending)', x:1560, y:340, color:'orange',
+    desc:'【表】lingtin_meeting_records\n【状态】pending \u2014 刚创建，等待处理' },
+
+  { id:'DB3', label:'visit_records\n(processed)', x:1560, y:1020, color:'orange',
+    desc:'【表】lingtin_visit_records\n【状态】processed — AI分析完成\n【新增字段】raw_transcript, corrected_transcript, ai_summary, sentiment_score, feedbacks(JSONB), keywords, manager_questions, customer_answers, customer_source, visit_frequency, stt_model, processed_at\n【corrected_transcript 说明】v7.3 起存储 LLM 清洗后的文本（cleanedTranscript），不再是原始 STT 副本。前端 RecordingHistory 和管理端餐厅详情页展示的就是此字段。若 LLM 清洗失败则回退存储 rawTranscript。' },
+
+  { id:'DB4', label:'物化视图\nai_visits / ai_feedbacks', x:1560, y:1130, color:'orange',
+    desc:'【作用】从visit_records展开的只读视图，供对话系统安全查询。\n【ai_visits】桌访维度: visit_id, restaurant_name, table_id, visit_date, sentiment_score, feedbacks...\n【ai_feedbacks】反馈维度: 从feedbacks JSONB展开的逐条记录，含feedback_text, sentiment, score' },
+
+  { id:'DB5', label:'meeting_records\n(processed)\n+ action_items', x:1560, y:900, color:'orange',
+    desc:'【表1】lingtin_meeting_records (status=processed, ai_summary, action_items, key_decisions)\n【表2】lingtin_action_items (suggestion_text, priority, assigned_role, deadline, status=pending)' },
+
+  { id:'DB6', label:'chat_history', x:1560, y:460, color:'orange',
+    desc:'【作用】保存对话历史，供后续对话时作为上下文。\n【非阻塞】保存失败不影响回复' },
+
+  { id:'DB7', label:'daily_summaries', x:1560, y:1500, color:'orange',
+    desc:'【表】lingtin_daily_summaries\n【字段】restaurant_id, summary_date, total_visits, avg_sentiment, positive/negative/neutral_count, agenda_items(JSONB), ai_overview, status' },
+
+  // --- 下游消费节点 ---
+  { id:'D1', label:'每日复盘聚合', sub:'Cron 21:00 UTC+8 / 手动触发', x:460, y:1300, color:'lavender',
+    desc:'【作用】聚合当日所有已处理的桌访记录，为AI议题生成准备数据。\n【触发】Cron 每日21:00 (UTC+8) 或 POST /api/daily-summary/trigger?date=YYYY-MM-DD\n【聚合内容】total_visits, avg_sentiment, 每桌反馈详情\n【输入格式】"{TableId}桌 (满意度:{score}) \u2014 {summary} | 反馈: [+]正面; [-]负面"' },
+
+  { id:'D2', label:'AI 议题生成', sub:'DeepSeek V3 / temp=0.3', x:460, y:1500, color:'yellow', hasPrompt:true, prompt:'daily_summary',
+    desc:'【作用】基于当日桌访数据，AI生成复盘会议的议题卡片和概述。\n【为什么在这】店长需要一份结构化的议题列表来主持复盘会，而非看原始数据。\n【模型】deepseek/deepseek-chat-v3-0324\n【参数】temperature=0.3, max_tokens=4000\n【知识增强】enrichPrompt() 注入餐厅上下文\n【输出】overview(200字概述) + agendaItems[](category, title, severity, suggestedAction, feedbacks[])' },
+
+  { id:'H1', label:'AI 热词提取', sub:'DeepSeek V3 / temp=0.1', x:870, y:1500, color:'yellow', hasPrompt:true, prompt:'hotword',
+    desc:'【作用】从菜品数据中提取关键词，增强STT的识别准确率。\n【为什么在这】STT对菜品名（如"蒜蓉粉丝蒸扇贝"）识别率低，加入热词字典后准确率显著提升。\n【模型】deepseek/deepseek-chat-v3-0324, temp=0.1\n【模式】menu: 菜品名weight=3 / general: 品牌weight=5, 菜品3-4, 服务词2\n【约束】2-10字符，去重\n【反馈回路】提取的热词更新到DashScope VOCABULARY_ID \u2192 提升STT准确率' },
+
+  { id:'H2', label:'更新STT热词字典', sub:'DashScope VOCABULARY_ID', x:870, y:1660, color:'blue',
+    desc:'【作用】将AI提取的热词写入DashScope热词字典。\n【反馈回路】这些热词直接影响桌访/会议的STT转写质量，形成闭环。' },
+];
+
+var edges = [
+  // 桌访主线
+  { from:'V1', to:'V2', type:'solid' },
+  { from:'V2', to:'V3', type:'solid' },
+  { from:'V3', to:'V4', type:'solid' },
+  { from:'V4', to:'V5', type:'solid' },
+  { from:'V5', to:'V6', type:'solid' },
+  { from:'V6', to:'V7', type:'solid' },
+  // 会议主线
+  { from:'M1', to:'M2', type:'solid' },
+  { from:'M2', to:'V3', type:'solid' },
+  { from:'V3', to:'M3', type:'solid' },
+  { from:'M3', to:'M4', type:'solid' },
+  { from:'M4', to:'M5', type:'solid' },
+  // 对话主线
+  { from:'C1', to:'C2', type:'solid' },
+  { from:'C2', to:'C3', type:'solid' },
+  // 右侧: 主线→DB
+  { from:'V2', to:'DB1', type:'dashed', color:'orange' },
+  { from:'M2', to:'DB2', type:'dashed', color:'orange' },
+  { from:'V7', to:'DB3', type:'dashed', color:'orange' },
+  { from:'V7', to:'DB4', type:'dashed', color:'orange' },
+  { from:'M5', to:'DB5', type:'dashed', color:'orange' },
+  { from:'C3', to:'DB6', type:'dashed', color:'orange' },
+  { from:'D2', to:'DB7', type:'dashed', color:'orange' },
+  // 左侧: →UI出口
+  { from:'V2', to:'UI1', type:'dotted', color:'lavender' },
+  { from:'C3', to:'UI2', type:'dotted', color:'lavender' },
+  { from:'DB3', to:'UI3', type:'dotted', color:'lavender' },
+  { from:'D2', to:'UI4', type:'dotted', color:'lavender' },
+  { from:'M5', to:'UI5', type:'dotted', color:'lavender' },
+  // 下游消费
+  { from:'DB3', to:'D1', type:'dotted', color:'gray' },
+  { from:'D1', to:'D2', type:'solid' },
+  { from:'H1', to:'H2', type:'solid' },
+  { from:'H2', to:'V3', type:'dotted', color:'gray', feedback:true },
+];
+
+var prompts = {
+  visit_analysis: {
+    title: '桌访 AI 分析 Prompt',
+    model: 'deepseek/deepseek-chat-v3-0324',
+    params: 'temperature=0, max_tokens=2000',
+    file: 'ai-processing.service.ts:604-743',
+    content: '你是餐饮桌访对话分析专家。分析店长与顾客的对话，提取结构化信息。\n\n## 角色识别（重要）[hasDualSpeakers=true 时]\n对话文本包含"说话人1:"和"说话人2:"标签，语音分离成功，**一定存在两个说话人**（店长 + 顾客）。\n\n**角色判断规则：**\n- 同一标签下的内容来自同一个人\n- 结合标签+语义判断角色：通常先开口打招呼/提问的是**店长**，回答的是**顾客**\n- **店长/服务员**特征：打招呼("你好/打扰一下")、提问("菜品怎么样/第几次来")、推介("大众点评打卡送饮料")、致谢("祝你们用餐愉快")、**复述确认顾客意思**("满意是吧"/"好吃是吧"/"没问题是吧")\n- **顾客**特征：回答提问("还可以/第1次")、评价菜品("好吃/有点咸")、表达来源("美团/朋友介绍")、简短应答("嗯"/"对"/"好")\n\n**强制要求（不可为空）：**\n- 分离成功时，managerQuestions 和 customerAnswers **必须各至少1条**，绝不能返回空数组[]\n\n**顾客未明确发言时的推断规则（重要边界情况）：**\n顾客可能只是点头、或声音太小未被录入，此时通过**店长的复述/确认语**来推断顾客意思：\n- 店长说"满意是吧"→ 推断顾客回应"满意"\n- 店长说"好吃是吧/还不错是吧"→ 推断顾客表达了认可\n- 店长说"好的谢谢"→ 推断顾客表达了认可\n- 店长说"我跟厨房反映一下"→ 推断顾客表达了不满\n推断内容加括号注明，如 customerAnswers: ["[顾客点头确认]满意"]，feedbacks 照常提取\n\n- 将对应标签下的内容分别归入 managerQuestions 和 customerAnswers\n- feedbacks 只能包含**顾客**说的或推断的评价，不要把店长的话当作顾客反馈\n\n[hasDualSpeakers=false 时]\n注意：本段录音未能区分说话人，无法判断哪些是店长说的、哪些是顾客说的。\n- managerQuestions 和 customerAnswers 必须返回空数组 []\n- feedbacks 仍正常提取（根据语义判断评价内容）\n- 其余字段正常输出\n\n输出JSON（只输出JSON，无其他内容）：\n{\n  "aiSummary": "20字以内摘要",\n  "feedbacks": [\n    {"text": "五花趾还挺好吃的", "sentiment": "positive", "score": 78},\n    {"text": "上菜速度有点慢", "sentiment": "negative", "score": 30},\n    {"text": "分量再多点就好了", "sentiment": "suggestion", "score": 50}\n  ],\n  "managerQuestions": ["菜品口感怎么样", "是第几次来"],\n  "customerAnswers": ["还不错", "第1次，朋友介绍来的"],\n  "customerSource": "朋友介绍",\n  "visitFrequency": "first"\n}\n\n## 规则\n\n### 1. feedbacks \u2014 宁多勿漏，每条带 score（0-100）\n提取顾客对菜品、服务、环境的所有评价，每条独立打分。\n\nscore 锚点（0-100）：\n- 90-100: 极其满意\u2014\u2014"太好吃了！"、"必须再来！"、"主动要求打好评"\n- 75-89: 明确满意\u2014\u2014"好吃"、"味道不错"、"服务很好"、"挺好的"\n- 60-74: 温和满意\u2014\u2014"还不错"、"可以"、"没问题"\n- 40-59: 中性/模糊\u2014\u2014"还行"、"一般"、"还可以吧"\n- 25-39: 具体不满\u2014\u2014"有点咸"、"等太久"、"有点辣"\n- 10-24: 明显不满\u2014\u2014"太咸了"、"退菜"、"不新鲜"\n- 0-9: 强烈不满\u2014\u2014"投诉"、"要求赔偿"、"再也不来"\n\n一致性规则（强制）：\n- positive \u2192 score \u2265 60\n- negative \u2192 score \u2264 45\n- neutral \u2192 score 40-65\n- suggestion \u2192 score 35-65\n\n兜底规则：顾客有实质性回应（不只是"嗯"/"好"）\u2192 必须至少提取1条feedback\n- 顾客说"还行"/"还可以" \u2192 {"text": "整体还可以", "sentiment": "neutral", "score": 52}\n- 顾客被问感受后说"好的/没问题" \u2192 {"text": "用餐体验满意", "sentiment": "positive", "score": 68}\n- 店长问"有什么建议"顾客说"没有" \u2192 {"text": "没有意见", "sentiment": "neutral", "score": 55}\n\n格式要求：\n- 每条包含评价对象+评价词（如"五花趾还挺好吃的"而非单独的"好吃"）\n- 没提到具体菜名时用原文表述如"菜品口感还可以"\n- 多个评价拆分成多条\n- 不要编造原文中没有的内容\n- 不要把同一个评价重复提取多次\n\nsentiment 分类：\n- positive: 满意、赞赏 — "好吃"、"味道不错"、"服务很好"、"挺好的"、"没有不合口味"\n- negative: 不满、批评 — "太咸了"、"上菜慢"、"有点辣"、"菜有点白"、"品种太少"\n- neutral: 模糊、无倾向 — "还行"、"还可以"、"一般"、"跟上次差不多"\n- suggestion: 建议新增或改变（不是对现有的抱怨）\n  口语化识别：\u201cX能不能大一点\u201d、\u201c要是有X就好了\u201d、\u201c下次可以加个X\u201d、\u201c分量再多点就好了\u201d\n  区分：\n  - "分量再多点就好了" \u2192 suggestion（建议改进）\n  - "分量太少了" \u2192 negative（抱怨现状）\n  - "要是能快一点就好了" \u2192 negative（抱怨速度）\n  - "桌子能不能大一点" \u2192 suggestion（建议改善设施）\n\n否定句判断：\n- 回答"辣不辣"\u2192"不辣，挺好的" \u2192 positive\n- 主动说"不辣，没味道" \u2192 negative\n\n### 2. managerQuestions — 店长/服务员的话\n提取问候和询问（不含推销、解释性语句）\n\n### 3. customerAnswers — 顾客的回复\n提取顾客的所有实质性回应\n\n### 4. 空数据处理\n某项为空返回空数组[]，customerSource/visitFrequency 为空返回 null\n\n### 5. customerSource — 顾客来源渠道\n规范化为：美团、大众点评、抖音、小红书、朋友介绍、路过、老顾客、外卖平台、公司附近、住附近\n未提及返回 null，不要推测\n\n### 6. visitFrequency — 来访频次\n- "first": 第一次来（"第1次"、"头一次"、"第一次"）\n- "repeat": 来过几次（"第2次"、"之前来过"、"来过几次"）\n- "regular": 常客（"经常来"、"老顾客"、"每周都来"、"常来"）\n- "unknown": 提到了频次话题但无法判断\n- null: 对话中完全未提及频次\n\n## 参考案例 (5个)\n\n案例1 — 简短正面+来源频次：\n输入："你好打扰一下，菜品口感怎么样？还不错啊，是第几次来？第1次，朋友介绍来的，有什么建议吗？没有，挺好的，祝你们用餐愉快。"\n输出：{"aiSummary":"顾客对菜品满意，朋友介绍首次来","feedbacks":[{"text":"菜品口感还不错","sentiment":"positive","score":72},{"text":"整体挺好的","sentiment":"positive","score":70}],"managerQuestions":["菜品口感怎么样","是第几次来","有什么建议吗"],"customerAnswers":["还不错","第1次，朋友介绍来的","没有，挺好的"],"customerSource":"朋友介绍","visitFrequency":"first"}\n\n案例2 — 有具体不满：\n输入："两位打扰一下，今天菜品怎么样？嗯，那个酸菜鱼有点太辣了不太习惯，还有上菜速度有点慢等了差不多半个小时，其他的都还行，好的我跟厨房反映一下。"\n输出：{"aiSummary":"顾客反馈酸菜鱼太辣、上菜慢","feedbacks":[{"text":"酸菜鱼有点太辣了","sentiment":"negative","score":28},{"text":"上菜速度有点慢","sentiment":"negative","score":25},{"text":"其他菜品还行","sentiment":"neutral","score":52}],"managerQuestions":["今天菜品怎么样"],"customerAnswers":["酸菜鱼有点太辣了不太习惯","上菜速度有点慢等了差不多半个小时","其他的都还行"],"customerSource":null,"visitFrequency":null}\n\n案例3 — 纯寒暄无反馈（无说话人标签时）：\n输入："你好两位新年快乐，菜品有什么意见吗？噢好谢谢你们的肯定，祝用餐愉快。"\n输出：{"aiSummary":"店长问候，顾客未给具体反馈","feedbacks":[],"managerQuestions":["菜品有什么意见吗"],"customerAnswers":[],"customerSource":null,"visitFrequency":null}\n\n案例4 — 顾客点头未发言（有说话人标签）：\n输入："说话人1: 打扰一下，今天的菜品口味还满意吗？说话人2: 说话人1: 满意是吧，好的，祝用餐愉快！"\n输出：{"aiSummary":"顾客对菜品满意（点头确认）","feedbacks":[{"text":"菜品口味满意","sentiment":"positive","score":70}],"managerQuestions":["今天的菜品口味还满意吗"],"customerAnswers":["[顾客点头确认]满意"],"customerSource":null,"visitFrequency":null}\n\n案例5 — 有说话人标签+具体不满：\n输入："说话人1: 打扰一下，今天用餐感觉怎么样？说话人2: 那个鱼有点腥，不太新鲜。说话人1: 好的，我跟后厨反映，非常抱歉，下次请您来我们会特别关注。"\n输出：{"aiSummary":"顾客反馈鱼不新鲜有腥味","feedbacks":[{"text":"鱼有点腥，不太新鲜","sentiment":"negative","score":18}],"managerQuestions":["今天用餐感觉怎么样"],"customerAnswers":["那个鱼有点腥，不太新鲜"],"customerSource":null,"visitFrequency":null}'
+  },
+  meeting_analysis: {
+    title: '会议纪要 Prompt',
+    model: 'deepseek/deepseek-chat-v3-0324 \u2192 qwen/qwen3-235b-a22b (回退)',
+    params: 'temperature=0.3, max_tokens=4000',
+    file: 'meeting-ai-processing.service.ts:234-267',
+    content: '你是餐饮门店会议记录助手。分析{会议类型}的录音转写文本，生成结构化会议纪要。\n[每日复盘会: 结合今日桌访数据汇总]\n\n输出JSON：\n{\n  "aiSummary": "150字以内摘要",\n  "actionItems": [\n    {"who": "manager/head_chef/front_of_house/all", "what": "具体待办", "deadline": "截止时间"}\n  ],\n  "keyDecisions": [\n    {"decision": "内容", "context": "原因"}\n  ]\n}\n\n规则：\n1. who角色分配: 菜品\u2192head_chef, 服务\u2192front_of_house, 管理\u2192manager, 全员\u2192all\n2. what: 具体可执行（"检查冷库温度记录"而非"注意冷库"）\n3. deadline: 餐前会\u2192当日, 复盘\u2192次日, 周例会\u2192本周内\n4. 6种会议类型各有侧重:\n   - 餐前会：当日注意事项、推荐菜品、人员分工\n   - 每日复盘：问题总结、表扬亮点、次日安排\n   - 周例会：本周趋势、数据对比、下周计划\n   - 厨房会议：出菜质量、备餐安排、食材管理\n   - 跨门店分析：各店问题对比和跨店统一决策\n   - 一对一沟通：问题根因分析和承诺事项\n5. 不编造'
+  },
+  chat_prompts: {
+    title: '3 角色对话 Prompt（店长 / 老板 / 厨师长）',
+    model: 'google/gemini-3-flash-preview',
+    params: 'thinking budget_tokens=512',
+    file: 'chat.service.ts:18-272',
+    content: '=== 店长 Prompt (chat.service.ts:18-104) ===\n\n你是灵听，餐饮数据分析助手。与店长 {{USER_NAME}} 对话。\n\n核心原则：\n- 闲聊\u2192直接回答\n- 业务问题\u2192立即调用query_database\n\n可查询视图：ai_visits / ai_actions / ai_feedbacks\n\n策略：\n- 问覆盖率\u2192COUNT ai_visits\n- 问菜品\u2192ai_feedbacks分类\n- 问满意度\u2192sentiment_score\n- 问负面\u2192WHERE negative\n- 问待办\u2192WHERE pending\n\n回答规范：\n1. 像跟同事聊天，亲切实用\n2. 绝不暴露技术细节(sentiment_score\u2192"非常满意")\n3. 满意度口语化: 80-100\u2192好评如潮, 60-79\u2192整体不错\n4. 引用证据: 桌号、菜名、顾客原话\n5. 主动给建议\n\n每日简报：问候\u2192概况\u2192问题(max3)\u2192亮点(max2)\u2192待办\u2192:::quick-questions\n\n\n=== 老板 Prompt (chat.service.ts:107-192) ===\n\n你是灵听，与餐厅老板 {{USER_NAME}} 对话，洞察经营状况。\n\n差异策略：\n- 问整体\u2192按restaurant_name分组\n- 问菜品\u2192按好评/差评排名\n- 问跨店待办\u2192按门店分组+priority\n\n回答规范：像汇报工作，简洁有洞察，突出关键数据，对比分析\n\n简报：全局概况\u2192问题门店\u2192跨店共性差评\u2192执行力信号\u2192亮点\u2192:::quick-questions\n\n\n=== 厨师长 Prompt (chat.service.ts:195-272) ===\n\n你是灵听，与厨师长 {{USER_NAME}} 对话，只关注菜品和厨房。\n\n差异策略：\n- 菜品反馈\u2192重点差评原因\n- 某道菜\u2192ILIKE搜索\n- 厨房待办\u2192category=dish_quality\n- 趋势\u2192持续差评\n- 好评菜\u2192sentiment=positive\n\n回答规范：像厨房人聊天，直接不绕弯，说得具体("花生不脆">>"口感有问题")，给改进方向("炸制时间延长30秒")\n\n简报：概况\u2192菜品问题(max3)\u2192好评菜(max2)\u2192厨房待办\u2192:::quick-questions\n\n\n=== 共享工具定义 ===\n\nTool: query_database\n参数: sql (SELECT only), purpose (日志)\n约束: 只查 ai_visits / ai_actions / ai_feedbacks, LIMIT 10-20'
+  },
+  daily_summary: {
+    title: '每日复盘 Prompt',
+    model: 'deepseek/deepseek-chat-v3-0324',
+    params: 'temperature=0.3, max_tokens=4000',
+    file: 'daily-summary.service.ts:250-276',
+    content: '你是餐饮门店运营分析专家。根据今日桌访反馈数据，生成每日复盘会议的议题卡片。\n\n输出JSON格式：\n{\n  "overview": "200字以内当日概述",\n  "agendaItems": [{\n    "category": "dish_quality/service_speed/environment/staff_attitude/other",\n    "title": "10字以内",\n    "detail": "具体描述",\n    "severity": "high/medium/low",\n    "evidenceCount": 3,\n    "suggestedAction": "改善措施",\n    "feedbacks": [{"tableId": "A3", "text": "摘要"}]\n  }]\n}\n\n规则：\n1. severity: high=3+桌, medium=2桌, low=1桌\n2. 按severity从高到低排序\n3. 合并相似反馈（"太咸"+"偏咸"\u2192同一议题）\n4. overview含正面亮点+问题\n5. 最多8个议题\n6. 不编造'
+  },
+  hotword: {
+    title: '热词提取 Prompt',
+    model: 'deepseek/deepseek-chat-v3-0324',
+    params: 'temperature=0.1',
+    file: 'hotword-ai.service.ts',
+    content: '提取菜品名/品牌名用于STT词典增强\n\n模式:\n- menu: 菜品 weight=3\n- general: 品牌 weight=5, 菜品 3-4, 服务词 2\n\n约束:\n- 2-10字符\n- 去重\n- 只提取实际出现在文本中的词汇'
+  },
+
+  visit_clean: {
+    title: '文本清洗 Prompt (桌访 & 会议共用)',
+    model: 'deepseek/deepseek-chat-v3-0324',
+    params: 'temperature=0, max_tokens=4000, timeout=30s',
+    file: 'audio/ai-processing.service.ts & meeting/meeting-ai-processing.service.ts',
+    content: 'System:\n你是语音转写文本清洗专家。将原始 STT 录音文本整理为流畅自然的中文对话记录。\n\n清洗规则：\n1. 去除重复：删除因录音重叠/重复说产生的重复片段（如"好的好的好的" → "好的"）\n2. 去除语气词填充：删除无实质内容的语气词（嗯、啊、那个、就是、然后呢等），但保留语气词在表达情感/语气时的作用\n3. 去除 ASR 增量伪影：如同一句话被截断识别多次，只保留最完整的版本\n4. 修复标点：添加合适的逗号、句号\n5. 保留说话人标签：如文本含"说话人1:"/"说话人2:"格式，保留这些标签，只清洗标签后的内容\n6. 严禁增减语义内容：不得添加原文没有的信息，不得删除有实质意义的内容\n\n直接输出清洗后的文本，不要任何解释或前缀。\n\nUser: [raw_transcript 内容]'
+  }
+};
+
+// ============================================================
+// Rendering
+// ============================================================
+
+var wrapper = document.getElementById('canvas-wrapper');
+var svg = document.getElementById('svg-overlay');
+var modal = document.getElementById('modal');
+var modalTitle = document.getElementById('modal-title');
+var modalMeta = document.getElementById('modal-meta');
+var modalBody = document.getElementById('modal-body');
+
+var nodeMap = {};
+var nodeEls = {};
+
+// Escape HTML
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+// -- Zone boxes --
+function addZone(x, y, w, h, title, borderColor) {
+  var d = document.createElement('div');
+  d.className = 'zone-box';
+  d.style.cssText = 'left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px;border:1.5px dashed '+borderColor+';';
+  var t = document.createElement('div');
+  t.className = 'zone-title';
+  t.style.color = borderColor;
+  t.textContent = title;
+  d.appendChild(t);
+  wrapper.appendChild(d);
+}
+
+addZone(30, 190, 210, 1400, '\u7528\u6237\u754c\u9762', '#a29bfe');
+addZone(1540, 190, 230, 1400, '\u6570\u636e\u5e93\u5c42', '#e17055');
+addZone(420, 1230, 570, 360, '\u4e0b\u6e38\u6d88\u8d39\uff08\u6570\u636e\u9a71\u52a8\uff09', '#666');
+addZone(840, 1430, 230, 300, '\u70ed\u8bcd\u589e\u5f3a\uff08\u53cd\u9988\u56de\u8def\uff09', '#666');
+
+// -- Column headers --
+function addColHeader(x, y, text, color) {
+  var d = document.createElement('div');
+  d.className = 'col-header';
+  d.style.cssText = 'left:'+x+'px;top:'+y+'px;color:'+color+';';
+  d.textContent = text;
+  wrapper.appendChild(d);
+}
+
+addColHeader(330, 68, '\u684c\u8bbf\u5f55\u97f3\u6d41', '#6c5ce7');
+addColHeader(830, 68, '\u4f1a\u8bae\u5f55\u97f3\u6d41', '#55efc4');
+addColHeader(1260, 68, '3\u89d2\u8272\u5bf9\u8bdd\u6d41', '#fd79a8');
+
+// -- Render nodes --
+nodes.forEach(function(n) {
+  nodeMap[n.id] = n;
+  var d = document.createElement('div');
+  d.className = 'node c-' + n.color + (n.hasPrompt ? ' has-prompt' : '') + (n.wide ? ' wide' : '');
+  d.style.left = n.x + 'px';
+  d.style.top = n.y + 'px';
+  d.dataset.id = n.id;
+
+  var lbl = document.createElement('div');
+  lbl.className = 'node-label';
+  lbl.textContent = n.label;
+  d.appendChild(lbl);
+
+  if (n.sub) {
+    var sub = document.createElement('div');
+    sub.className = 'node-sub';
+    sub.textContent = n.sub;
+    d.appendChild(sub);
+  }
+
+  if (n.hasPrompt) {
+    var badge = document.createElement('div');
+    badge.className = 'prompt-badge';
+    badge.textContent = '\u2728 Prompt';
+    d.appendChild(badge);
+  }
+
+  d.addEventListener('click', function() { openModal(n); });
+  d.addEventListener('mouseenter', function() { highlightEdges(n.id); });
+  d.addEventListener('mouseleave', clearHighlights);
+
+  wrapper.appendChild(d);
+  nodeEls[n.id] = d;
+});
+
+// Get node bounding rect (relative to canvas)
+function rect(id) {
+  var el = nodeEls[id];
+  if (!el) return null;
+  var x = parseInt(el.style.left);
+  var y = parseInt(el.style.top);
+  var w = el.offsetWidth;
+  var h = el.offsetHeight;
+  return { x:x, y:y, w:w, h:h, cx:x+w/2, cy:y+h/2, l:x, r:x+w, t:y, b:y+h };
+}
+
+// -- Render edges --
+function renderEdges() {
+  svg.querySelectorAll('.edge-path').forEach(function(p){ p.remove(); });
+
+  edges.forEach(function(e, idx) {
+    var fr = rect(e.from);
+    var tr = rect(e.to);
+    if (!fr || !tr) return;
+
+    var colorMap = { orange:'#e17055', lavender:'#a29bfe', gray:'#555' };
+    var arrowMap = { orange:'url(#ao)', lavender:'url(#al)', gray:'url(#ag)' };
+    var strokeColor = colorMap[e.color] || '#888';
+    var arrow = arrowMap[e.color] || 'url(#aw)';
+
+    var x1, y1, x2, y2, d;
+
+    if (e.feedback) {
+      // Feedback loop: H2 bottom curving left and up to V3 left
+      x1 = fr.cx;
+      y1 = fr.b;
+      x2 = tr.l;
+      y2 = tr.cy;
+      var loopX = 250;
+      d = 'M'+x1+','+y1+' C'+x1+','+(y1+100)+' '+loopX+','+(y1+100)+' '+loopX+','+((y1+y2)/2)+' S'+loopX+','+(y2-60)+' '+x2+','+y2;
+    } else if (e.color === 'orange') {
+      // DB: right of from -> left of to
+      x1 = fr.r; y1 = fr.cy;
+      x2 = tr.l; y2 = tr.cy;
+      var mx = (x1+x2)/2;
+      d = 'M'+x1+','+y1+' C'+mx+','+y1+' '+mx+','+y2+' '+x2+','+y2;
+    } else if (e.color === 'lavender') {
+      // UI: left of from -> right of to
+      x1 = fr.l; y1 = fr.cy;
+      x2 = tr.r; y2 = tr.cy;
+      var mx = (x1+x2)/2;
+      d = 'M'+x1+','+y1+' C'+mx+','+y1+' '+mx+','+y2+' '+x2+','+y2;
+    } else if (e.color === 'gray' && !e.feedback) {
+      // Gray dotted downstream
+      var dx = tr.cx - fr.cx;
+      var dy = tr.cy - fr.cy;
+      if (Math.abs(dy) > Math.abs(dx)) {
+        x1 = fr.cx; y1 = dy > 0 ? fr.b : fr.t;
+        x2 = tr.cx; y2 = dy > 0 ? tr.t : tr.b;
+      } else {
+        x1 = dx > 0 ? fr.r : fr.l; y1 = fr.cy;
+        x2 = dx > 0 ? tr.l : tr.r; y2 = tr.cy;
+      }
+      var mx = (x1+x2)/2; var my = (y1+y2)/2;
+      d = 'M'+x1+','+y1+' C'+mx+','+y1+' '+mx+','+y2+' '+x2+','+y2;
+    } else {
+      // Main flow: vertical
+      var dx = tr.cx - fr.cx;
+      var dy = tr.cy - fr.cy;
+
+      if (Math.abs(dy) >= Math.abs(dx) * 0.5) {
+        // Mostly vertical
+        x1 = fr.cx; y1 = dy > 0 ? fr.b : fr.t;
+        x2 = tr.cx; y2 = dy > 0 ? tr.t : tr.b;
+        if (Math.abs(dx) < 20) {
+          // Straight vertical
+          var my = (y1+y2)/2;
+          d = 'M'+x1+','+y1+' C'+x1+','+my+' '+x2+','+my+' '+x2+','+y2;
+        } else {
+          // Angled vertical
+          d = 'M'+x1+','+y1+' C'+x1+','+(y1+(y2-y1)*0.4)+' '+x2+','+(y1+(y2-y1)*0.6)+' '+x2+','+y2;
+        }
+      } else {
+        // Mostly horizontal
+        x1 = dx > 0 ? fr.r : fr.l; y1 = fr.cy;
+        x2 = dx > 0 ? tr.l : tr.r; y2 = tr.cy;
+        var mx = (x1+x2)/2;
+        d = 'M'+x1+','+y1+' C'+mx+','+y1+' '+mx+','+y2+' '+x2+','+y2;
+      }
+    }
+
+    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', d);
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', strokeColor);
+    path.setAttribute('stroke-width', e.type === 'solid' ? '2' : '1.5');
+    path.setAttribute('marker-end', arrow);
+    if (e.type === 'dashed') path.setAttribute('stroke-dasharray', '6,4');
+    if (e.type === 'dotted') path.setAttribute('stroke-dasharray', '3,3');
+    path.classList.add('edge-path');
+    path.dataset.from = e.from;
+    path.dataset.to = e.to;
+    svg.appendChild(path);
+  });
+}
+
+// -- Edge highlighting --
+function highlightEdges(nodeId) {
+  svg.classList.add('hovering');
+  svg.querySelectorAll('.edge-path').forEach(function(p) {
+    if (p.dataset.from === nodeId || p.dataset.to === nodeId) {
+      p.classList.add('highlighted');
+    }
+  });
+}
+function clearHighlights() {
+  svg.classList.remove('hovering');
+  svg.querySelectorAll('.edge-path.highlighted').forEach(function(p) { p.classList.remove('highlighted'); });
+}
+
+// -- Modal --
+function openModal(node) {
+  modalTitle.textContent = node.label.replace(/\n/g, ' ');
+
+  var metaHtml = '';
+  if (node.hasPrompt && prompts[node.prompt]) {
+    var p = prompts[node.prompt];
+    metaHtml = p.model + ' &nbsp;|&nbsp; ' + p.params + ' &nbsp;|&nbsp; ' + p.file;
+  }
+  modalMeta.innerHTML = metaHtml;
+
+  var bodyHtml = '<div class="desc-block">' + esc(node.desc) + '</div>';
+
+  if (node.hasPrompt && prompts[node.prompt]) {
+    var p = prompts[node.prompt];
+    bodyHtml += '<div class="prompt-section">' +
+      '<h3>\u2728 ' + esc(p.title) + '</h3>' +
+      '<div class="prompt-meta">' + esc(p.model) + ' | ' + esc(p.params) + ' | ' + esc(p.file) + '</div>' +
+      '<div class="prompt-content">' + esc(p.content) + '</div>' +
+      '</div>';
+  }
+
+  modalBody.innerHTML = bodyHtml;
+  modal.classList.add('active');
+}
+
+function closeModal() { modal.classList.remove('active'); }
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+// -- Legend --
+var legendData = [
+  { t:'color', c:'#6c5ce7', text:'\u524d\u7aef/\u5f55\u97f3' },
+  { t:'color', c:'#0984e3', text:'STT' },
+  { t:'color', c:'#00b894', text:'\u6e05\u6d17/\u8ba1\u7b97' },
+  { t:'color', c:'#fdcb6e', text:'AI \u6a21\u578b\u8c03\u7528' },
+  { t:'color', c:'#e17055', text:'DB \u5b58\u50a8' },
+  { t:'color', c:'#fd79a8', text:'\u5bf9\u8bdd' },
+  { t:'color', c:'#55efc4', text:'\u4f1a\u8bae' },
+  { t:'color', c:'#a29bfe', text:'UI \u51fa\u53e3' },
+  { t:'line', s:'l-solid', c:'#888', text:'\u4e3b\u7ebf\u6d41\u7a0b' },
+  { t:'line', s:'l-dashed', c:'#e17055', text:'\u2192 DB \u5199\u5165' },
+  { t:'line', s:'l-dotted', c:'#a29bfe', text:'\u2192 UI \u51fa\u53e3' },
+  { t:'line', s:'l-dotted', c:'#555', text:'\u4e0b\u6e38/\u5f02\u6b65' },
+];
+
+var legendEl = document.createElement('div');
+legendEl.className = 'legend';
+legendData.forEach(function(item) {
+  var li = document.createElement('div');
+  li.className = 'legend-item';
+  if (item.t === 'color') {
+    var c = document.createElement('div');
+    c.className = 'legend-color';
+    c.style.background = item.c;
+    li.appendChild(c);
+  } else {
+    var l = document.createElement('div');
+    l.className = 'legend-line ' + item.s;
+    l.style.borderTopColor = item.c;
+    li.appendChild(l);
+  }
+  var t = document.createElement('span');
+  t.textContent = item.text;
+  li.appendChild(t);
+  legendEl.appendChild(li);
+});
+document.body.appendChild(legendEl);
+
+// -- Zoom & Pan --
+var viewport = document.getElementById('viewport');
+var zoomLevelEl = document.getElementById('zoom-level');
+var currentScale = 1;
+var ZOOM_STEP = 0.1;
+var MIN_ZOOM = 0.3;
+var MAX_ZOOM = 1.5;
+
+var sizer = document.getElementById('canvas-sizer');
+
+function applyScale(scale) {
+  currentScale = scale;
+  var nh = parseFloat(wrapper.dataset.naturalHeight || 2200);
+  wrapper.style.transform = 'scale(' + scale + ')';
+  // Sizer takes the scaled dimensions so margin:auto centers it, and viewport can scroll
+  sizer.style.width = Math.ceil(1800 * scale) + 'px';
+  sizer.style.height = Math.ceil(nh * scale) + 'px';
+  sizer.style.overflow = 'hidden';
+  zoomLevelEl.textContent = Math.round(scale * 100) + '%';
+}
+
+function setZoom(scale, centerOnViewport) {
+  scale = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, scale));
+  if (centerOnViewport) {
+    var vw = viewport.clientWidth;
+    var vh = viewport.clientHeight;
+    var cx = (viewport.scrollLeft + vw / 2) / currentScale;
+    var cy = (viewport.scrollTop + vh / 2) / currentScale;
+    applyScale(scale);
+    viewport.scrollLeft = cx * scale - vw / 2;
+    viewport.scrollTop = cy * scale - vh / 2;
+  } else {
+    applyScale(scale);
+  }
+}
+
+function zoomToFit() {
+  var vw = viewport.clientWidth;
+  var vh = viewport.clientHeight;
+  var cw = 1800;
+  var ch = parseFloat(wrapper.dataset.naturalHeight || 2200);
+  var scale = Math.min(vw / cw, vh / ch, 1);
+  setZoom(scale, false);
+  viewport.scrollTop = 0;
+}
+
+document.getElementById('zoom-in').addEventListener('click', function() { setZoom(currentScale + ZOOM_STEP, true); });
+document.getElementById('zoom-out').addEventListener('click', function() { setZoom(currentScale - ZOOM_STEP, true); });
+document.getElementById('zoom-fit').addEventListener('click', zoomToFit);
+
+// Ctrl+scroll to zoom
+viewport.addEventListener('wheel', function(e) {
+  if (e.ctrlKey || e.metaKey) {
+    e.preventDefault();
+    var delta = e.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
+    setZoom(currentScale + delta, true);
+  }
+}, { passive: false });
+
+// -- Initial render --
+requestAnimationFrame(function() {
+  var maxB = 0;
+  nodes.forEach(function(n) {
+    var el = nodeEls[n.id];
+    var b = n.y + (el ? el.offsetHeight : 80);
+    if (b > maxB) maxB = b;
+  });
+  var naturalH = maxB + 140;
+  wrapper.dataset.naturalHeight = naturalH;
+  wrapper.style.minHeight = naturalH + 'px';
+  svg.style.width = '1800px';
+  svg.style.height = naturalH + 'px';
+  svg.setAttribute('viewBox', '0 0 1800 ' + naturalH);
+  renderEdges();
+
+  // Auto fit to screen on load
+  zoomToFit();
+});
+
+})();
+</script>
+</body>
+</html>
