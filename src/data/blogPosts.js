@@ -1,4 +1,5 @@
 // Blog posts data — add new posts to the beginning of this array (newest first)
+// v2: added coverImage field and heading content block type
 const blogPosts = [
   {
     id: 4,
