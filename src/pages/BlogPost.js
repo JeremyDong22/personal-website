@@ -119,11 +119,13 @@ const BlogPost = () => {
   // Dynamic OG meta tags for social sharing
   useEffect(() => {
     if (!post) return;
-    const title = post.title[language] || post.title.zh;
+    const postTitle = post.title[language] || post.title.zh;
     const description = post.excerpt[language] || post.excerpt.zh;
-    const url = window.location.href;
+    // Use clean path URL (not hash) for OG tags so crawlers can reach the middleware
+    const cleanUrl = `${window.location.origin}/blog/${post.slug}`;
+    const ogImage = `${window.location.origin}/assets/images/og/${post.slug}.png`;
 
-    document.title = `${title} | Jeremy Dong`;
+    document.title = `${postTitle} | Jeremy Dong`;
 
     const setMeta = (property, content) => {
       let el = document.querySelector(`meta[property="${property}"]`);
@@ -135,15 +137,17 @@ const BlogPost = () => {
       el.setAttribute('content', content);
     };
 
-    setMeta('og:title', title);
+    setMeta('og:title', postTitle);
     setMeta('og:description', description);
-    setMeta('og:url', url);
+    setMeta('og:url', cleanUrl);
     setMeta('og:type', 'article');
-    setMeta('og:image', `${window.location.origin}/og-image.jpg`);
-    setMeta('twitter:title', title);
+    setMeta('og:image', ogImage);
+    setMeta('og:image:width', '1200');
+    setMeta('og:image:height', '630');
+    setMeta('twitter:title', postTitle);
     setMeta('twitter:description', description);
-    setMeta('twitter:image', `${window.location.origin}/og-image.jpg`);
-    setMeta('twitter:url', url);
+    setMeta('twitter:image', ogImage);
+    setMeta('twitter:url', cleanUrl);
 
     return () => {
       document.title = 'Jeremy Dong | Web Developer';
@@ -177,7 +181,10 @@ const BlogPost = () => {
     return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   };
 
-  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+  // Use clean path URL for sharing (not hash URL) so crawlers can reach the middleware
+  const shareUrl = typeof window !== 'undefined'
+    ? `${window.location.origin}/blog/${slug}`
+    : '';
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(shareUrl);
