@@ -366,7 +366,8 @@ const BlogPost = () => {
                       <img
                         src={block.src}
                         alt={block.alt}
-                        className="w-full rounded-xl object-cover max-h-[520px]"
+                        className="w-full rounded-xl"
+                        style={{ maxHeight: '640px', objectFit: 'contain', background: 'transparent' }}
                       />
                     )}
                     {block.caption && (

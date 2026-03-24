@@ -3,6 +3,16 @@
 
 // Design config per post slug — each has a unique visual identity
 const coverDesigns = {
+  'hand-them-the-paintbrush': {
+    // Paintbrush / creative freedom — warm gold strokes on dark canvas
+    bg: 'linear-gradient(135deg, #0d0a00 0%, #1a1200 40%, #0d1117 100%)',
+    accent: '#D4AF37',
+    textZh: '画笔',
+    subtextZh: '把决策权交给用户',
+    textEn: 'Paintbrush',
+    subtextEn: 'Give Users the Power',
+    decoration: 'brushstrokes',
+  },
   'symptom-driven-development': {
     // Glitch / terminal aesthetic — code breaking and fixing
     bg: 'linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0d1117 100%)',
@@ -129,11 +139,49 @@ const DecoMatrix = ({ accent }) => (
   </>
 );
 
+const DecoBrushstrokes = ({ accent }) => (
+  <>
+    {/* Diagonal brush stroke lines */}
+    {[...Array(6)].map((_, i) => (
+      <div
+        key={i}
+        style={{
+          position: 'absolute',
+          top: `${10 + i * 16}%`,
+          left: '-10%',
+          right: '-10%',
+          height: `${2 + (i % 3)}px`,
+          background: `linear-gradient(90deg, transparent 0%, ${accent}${i % 2 === 0 ? '18' : '0c'} 20%, ${accent}${i % 2 === 0 ? '0a' : '14'} 60%, transparent 100%)`,
+          transform: `rotate(${-1 + (i % 3) * 0.8}deg)`,
+          borderRadius: 2,
+        }}
+      />
+    ))}
+    {/* Small paint dots */}
+    {[...Array(5)].map((_, i) => (
+      <div
+        key={`dot-${i}`}
+        style={{
+          position: 'absolute',
+          width: 4 + (i % 3) * 2,
+          height: 4 + (i % 3) * 2,
+          borderRadius: '50%',
+          background: accent,
+          opacity: 0.12 + (i % 3) * 0.04,
+          top: `${20 + ((i * 41) % 60)}%`,
+          left: `${10 + ((i * 53) % 75)}%`,
+        }}
+      />
+    ))}
+  </>
+);
+
 const decorationMap = {
   terminal: DecoTerminal,
   heatwave: DecoHeatwave,
   data: DecoData,
   matrix: DecoMatrix,
+  brushstrokes: DecoBrushstrokes,
 };
 
 const BlogCoverArt = ({ slug, language = 'zh', compact = false }) => {
