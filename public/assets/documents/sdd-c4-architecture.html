@@ -105,13 +105,54 @@
       border: 1px solid #1e2d3d;
       border-radius: 16px;
       padding: 32px;
-      overflow-x: auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .diagram-inner {
+      transform-origin: 0 0;
+      transition: transform 0.15s ease;
+      min-width: fit-content;
     }
 
     svg {
       display: block;
       margin: 0 auto;
-      max-width: 100%;
+    }
+
+    /* ── Zoom controls ── */
+    .zoom-controls {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      display: flex;
+      gap: 4px;
+      z-index: 100;
+      background: #1a1d28;
+      border: 1px solid #2a2d38;
+      border-radius: 10px;
+      padding: 4px;
+    }
+    .zoom-controls button {
+      background: #2a2d38;
+      border: none;
+      color: #ccc;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .zoom-controls button:hover { background: #3a3d48; color: #fff; }
+    .zoom-level {
+      font-size: 11px;
+      color: #888;
+      min-width: 36px;
+      text-align: center;
+      line-height: 32px;
     }
 
     /* ── Legend ── */
@@ -136,6 +177,22 @@
       height: 14px;
       border-radius: 3px;
       flex-shrink: 0;
+    }
+
+    /* ── Mobile responsive ── */
+    @media (max-width: 768px) {
+      body { padding: 16px 10px; }
+      h1 { font-size: 1.2rem; }
+      .subtitle { font-size: 0.75rem; margin-bottom: 24px; }
+      .tabs { gap: 4px; margin-bottom: 20px; }
+      .tab { padding: 6px 12px; font-size: 0.7rem; }
+      .diagram-wrap { padding: 12px; border-radius: 10px; overflow: auto; -webkit-overflow-scrolling: touch; }
+      .legend { gap: 10px; margin-top: 12px; }
+      .legend-item { gap: 4px; font-size: 0.65rem; }
+      .legend-box { width: 10px; height: 10px; }
+      .zoom-controls { bottom: 8px; right: 8px; }
+      .zoom-controls button { width: 28px; height: 28px; font-size: 14px; }
+      .zoom-level { font-size: 10px; min-width: 28px; }
     }
   </style>
 </head>
@@ -715,13 +772,85 @@
   </div>
 </div>
 
+<!-- Zoom controls -->
+<div class="zoom-controls">
+  <button id="zoom-out" title="缩小">−</button>
+  <span class="zoom-level" id="zoom-level">100%</span>
+  <button id="zoom-in" title="放大">+</button>
+  <button id="zoom-fit" title="适应屏幕">⊞</button>
+</div>
+
 <script>
+  // Tab switching
   function showLevel(n) {
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.getElementById('panel-' + n).classList.add('active');
     document.querySelector('.tab[data-level="' + n + '"]').classList.add('active');
+    zoomFit(); // auto-fit when switching tabs
   }
+
+  // Zoom functionality
+  let currentZoom = 1;
+  const zoomLabel = document.getElementById('zoom-level');
+
+  function setZoom(z) {
+    currentZoom = Math.max(0.2, Math.min(3, z));
+    document.querySelectorAll('.diagram-wrap').forEach(wrap => {
+      wrap.style.overflow = 'auto';
+      wrap.style.webkitOverflowScrolling = 'touch';
+      const svg = wrap.querySelector('svg');
+      if (svg) {
+        svg.style.transform = 'scale(' + currentZoom + ')';
+        svg.style.transformOrigin = '0 0';
+        // Set wrapper height to prevent layout collapse
+        const h = svg.getBoundingClientRect().height;
+        wrap.style.minHeight = h + 'px';
+      }
+    });
+    zoomLabel.textContent = Math.round(currentZoom * 100) + '%';
+  }
+
+  function zoomFit() {
+    const activePanel = document.querySelector('.panel.active');
+    if (!activePanel) return;
+    const wrap = activePanel.querySelector('.diagram-wrap');
+    const svg = wrap ? wrap.querySelector('svg') : null;
+    if (!svg) return;
+
+    // Reset transform to measure natural size
+    svg.style.transform = 'none';
+    const svgW = parseFloat(svg.getAttribute('width')) || svg.getBoundingClientRect().width;
+    const wrapW = wrap.clientWidth - 24; // padding
+    const fit = Math.min(1, wrapW / svgW);
+    setZoom(fit);
+  }
+
+  document.getElementById('zoom-in').onclick = () => setZoom(currentZoom + 0.15);
+  document.getElementById('zoom-out').onclick = () => setZoom(currentZoom - 0.15);
+  document.getElementById('zoom-fit').onclick = zoomFit;
+
+  // Ctrl+scroll zoom
+  document.addEventListener('wheel', (e) => {
+    if (e.ctrlKey || e.metaKey) {
+      e.preventDefault();
+      setZoom(currentZoom + (e.deltaY < 0 ? 0.1 : -0.1));
+    }
+  }, { passive: false });
+
+  // Auto-fit on load for mobile
+  window.addEventListener('load', () => {
+    if (window.innerWidth < 768) {
+      zoomFit();
+    }
+  });
+
+  // Auto-fit on resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth < 768) {
+      zoomFit();
+    }
+  });
 </script>
 </body>
 </html>

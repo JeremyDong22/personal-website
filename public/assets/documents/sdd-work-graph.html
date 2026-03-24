@@ -334,6 +334,35 @@ body {
 /* Edge hover dim/highlight */
 #svg-overlay.hovering .edge-path { opacity: 0.08; }
 #svg-overlay.hovering .edge-path.highlighted { opacity: 1; stroke-width: 2.5 !important; }
+
+/* Mobile responsive — collapse legend and zoom controls to avoid blocking content */
+@media (max-width: 768px) {
+  .legend {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    max-width: 100%;
+    margin: 12px auto;
+    padding: 8px 12px;
+    gap: 10px;
+    font-size: 10px;
+    z-index: 10;
+  }
+  .legend-item { gap: 4px; font-size: 10px; }
+  .legend-color { width: 10px; height: 10px; }
+  .legend-line { width: 20px; }
+
+  .zoom-controls {
+    position: fixed;
+    bottom: 8px;
+    right: 8px;
+    padding: 4px;
+    gap: 4px;
+  }
+  .zoom-controls button { width: 28px; height: 28px; font-size: 14px; }
+  .zoom-level { font-size: 10px; min-width: 30px; }
+}
 </style>
 </head>
 <body>
