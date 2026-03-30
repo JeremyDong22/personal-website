@@ -1,0 +1,287 @@
+{
+  "id": 3,
+  "slug": "pos-printer-interception",
+  "date": "2025-10-10",
+  "title": {
+    "zh": "从美团POS机手里拿回自己的经营数据，我把餐厅的翻台时间减少了20分钟",
+    "en": "A Midnight Revelation: I Disguised My Laptop as a POS Printer to Intercept Order Data"
+  },
+  "excerpt": {
+    "zh": "我之前研究的库存系统费很大劲拿到了库存和成本数据，但唯独缺了最核心的实时销售数据。",
+    "en": "We had inventory and cost data. The one thing we were missing was the most important: real-time sales data."
+  },
+  "content": {
+    "zh": [
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "获取最核心的销售数据"
+      },
+      {
+        "type": "paragraph",
+        "text": "在餐饮创业的摸爬滚打中，我遇到过一个极其头疼的问题：我们费很大劲拿到了库存和成本数据，但唯独缺了最核心的——实时的销售数据——这通常散落在各大收银系统服务商的手上，而通常餐饮行业不会有IT部门对数据进行专门的处理和分析工作。有了这套数据，我们就能从更多维度对经营进行洞察——翻台率就是其中一个。"
+      },
+      {
+        "type": "paragraph",
+        "text": "为了提高餐厅的运作效率，也就是传统上说的翻台率，就要去监控和优化后厨的出餐效率，我们需要精准知道每一道菜是什么时候下的单。我第一个想法是用爬虫去一直爬取美团管家的后台网页，有更新的记录就放进我们的数据库。但如果用传统的爬虫去抓美团后台，拿到的永远是滞后的报表，该死的美团总是会慢几分钟，还经常不止几分钟。那如果一天一爬取，那这种\"事后验尸\"的数据对一线的店长来说意义又不大，因为等你第二天看到报表再去追责，客人的差评早就已经写在网上了。"
+      },
+      {
+        "type": "paragraph",
+        "text": "面对这个情况，我开始思考。既然不可能拿到官方的实时API接口，那怎么才能在不破坏原有系统的情况下，截获这些数据？"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "深夜的灵光一现"
+      },
+      {
+        "type": "paragraph",
+        "text": "破局点发生在一个晚上。当时已经晚上12点了，餐厅打烊后，我和厨师长、店长、运营总监几个人坨在一起开复盘会，讨论来讨论去，思路都卡在同一个地方：美团的爬虫能拿到数据，但永远是滞后的报表。有人提议干脆换一套新的POS系统，有小部分开放定制的收银系统其实还不错，但后来被否了——改造成本太高，餐厅正是旺季，折腾不起。那怎么从现有系统里把实时数据拿出来呢？"
+      },
+      {
+        "type": "paragraph",
+        "text": "就在这时，新来的店长杨攀说了一句话。他在餐饮行业做了很多年，但没有技术背景。他说：POS系统是连着打印机的，客人每下一个单，相对应的档口的打印机就会出来一张单，如果有办法把打印机“黑了”，这些数据就可以实时拿到了。"
+      },
+      {
+        "type": "paragraph",
+        "text": "我当时脑子里就想打印机里如果有数据，那POS机和打印机之间的那条通信，是不是可以被截断？我就开始问我的Claude Code——结果异常简单，他的解决方案是把电脑伪装成一台打印机，POS机就会直接把数据发过来。"
+      },
+      {
+        "type": "paragraph",
+        "text": "一不做二不休，解决问题的第一步直接在会议桌上开始了。"
+      },
+      {
+        "type": "paragraph",
+        "text": "我拿过电脑让AI开始查协议、写代码。大概搞了20分钟，奇迹出现了。美团的POS机真的连上了我的电脑，并且发过来了一堆东西。虽然满屏全是乱码，但物理层面的截流是成功了。我们这帮没见过技术世面的的人觉得这太神奇了，一群人围着我的AI看他的杰作。"
+      },
+      {
+        "type": "paragraph",
+        "parts": [
+          {
+            "text": "接下来的几个小时，就是解析的事了。我一个人坐在那儿捣鼓乱码，其他人留下来陪着等。ESC/POS协议本身是公开的，没有复杂加密，这倒不是难点。难的地方有三个：一是中文解码，不是干净的UTF-8，美团在里面夹了自己的私有协议段，需要逐段识别剥离。二是纸张格式化，美团会根据不同纸张宽度自动调整排版，用大量\"─────\"短横线做视觉分隔，这些非文字内容全部要识别并剔除。三是空间定位逻辑，也是最麻烦的地方——这套数据不像数据库那样有字段名，它是\"图像学\"的：一道菜的名称、价格、数量，靠列位置来区分，菜名靠左，价格居中，数量靠右，中间全是空格。要通过列偏移量反推哪段空格属于哪个字段，把视觉排版还原成结构化数据。设计完解析规则，把这些全部转化成带桌号、单号的JSON，天已经快亮了。（这个项目我现在还开源在GitHub上："
+          },
+          {
+            "text": "printer_faker",
+            "href": "https://github.com/JeremyDong22/printer_faker"
+          },
+          {
+            "text": "）。"
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "src": "/assets/images/blog/printer-faker-github-readme.png",
+        "alt": "printer_faker GitHub README",
+        "caption": "printer_faker 开源项目：把电脑伪装成 ESC/POS 热敏打印机，实时截获 POS 订单数据。"
+      },
+      {
+        "type": "image",
+        "src": "/assets/images/blog/printer-faker-architecture.svg",
+        "alt": "printer_faker 系统架构图",
+        "caption": "系统架构：POS 机 → ESC/POS 解析 → Flask REST API → Cloudflare Tunnel → Supabase & 看板。"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "硬件的噩梦"
+      },
+      {
+        "type": "paragraph",
+        "text": "解决了软件层面的解析，接下来的挑战是硬件的稳定性和持续维护。"
+      },
+      {
+        "type": "paragraph",
+        "text": "为了跑这套伪装程序，一开始我用的是自己的笔记本。后来，我们有个做AI视觉识别的合作方，他们上家公司留了一批旧主机，3060华硕的那种，就把其中一台搬到了餐厅里。这台机器频繁和美团POS机断连，一断连，真正的打印机收不到信号，就会全餐厅疯狂响警报——\"叮咚叮咚\"，连续不断，整个餐厅都听得到。最崩溃的是，有时候我已经在家午休，突然接到电话，说机器又报警了，对客人影响不好，让我马上去门店修。关掉主机也没用，因为美团的POS机本身会一直在局域网里搜索打印机，只要找不到，它就以为打印机断联或者缺纸了，自己就一直响。为了彻底解决这个问题，我们写脚本防止主机进入深度睡眠，在每天非营业的凌晨自动重启释放内存，最终才让这个节点稳定下来。"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "得真正用起来才算落地"
+      },
+      {
+        "type": "paragraph",
+        "text": "硬件的维护只是第一步，真正场景落地才是要点。你可能会问，硬件软件技术我们都解决了，应用呢落地呢？一线员工会听你的吗？"
+      },
+      {
+        "type": "paragraph",
+        "text": "为了获取出餐的\"终点时间\"，我在后厨出餐口放了个iPad，要求员工端走菜的同时把单划掉。这在服务员的SOP和动线里，相当于硬生生多加了一步。以前小伙子们一手拿单一手端菜就走了，现在还得回来在机器上找菜名、划单。在像打仗一样的高峰期，你给他多加一步，简直是要命。所以一开始，遗忘率和出错率极高，经常系统报警说半小时没上菜，过去一看，菜早吃完了，单纯是我们的传菜员忘了划掉。"
+      },
+      {
+        "type": "paragraph",
+        "text": "那最后怎么落地的呢？我经常和那帮后勤传菜员聊天，慢慢发现了一件事。他们大多都是刚满18岁到22岁之间的年轻人，对薪资没有太多体感，他们更在乎的是：自己在餐厅里的位置，以及能不能接触到新东西。像我们这种带着科技感的新系统，对他们来说本身就是一种吸引力——可以第一批去体验，可以说自己在用这个东西。更重要的是，我将这个\"划单\"的动作，变为他们一个以前从来没有过的权力：监督后厨。他们以前只负责端菜，现在只要某道菜慢了，就可以光明正大地拿对讲机喊：\"哎，B2桌的雪花牛肉怎么还没出啊？太慢了！\"这层参与感和话语权，是这帮年轻人最需要的东西。有了这个抓手，划单这件事，自然而然就推行下去了。"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "最后的结论——效果到底如何？"
+      },
+      {
+        "type": "paragraph",
+        "text": "那么，回到最核心的问题：这套系统，结论上到底有没有解决餐厅的问题？"
+      },
+      {
+        "type": "paragraph",
+        "text": "短期来看，它极其有效。系统的告警永远比客人的抱怨快一步。只要红灯一亮，店长就提前去安抚：\"不好意思，您还有一个菜正在做。\"这直接在物理层面上解决了大量因等餐带来的客诉。老板也极其开心，因为他终于有了衡量每个门店、甚至单体厨师出餐效率的数据抓手，能作为绩效考核的依据了。"
+      },
+      {
+        "type": "paragraph",
+        "text": "但我老老实实地讲，即便流程再漂亮，这套系统我们现在已经停用了。"
+      },
+      {
+        "type": "paragraph",
+        "text": "在数据跑了一段时间后，我们有了更多深层的洞察。我们每家门店的上菜其实都并不慢，大部分都是在合理时间以内，只有极少数的客人来占位的情况，才会把单子推迟十五分钟以上去完成。另外，我们的烤肉门店极其火爆，外面经常排队六七十桌，所以我们一心想着压缩出餐时间来提升翻台率。但当我们真的把所有菜的出餐都压进15分钟后，翻台率并没有提升。客人坐在这儿，人均就是要吃60到70分钟。你做的再快也没用。"
+      },
+      {
+        "type": "paragraph",
+        "text": "这时候我们跳出系统，去观察真实的用餐流程，才发现真正的瓶颈是一道\"碳烤五花肉\"。等炭火上来，自己烤，再换烤盘，这道菜默认就会硬生生卡住客人20分钟。后来，我们直接让厨房把五花肉提前烤好再端上桌，就这一个非技术的动作，整体用餐时间直接减少了10分钟。"
+      },
+      {
+        "type": "paragraph",
+        "text": "再回到之前经营中源源不断的Edge Cases：比如熟客打电话提前点单，后厨做好了但客人没来，这个超时算谁的责任？再比如门店上了新套餐、新会员系统，订单格式一变，解析规则就得跟着重写。维护这套代码的精力，远大于它带来的实际收益。更何况，我们的厨师长本来就把后厨管得很好，出餐速度压根不是这个品牌的致命痛点。"
+      },
+      {
+        "type": "paragraph",
+        "text": "这就是创业最真实的一面。有时候，你熬夜写出了一套极其惊艳的解决方案，看似解决了某个复杂的经验管控难题。但最后你会发现，解决真实的餐饮商业问题，往往只需要去厨房把火开大一点。"
+      }
+    ],
+    "en": [
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "The Missing Piece"
+      },
+      {
+        "type": "paragraph",
+        "text": "In the middle of building our restaurant tech stack, I ran into a maddening problem: we'd worked hard to get inventory and cost data, but the one thing we were missing was the most important — real-time sales data."
+      },
+      {
+        "type": "paragraph",
+        "text": "To monitor and optimize kitchen output efficiency, we needed to know exactly when each dish was ordered. Scraping Meituan's backend with traditional methods only gives you lagged reports. I believed that kind of \"post-mortem\" data was mostly useless for frontline managers — by the time you see the next day's report, the negative review is already on the internet."
+      },
+      {
+        "type": "paragraph",
+        "text": "So the question became: since we couldn't get official real-time API access, how could we intercept this data without disrupting the existing system?"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "The Midnight Breakthrough"
+      },
+      {
+        "type": "paragraph",
+        "text": "The breakthrough happened late one night. The restaurant had just closed, and our head chef, store manager, operations director, and I were cramped around a table for the post-close debrief. The discussion kept cycling back to the same problem: Meituan scraping could get the data, but it was always lagged. Someone floated switching to a different POS system — that got ruled out fast, too disruptive and too expensive mid-season. So: how do you pull real-time data from a system you can't touch?"
+      },
+      {
+        "type": "paragraph",
+        "text": "Yang Pan, our newly hired store manager, had spent years in restaurants but had no technical background. He said: the POS is already connected to a printer — the data must be accessible somewhere through there."
+      },
+      {
+        "type": "paragraph",
+        "text": "He meant it literally: go find the data in the printer. He didn't take it further. But it made me think of something else: if the POS sends data to a printer, that connection might be interceptable. What if my laptop pretended to be the printer?"
+      },
+      {
+        "type": "paragraph",
+        "text": "If the POS actively searches and connects to printers, could I disguise my laptop as a network printer and have the POS just... send me the data directly?"
+      },
+      {
+        "type": "paragraph",
+        "text": "I opened my laptop and started right there at the table."
+      },
+      {
+        "type": "paragraph",
+        "text": "About 20 minutes later: the Meituan POS connected to my computer. It sent a wall of garbled text. The interception had, apparently, worked. Everyone else stayed at the table, waiting. Nobody said much."
+      },
+      {
+        "type": "paragraph",
+        "parts": [
+          {
+            "text": "The next several hours were decoding. I was alone at the table working through it; the others stayed. The ESC/POS protocol is public and not particularly encrypted — that part wasn't the hard part. The difficulty came in three places. First, Chinese character decoding: not clean UTF-8, because Meituan embeds proprietary protocol segments that have to be identified and stripped. Second, paper-width formatting: Meituan auto-adjusts layout for different paper widths, using long runs of \"─────\" dashes as visual dividers — non-text noise that all had to be detected and removed. Third, spatial positioning: this data has no field names. A dish name, price, and quantity are arranged by column position on a line — name on the left, price in the middle, quantity on the right, all separated by spaces. You have to figure out which stretch of whitespace belongs to which field from its column offset, and reconstruct the visual layout into structured data. By the time the parsing was working and everything was converting cleanly into JSON with table number and order number, it was nearly morning. (The project is open-sourced on GitHub: "
+          },
+          {
+            "text": "printer_faker",
+            "href": "https://github.com/JeremyDong22/printer_faker"
+          },
+          {
+            "text": ".)"
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "src": "/assets/images/blog/printer-faker-github-readme.png",
+        "alt": "printer_faker GitHub README",
+        "caption": "printer_faker on GitHub — a virtual ESC/POS printer that captures POS orders and exposes them as a real-time REST API."
+      },
+      {
+        "type": "image",
+        "src": "/assets/images/blog/printer-faker-architecture.svg",
+        "alt": "printer_faker system architecture",
+        "caption": "System architecture: POS → ESC/POS parser → Flask REST API → Cloudflare Tunnel → Supabase & kitchen dashboard."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Hardware Nightmares"
+      },
+      {
+        "type": "paragraph",
+        "text": "With the software parsing solved, the next challenge was hardware stability and ongoing maintenance."
+      },
+      {
+        "type": "paragraph",
+        "text": "I started with my own laptop, then later a business partner — someone who'd been building AI computer vision systems — pulled hardware from his previous company's surplus and left one of their old desktops at the restaurant. It kept losing connection to the POS, and every disconnect triggered a cascading alarm: the real printer couldn't receive signals, so it alerted continuously — \"ding-dong ding-dong\" — loud enough for the whole dining room to hear. The worst nights were the ones where I'd already been asleep at home and my phone rang: someone at the restaurant telling me the machine was going off and I needed to come in. Turning the machine off didn't even help, because the POS itself keeps searching the network for a printer — if it can't find one, it assumes the printer is disconnected or out of paper and alarms on its own. We eventually got it stable with scripts to prevent deep sleep and scheduled overnight restarts, but it took a while."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Getting Staff to Use It"
+      },
+      {
+        "type": "paragraph",
+        "text": "Hardware stability was just the start. The real challenge was ground-level adoption. We'd solved the tech — but would frontline staff actually use it?"
+      },
+      {
+        "type": "paragraph",
+        "text": "To capture dish completion time, I placed an iPad at the kitchen pass. Staff were supposed to mark dishes complete as they ran them to tables. This added a step to an already frantic workflow. Before, a server grabbed the ticket, grabbed the food, and walked. Now they had to come back, find the dish in a list, and tap confirm. During a packed service, adding one extra step is genuinely brutal. Forget rates were high early on — the system would alert that a dish hadn't been served in 30 minutes, we'd check, and the dish had been eaten for 20 minutes. Staff just forgot to mark it."
+      },
+      {
+        "type": "paragraph",
+        "text": "What actually made it stick was something I figured out by just talking to the staff. Most of the food runners were 18 to 22 years old — and they didn't particularly care about their hourly rate. What they cared about was their standing in the restaurant, and whether they got to be part of something new. A tech system, for this group, was genuinely exciting — they wanted to be the first to use it, to say they were part of it. More importantly, the act of marking dishes complete gave them something they'd never had before: a legitimate basis for holding the kitchen accountable. They'd previously just carried food. Now they had a reason to grab the walkie-talkie: \"Hey — where's the wagyu for table B2? It's been forever!\" That was their moment. I didn't design that dynamic — I observed it. But once I understood it, it was clear the system would run itself."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "The Real Lesson"
+      },
+      {
+        "type": "paragraph",
+        "text": "So did the system actually solve the restaurant's problem?"
+      },
+      {
+        "type": "paragraph",
+        "text": "Short-term: yes, dramatically. Alerts beat customer complaints every time. The moment a red flag appeared, the manager would preemptively visit the table: \"Sorry, one more dish coming.\" This eliminated a huge volume of wait-related complaints. The owner was thrilled — for the first time, he had data to measure kitchen efficiency by location, even by individual chef, usable as performance benchmarks."
+      },
+      {
+        "type": "paragraph",
+        "text": "But honestly: we've since shut the system down."
+      },
+      {
+        "type": "paragraph",
+        "text": "After the data ran for a while, deeper insights emerged. Our BBQ restaurant was wildly popular — 60 or 70 tables waiting outside at peak times — and we were obsessed with compressing dish timing to improve table turnover. But when we actually pushed every dish under 15 minutes, turnover didn't improve. Guests simply spend 60-70 minutes eating, regardless of when the food arrives."
+      },
+      {
+        "type": "paragraph",
+        "text": "When we stepped back and actually watched the dining flow, we found the real bottleneck: the charcoal-grilled pork belly. Waiting for the charcoal, grilling it yourself, swapping the grill plate — this single dish was locking guests in for 20 extra minutes by design. We had the kitchen pre-grill the pork belly before it hit the table. That one non-technical change cut average dining time by 10 minutes."
+      },
+      {
+        "type": "paragraph",
+        "text": "Add in the constant edge cases: a regular calls ahead to order, the kitchen preps the food, but they're late — whose fault is the overtime? Or the restaurant rolls out a new bundle or loyalty program, the order format changes, and the parsing logic needs a full rewrite. The maintenance cost of the code far exceeded its ongoing value. And frankly, our head chef already ran a tight kitchen — dish timing was never this brand's critical weakness."
+      },
+      {
+        "type": "paragraph",
+        "text": "This is what real entrepreneurship looks like. Sometimes you stay up all night building something technically brilliant — a genuinely elegant solution to a genuinely hard problem. And then you realize that solving the actual business problem just required going to the kitchen and turning up the heat."
+      }
+    ]
+  }
+}

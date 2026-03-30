@@ -1,12 +1,18 @@
-// Blog post detail page — v3: typographic cover art, heading blocks, author card,
-// reading time, share buttons (Twitter/WeChat/copy), prev/next navigation, OG meta
-import { useEffect, useMemo, useState } from 'react';
+// Blog post detail page — v4: typographic cover art, heading blocks, author card,
+// reading time, share buttons (Twitter/WeChat/copy), prev/next navigation, OG meta,
+// dev-only inline blog editor (import.meta.env.DEV)
+import { useEffect, useMemo, useState, lazy, Suspense } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiArrowLeft, FiArrowRight, FiClock, FiTwitter, FiLink2, FiX, FiCheck } from 'react-icons/fi';
+import { FiArrowLeft, FiArrowRight, FiClock, FiTwitter, FiLink2, FiX, FiCheck, FiEdit3 } from 'react-icons/fi';
 import blogPosts from '../data/blogPosts';
 import BlogCoverArt from '../components/BlogCoverArt';
+
+// Dev-only: lazy-load blog editor so it's excluded from production bundle
+const BlogEditorComponent = import.meta.env.DEV
+  ? lazy(() => import('../components/BlogEditor'))
+  : () => null;
 
 // Estimate reading time (Chinese ~350 chars/min, English ~200 words/min)
 const estimateReadingTime = (blocks, lang) => {
@@ -103,6 +109,7 @@ const BlogPost = () => {
   const { language } = useLanguage();
   const [showWeChatModal, setShowWeChatModal] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
+  const [editing, setEditing] = useState(false);
 
   const post = blogPosts.find((p) => p.slug === slug);
 
@@ -296,7 +303,30 @@ const BlogPost = () => {
             className="h-px bg-white/10 mb-12"
           />
 
-          {/* Content */}
+          {/* Dev-only edit button */}
+          {import.meta.env.DEV && !editing && (
+            <div className="mb-6">
+              <button
+                onClick={() => setEditing(true)}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-primary/40 text-primary hover:bg-primary/10 transition-colors text-sm font-medium"
+              >
+                <FiEdit3 className="w-4 h-4" />
+                Edit Post
+              </button>
+            </div>
+          )}
+
+          {/* Editor or read-only content */}
+          {import.meta.env.DEV && editing ? (
+            <Suspense fallback={<div className="text-gray-500 py-8">Loading editor...</div>}>
+              <BlogEditorComponent
+                post={post}
+                language={language}
+                onSave={() => setEditing(false)}
+                onCancel={() => setEditing(false)}
+              />
+            </Suspense>
+          ) : (
           <motion.article
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -422,6 +452,7 @@ const BlogPost = () => {
               return null;
             })}
           </motion.article>
+          )}
 
           {/* Share buttons */}
           <motion.div

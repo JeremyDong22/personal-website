@@ -1,5 +1,5 @@
 ---
-description: Generate resume PDF from JSON data. Usage: /resume [en|zh] [--open] [--copy]
+description: Generate resume PDF from JSON data. Usage: /gen-resume [en|zh] [--open] [--copy]
 ---
 
 # Resume Generator
@@ -8,7 +8,7 @@ Generate a pixel-perfect one-page PDF resume from structured JSON data.
 
 ## Usage
 ```
-/resume [en|zh] [--open] [--copy]
+/gen-resume [en|zh] [--open] [--copy]
 ```
 
 ## Arguments

@@ -1,0 +1,411 @@
+{
+  "id": 5,
+  "slug": "hand-them-the-paintbrush",
+  "date": "2026-03-24",
+  "title": {
+    "zh": "把画笔交给用户，不要再为用户设计AI工作流",
+    "en": "Hand Users the Paintbrush — Stop Designing AI Workflows for Them"
+  },
+  "excerpt": {
+    "zh": "授人以鱼不如授人以渔，在AI这个板块也是一样的。AI赋予人的并不是生产力，而是想象力和学习力。",
+    "en": "Teaching someone to fish beats giving them fish — same goes for AI. AI doesn't give people productivity, it gives them imagination and the ability to learn."
+  },
+  "content": {
+    "zh": [
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "替用户设计的工作流，没人用"
+      },
+      {
+        "type": "paragraph",
+        "text": "我花了大半年时间给餐饮连锁做小SaaS，入库、桌访、视觉告警，做了一堆。每一个都是我观察到问题，然后设计一套工作流，固化成工具交给门店用。"
+      },
+      {
+        "type": "paragraph",
+        "text": "结果很分裂：有些被用起来了，有些直接被弃用。"
+      },
+      {
+        "type": "paragraph",
+        "text": "我花了很久才看出规律。被用起来的工具，比如桌访系统，有一个共同点：老板深度参与了工作流的设计。我只是搭了个架子，业务逻辑是一号位自己定的。被弃用的那些，清一色是我替他们想好了\"应该怎么做\"。"
+      },
+      {
+        "type": "paragraph",
+        "text": "道理很简单：餐饮行业里，没有人能立马学会一个SaaS工具。收银系统是唯一被历史固化下来的，大家都会用；进销存？或许能学；桌访系统？完全没概念；营销系统？高度随平台而变，今天抖音明天美团，规则三个月一换。你替他设计了一套工作流，他连这个品类本身都没有认知基础，怎么可能用起来？但如果是他自己想出来的动作，他才会执行。"
+      },
+      {
+        "type": "paragraph",
+        "text": "我以为这是餐饮行业的特殊现象。后来发现不是。"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "授人以渔：我爹的故事"
+      },
+      {
+        "type": "paragraph",
+        "text": "我爹做期货交易。我们俩合作过一段时间，试着把他的交易逻辑做成系统。沟通过程跟传统开发团队和产品经理一样——牛头不对马嘴。我觉得他说的不够精确，他觉得我做的不是他要的。东西迭代非常慢。"
+      },
+      {
+        "type": "paragraph",
+        "text": "去年9月，我跟他说：你应该自己用 Claude Code。他当时觉得太难了——又是英文界面，他是70年生的，今年快60了。"
+      },
+      {
+        "type": "paragraph",
+        "text": "他退而求其次，先用 Gemini 的网页版，拿来设计UI。搞了几个月，能画出好看的界面，但也仅此而已。"
+      },
+      {
+        "type": "paragraph",
+        "text": "今年2月过年回老家，他突然跟我说：\"Gemini 功能不够了，只能做个前端假惺惺的，实际上啥也用不了。\""
+      },
+      {
+        "type": "paragraph",
+        "text": "我说要不要试试更硬核的。他说行啊来呗。"
+      },
+      {
+        "type": "paragraph",
+        "text": "我把自己的 MacBook 给他用。上面已经配好了环境：数据库的 MCP、Cloudflare CLI 一键部署、域名什么的都搞好了，拿过去直接开发上线就能用。他用了一天，说这玩意太厉害了，问能不能给他也搞一个。"
+      },
+      {
+        "type": "paragraph",
+        "text": "一不做二不休，给他买了一台天蓝色的 MacBook Air。非常年轻的颜色，跟他这个快60岁的期货老手放在一起挺违和的。"
+      },
+      {
+        "type": "paragraph",
+        "text": "然后他就自己去做自己的东西了。我爹笑着说，他赚到了不该他赚的钱——指的是技术开发费用。"
+      },
+      {
+        "type": "paragraph",
+        "text": "这件事让我想通了一个关于AI时代创新的道理。"
+      },
+      {
+        "type": "paragraph",
+        "text": "授人以鱼不如授人以渔，在AI这个板块也是一样的。AI赋予人的并不是生产力，而是想象力和学习力。这件事不要理解错了。"
+      },
+      {
+        "type": "paragraph",
+        "text": "如果想象力和学习力只给了我自己，让我去帮别人建造东西，那本质上还是SaaS业务——\"我帮你外包了你的梦想\"。但你的梦想到底是什么，除了你本人，没有人能帮你1比1呈现出来。"
+      },
+      {
+        "type": "paragraph",
+        "text": "把跟我沟通的时间和心思给AI，让你对着AI讲，AI能比我执行好100倍。有想法的人配上一个AI智慧体，才能激发出他最大的潜力。"
+      },
+      {
+        "type": "paragraph",
+        "text": "我爹就是活生生的例子。我替他做系统，做了几个月，牛头不对马嘴。他自己对着Claude Code讲，几周就上线了。"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "\"脆脆呢？\""
+      },
+      {
+        "type": "paragraph",
+        "text": "回到餐饮这边。"
+      },
+      {
+        "type": "paragraph",
+        "text": "我最开始其实很抗拒往智能方向走。原因很实际：市面上已经有了 Claude Code、Codex，再傻瓜一点还有 Kimi K2、Manus。我做一个更傻瓜的壳子，意义在哪？"
+      },
+      {
+        "type": "paragraph",
+        "text": "直到 OpenClaw 出来了。"
+      },
+      {
+        "type": "paragraph",
+        "text": "我们第一时间把它接入了飞书。组织里的人叫它\"脆脆\"——CC，Claude Code，脆脆。"
+      },
+      {
+        "type": "paragraph",
+        "text": "脆脆和普通的AI chatbot的区别，不是智能层面的，是信息层面的。"
+      },
+      {
+        "type": "paragraph",
+        "text": "普通chatbot什么都懂，但对你的生意一无所知。脆脆连了组织的数据库——美团数据是爬虫定时抓的，进销存是打通的，连会议录音都接进去了。仅仅多了一个数据库、一个heartbeat、一个notification，就比单纯的AI chatbot强太多了。"
+      },
+      {
+        "type": "paragraph",
+        "text": "数据库建设完整之后，脆脆能从任何角度回答问题。查竞品动态、算毛利趋势、回溯上周会议的决策——什么都能问。而且针对每个人的角色，反馈的内容不一样。它不只是被动回答问题，还能主动出报告、给洞察。"
+      },
+      {
+        "type": "image",
+        "src": "/assets/images/blog/cc-complaint-analysis-1.png",
+        "alt": "脆脆日报截图",
+        "caption": "脆脆主动生成的经营日报——3件大事，还补了会议漏掉的两个问题"
+      },
+      {
+        "type": "image",
+        "src": "/assets/images/blog/cc-complaint-analysis-2.png",
+        "alt": "脆脆追问后给出异物投诉明细",
+        "caption": "追问一句，脆脆把3周4起异物投诉逐条列出，还判断了根因"
+      },
+      {
+        "type": "paragraph",
+        "text": "有一天网络出了问题，脆脆连不上了。雪姐和岑姐（一位是财务负责，一位是商业负责）的第一反应是：\"脆脆呢？\""
+      },
+      {
+        "type": "paragraph",
+        "text": "那一刻我才意识到，这个东西对组织的影响比我想象的大得多。"
+      },
+      {
+        "type": "paragraph",
+        "text": "然后我回头看自己之前做的那些小SaaS，突然觉得很荒谬。"
+      },
+      {
+        "type": "paragraph",
+        "text": "我做了六七个app，每一个都在帮组织解决某一件具体的事。但每一个都需要运维。今天这个门店SOP优化了，要改工作流；明天那个流程调整了，又要重写。同时运维六个app，不限时。"
+      },
+      {
+        "type": "paragraph",
+        "text": "脆脆的逻辑完全不同。它不预设任何工作流。SOP要变？用户自己告诉脆脆新的规则就行。想换个角度看数据？直接问，脆脆会光速用它的设计 skill 给你做一个 HTML 的精致报告。想设个新的通知规则？说一句话的事。"
+      },
+      {
+        "type": "paragraph",
+        "text": "传统UI无非就是数据的映射加信息传递。但这些功能放在智能体上，用户就有了选择权——以任何视角去看数据、分析、设计通知规则。不需要等开发排期，不需要等我改代码。"
+      },
+      {
+        "type": "paragraph",
+        "text": "所以我现在的信条是：不要再去预设用户想要什么了。给足AI信息，给足工具，把画笔交给用户。"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "摄像头项目：从\"替AI看\"到\"给AI眼睛\""
+      },
+      {
+        "type": "paragraph",
+        "text": "这个认知直接改变了我们做摄像头项目的方式。"
+      },
+      {
+        "type": "paragraph",
+        "text": "旧思路是这样的：摄像头拍到画面，YOLO小模型实时跑检测，按预定义的维度（比如\"有没有戴帽子\"、\"后厨地面有没有积水\"）输出结构化数据，存进数据库，然后做成UI展示给用户。"
+      },
+      {
+        "type": "paragraph",
+        "text": "问题是：我们把所有该给用户看的都用UI展示出来了，用户没有问题了。用户问AI\"这个月有多少员工没戴帽子\"，跟我们把这个数据做成一个UI页面给用户展示，本质上是一样的——根本没必要用AI。旧设计的核心问题就在这儿：AI在这个架构里是多余的。"
+      },
+      {
+        "type": "paragraph",
+        "text": "新思路是给AI包装好工具。AI有手有脚，也有数据。用户问AI问题，AI自己判断怎么使用工具；用户也可以让AI使用某些工具来达成自己的目的。"
+      },
+      {
+        "type": "paragraph",
+        "text": "举个例子。用户想知道员工有没有戴帽子。以前有UI的时候，用户直接去页面上看数据就行了。现在没有固定UI了，用户问AI。AI会自己把这几个月的摄像头照片片段拿过来，放在工作流里一张一张抽样查看——比如抽了20张——然后发现大家的工作面貌在抽样检查上都不错，桌面干净，没抽到很糟糕的图片。回来跟用户说：\"我刚抽了20张，都不错，我觉得这个月整体出问题的概率挺少的，店长的工作都过关了。\""
+      },
+      {
+        "type": "paragraph",
+        "text": "然后用户可以说：\"我不想你抽20张，你抽40张行不行？\"或者：\"你以后能不能设置一个定时任务，每天固定时间看他在不在？有没有戴帽子？\""
+      },
+      {
+        "type": "paragraph",
+        "text": "这就是把画笔交给用户。用户的AI工作流，用户自己设计——是定时的也好，数量也好，怎么获取也好。只要AI有工具、AI有数据，那就不是问题。"
+      },
+      {
+        "type": "paragraph",
+        "text": "我不确定这条路最终会走到哪。但至少到目前为止，每次我试图替用户想好一切的时候，都会被现实打脸。而每次我把决策权交出去的时候，事情反而跑起来了。"
+      },
+      {
+        "type": "paragraph",
+        "text": "也许AI产品最好的形态，还是那个AI Native的、糟糕的聊天框——把当初在终端运行Claude Code给我带来的惊喜，原封不动地传递给我们的用户。"
+      }
+    ],
+    "en": [
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "The Workflows I Designed for Users — Nobody Used Them"
+      },
+      {
+        "type": "paragraph",
+        "text": "I spent the better part of a year building small SaaS tools for restaurant chains — receiving, table visits, visual alerts, you name it. Each one started the same way: I spotted a problem, designed a workflow, hardened it into a tool, and handed it to the stores."
+      },
+      {
+        "type": "paragraph",
+        "text": "The results were split: some got adopted, some got abandoned."
+      },
+      {
+        "type": "paragraph",
+        "text": "It took me a long time to see the pattern. The tools that stuck — like the table visit system — had one thing in common: the owner had been deeply involved in designing the workflow. I just built the scaffolding; the business logic was theirs. The ones that got abandoned? Every single one was me deciding \"how things should be done\" on their behalf."
+      },
+      {
+        "type": "paragraph",
+        "text": "The logic is simple: in the restaurant industry, nobody picks up a SaaS tool overnight. POS systems are the only ones hardened by decades of habit — everyone knows how to use those. Inventory management? Maybe learnable. Table visit systems? Completely foreign concept. Marketing tools? They change with every platform shift — Douyin today, Meituan tomorrow, rules rewritten every three months. If you design a workflow for someone who doesn't even have a mental model for the category, how could they possibly adopt it? Only actions they come up with themselves actually get executed."
+      },
+      {
+        "type": "paragraph",
+        "text": "I thought this was unique to the restaurant industry. It wasn't."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Teach to Fish: My Dad's Story"
+      },
+      {
+        "type": "paragraph",
+        "text": "My dad trades futures. We spent a while trying to turn his trading logic into a system. The communication was like a traditional dev team talking to a product manager — completely past each other. I thought his specs were too vague; he thought my builds missed the point. Iteration was painfully slow."
+      },
+      {
+        "type": "paragraph",
+        "text": "Last September, I told him: you should use Claude Code yourself. He thought it was too hard — English interface, and he was born in 1970, pushing 60."
+      },
+      {
+        "type": "paragraph",
+        "text": "He compromised and started with Gemini's web interface, using it to design UIs. After a few months, he could make good-looking interfaces, but that was about it."
+      },
+      {
+        "type": "paragraph",
+        "text": "This February, during Chinese New Year back home, he suddenly told me: \"Gemini isn't enough. It can only make a frontend that looks nice but doesn't actually do anything.\""
+      },
+      {
+        "type": "paragraph",
+        "text": "I asked if he wanted to try something more serious. He said sure, let's go."
+      },
+      {
+        "type": "paragraph",
+        "text": "I gave him my MacBook. It already had everything configured: database MCP, Cloudflare CLI for one-click deployment, domain set up — ready to develop and ship. After one day, he said this thing is incredible, can I get my own?"
+      },
+      {
+        "type": "paragraph",
+        "text": "So we went all in and bought him a sky-blue MacBook Air. A very youthful color, hilariously mismatched with a nearly-60-year-old futures veteran."
+      },
+      {
+        "type": "paragraph",
+        "text": "Then he went off and built his own things. My dad laughed and said he was earning money he had no business earning — referring to technical development fees."
+      },
+      {
+        "type": "paragraph",
+        "text": "This made something click for me — about what innovation actually means in the AI era."
+      },
+      {
+        "type": "paragraph",
+        "text": "Teach a man to fish — same principle applies to AI. What AI gives people isn't productivity. It's imagination and the ability to learn. Don't get this wrong."
+      },
+      {
+        "type": "paragraph",
+        "text": "If that imagination and learning ability only flows to me, and I build things for others, it's still just a SaaS business — \"I'm outsourcing your dream for you.\" But what your dream actually is? Nobody can render it 1:1 except you."
+      },
+      {
+        "type": "paragraph",
+        "text": "Take the time and energy you'd spend communicating with me, and give it to AI instead. AI can execute a hundred times better than I can. A person with ideas, paired with an AI, can unlock their full potential."
+      },
+      {
+        "type": "paragraph",
+        "text": "My dad is living proof. I spent months building his system — we talked past each other the whole time. He talked to Claude Code himself, and shipped in weeks."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "\"Where's CuiCui?\""
+      },
+      {
+        "type": "paragraph",
+        "text": "Back to the restaurant side."
+      },
+      {
+        "type": "paragraph",
+        "text": "I was actually resistant to going the intelligence route at first. The reason was practical: Claude Code, Codex already existed. On the simpler end, there was Kimi K2, Manus. What was the point of me building yet another wrapper?"
+      },
+      {
+        "type": "paragraph",
+        "text": "Then OpenClaw came out."
+      },
+      {
+        "type": "paragraph",
+        "text": "We immediately plugged it into Feishu (Lark). People in the org started calling it \"CuiCui\" — CC, Claude Code, CuiCui."
+      },
+      {
+        "type": "paragraph",
+        "text": "The difference between CuiCui and a regular AI chatbot isn't about intelligence. It's about information."
+      },
+      {
+        "type": "paragraph",
+        "text": "A regular chatbot knows everything about the world but nothing about your business. CuiCui was connected to our org's database — Meituan data scraped on schedule, inventory system integrated, even meeting recordings piped in. Just one database, one heartbeat, one notification layer — and it was leagues beyond any generic AI chatbot."
+      },
+      {
+        "type": "paragraph",
+        "text": "With the database fully built out, CuiCui could answer questions from any angle. Check competitor moves, calculate margin trends, replay last week's meeting decisions — anything was fair game. And it tailored responses to each person's role. It wasn't just passively answering questions — it proactively generated reports and surfaced insights."
+      },
+      {
+        "type": "image",
+        "src": "/assets/images/blog/cc-complaint-analysis-1.png",
+        "alt": "CuiCui daily briefing",
+        "caption": "CuiCui's proactive daily brief — 3 key issues, plus two things the morning meeting missed"
+      },
+      {
+        "type": "image",
+        "src": "/assets/images/blog/cc-complaint-analysis-2.png",
+        "alt": "CuiCui drilling into complaint data",
+        "caption": "One follow-up question, and CuiCui pulled 3 weeks of foreign-object complaints row by row — with a root cause assessment"
+      },
+      {
+        "type": "paragraph",
+        "text": "One day the network went down and CuiCui was unreachable. The first reaction from Xue Jie and Cen Jie (one handles finance, the other handles business) was: \"Where's CuiCui?\""
+      },
+      {
+        "type": "paragraph",
+        "text": "That's when I realized this thing's impact on the organization was far bigger than I'd imagined."
+      },
+      {
+        "type": "paragraph",
+        "text": "Then I looked back at all those small SaaS tools I'd built, and suddenly felt absurd."
+      },
+      {
+        "type": "paragraph",
+        "text": "I'd built six or seven apps, each solving one specific thing. But each one needed maintenance. Today a store updates its SOP, I rewrite the workflow. Tomorrow another process changes, another rewrite. Maintaining six apps simultaneously, indefinitely."
+      },
+      {
+        "type": "paragraph",
+        "text": "CuiCui's logic was completely different. It didn't presume any workflow. SOP changed? Users just told CuiCui the new rules. Want a different angle on the data? Just ask — CuiCui would instantly use its design skill to generate a polished HTML report. Want a new notification rule? One sentence."
+      },
+      {
+        "type": "paragraph",
+        "text": "Traditional UI is just data mapping plus information delivery. But put those functions on an agent, and users gain the freedom to view data from any angle, analyze it, design notification rules — without waiting for dev sprints or code changes."
+      },
+      {
+        "type": "paragraph",
+        "text": "So here's what I believe now: stop presuming what users want. Give AI the information, give it the tools, and hand users the paintbrush."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "The Camera Project: From \"Watch for AI\" to \"Give AI Eyes\""
+      },
+      {
+        "type": "paragraph",
+        "text": "This realization directly changed how we approached our camera project."
+      },
+      {
+        "type": "paragraph",
+        "text": "The old approach: cameras capture footage, a YOLO model runs real-time detection on predefined dimensions (like \"wearing a hat?\" or \"water on the kitchen floor?\"), outputs structured data to a database, then we build UI to display it to users."
+      },
+      {
+        "type": "paragraph",
+        "text": "The problem: we'd already shown users everything they needed to see through UI. Users had no questions left. A user asking AI \"how many employees didn't wear hats this month\" is functionally identical to us displaying that data on a dashboard — there's no reason to involve AI at all. That was the core flaw of the old design: AI was redundant in that architecture."
+      },
+      {
+        "type": "paragraph",
+        "text": "The new approach: package tools for AI. AI has hands, feet, and data. Users ask AI questions, AI decides how to use its tools. Users can also direct AI to use specific tools to achieve their own goals."
+      },
+      {
+        "type": "paragraph",
+        "text": "Here's an example. A user wants to know if employees are wearing hats. Before, with UI, they'd just go to the dashboard. Now there's no fixed UI. The user asks AI. AI pulls camera snapshots from recent months, samples them one by one — say 20 frames — finds that everyone's work appearance looks good in the sample, surfaces are clean, nothing alarming. It comes back and says: \"I just sampled 20 frames, all looking good. I think the overall incident rate this month is quite low — the store manager's work passes inspection.\""
+      },
+      {
+        "type": "paragraph",
+        "text": "Then the user can say: \"I don't want 20 samples, make it 40.\" Or: \"Can you set up a scheduled task to check every day at a fixed time whether they're at their post? Whether they're wearing hats?\""
+      },
+      {
+        "type": "paragraph",
+        "text": "That's handing users the paintbrush. Users design their own AI workflows — scheduled or on-demand, sample size, retrieval method. As long as AI has tools and data, nothing is off the table."
+      },
+      {
+        "type": "paragraph",
+        "text": "I don't know where this path ultimately leads. But so far, every time I tried to think of everything for users, reality slapped me. And every time I handed over the decision-making, things actually started working."
+      },
+      {
+        "type": "paragraph",
+        "text": "Maybe the best form of an AI product is still that AI-native, janky little chat box — delivering the same surprise that running Claude Code in a terminal gave me, straight to our users."
+      }
+    ]
+  }
+}
