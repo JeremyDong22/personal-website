@@ -152,7 +152,9 @@ async function optimizeImage(filePath) {
     const needsResize = (maxW && width > maxW) || (maxH && height > maxH);
 
     // Build pipeline — keep original format
-    let pipeline = sharp(filePath);
+    // .rotate() with no args auto-applies EXIF orientation to pixels and strips the tag.
+    // Must come before resize, otherwise portrait photos with EXIF orientation end up sideways.
+    let pipeline = sharp(filePath).rotate();
 
     if (needsResize) {
       pipeline = pipeline.resize({
